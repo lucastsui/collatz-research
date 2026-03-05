@@ -944,3 +944,67 @@ The gap between proved (c/p) and needed (constant c) is the ENTIRE remaining obs
 If δ is constant: information theory gives a proof of no nontrivial Collatz cycles.
 
 ---
+
+### User:
+can you prove it?
+
+### Claude:
+
+**ATTEMPTED PROOF:**
+
+Key computation: ||Mχ_r||² = ½ for ALL r ≠ 0 (EXACT, one step).
+Because M sends χ_r to ½χ_{r/2} + ½e^{iθ}χ_{3r/2}, and r/2 ≠ 3r/2 for r ≠ 0,
+so the two output characters are ORTHOGONAL, giving norm ¼ + ¼ = ½.
+
+This means: single characters contract by exactly 1/√2 per step.
+1/√2 ≈ 0.707, and the spectral gap 1 - 1/√2 ≈ 0.293 matches the numerical 0.30!
+
+**WHY THIS ISN'T A COMPLETE PROOF:**
+Eigenvectors aren't single characters — they're superpositions.
+Superpositions can constructively interfere, potentially maintaining norm > 1/√2.
+Interference occurs when the character tree has COLLISIONS (two paths reach same mode).
+
+After n steps: ||M^n χ_r||² = (½)^n IF the 2^n tree nodes are all distinct mod p.
+Distinct nodes require: no collision in {r · 2^{-a} · (3/2)^b mod p} for a+b = n.
+This holds for n ≤ c·log p IF ⟨2,3⟩ generates a large subgroup of (Z/pZ)*.
+
+**WHAT'S STILL MISSING:**
+Prove the character tree has no collisions for n = O(log p) steps for ALL primes.
+Equivalently: ⟨2,3⟩ acts with large orbits on (Z/pZ)* for all p.
+This is related to Artin's conjecture but needed for ALL primes, not just most.
+
+**STATUS: The proof structure is clear. The gap is a number-theoretic input about
+multiplicative orders of 2 and 3 mod p. If we had this, the spectral gap 1/√2 follows.**
+
+---
+
+### User:
+prove this lemma
+
+### Claude:
+
+
+### Claude:
+**PROOF ATTEMPT — partial success, honest failure.**
+
+PROVED (exact): ||Mχ_r||² = ½ for ALL r ≠ 0.
+Each character contracts by 1/√2 per step. This matches the numerical gap 0.293.
+
+DISCOVERED: This does NOT extend to superpositions.
+||Mv||² = ½||v||² + ½Re⟨T₀v, T₁v⟩
+The cross term can equal ||v||² for functions constant on orbits of y → 3y + 2^{-1}.
+So ||Mv|| = ||v|| IS possible for specific v. One-step argument fails.
+
+PROVED: |λ| = 1 eigenvalues are restricted.
+λ = 1 ⟹ v constant ⟹ v = 0. Ruled out.
+|λ| = 1, λ ≠ ±1 ⟹ |2λ - 1/λ| = 1 ⟹ cos(2arg λ) = 1 ⟹ λ = ±1. Contradiction.
+λ = -1 ⟹ requires ord_p(2) even + orbit compatibility. Fails generically but not universally.
+
+STUCK: Cannot prove |λ₂| ≤ 1 - c for universal constant c.
+The λ = -1 case is ruled out for most primes but the MARGIN varies with p.
+Cannot bound the margin uniformly across all primes.
+
+The gap is between "no eigenvalue of magnitude 1" (proved for most p)
+and "all eigenvalues ≤ 1 - c" (needed, not proved).
+
+---
