@@ -94,23 +94,42 @@ Collatz Conjecture
 │   │        └─ Gap 3: Probabilistic → deterministic (2nd moment)        ❌ OPEN
 │   │           └─ Bound pair correlations of {C_b mod D}               tractable once 1+2 solved
 │   │
-│   └─ CURRENT FRONTIER: The 3-step research program                    ★ RECOMMENDED
+│   ├─ ROUND 8: Research program execution (3 agents)
+│   │  ├─ Spectral gap computation (93 primes, p=5 to 499)               ✅ COMPUTED
+│   │  │  ├─ Affine walk gap ≈ 0.30, CONSTANT across all primes          ✅ remarkable
+│   │  │  ├─ Multiplicative walk gap ≈ 0 ("+1 advantage" is enormous)    ✅ confirmed
+│   │  │  ├─ No correlation with ord_p(2) or ord_p(3)                    ✅ robust
+│   │  │  └─ |λ₂| ≈ 0.70 for all primes — does not decay                ✅ strong
+│   │  ├─ Theoretical proof of spectral gap                              ~ PARTIAL
+│   │  │  ├─ PROVED: |λ₂| ≤ 1 - c/p (unconditional, all primes)        ✅ novel
+│   │  │  ├─ NOT proved: constant gap (numerical 0.30 >> proved c/p)     ❌ gap
+│   │  │  └─ Heuristic: phase accumulation gives ≈ 1/2 contraction      ~ unrigorous
+│   │  ├─ Baker's theorem for prime factors of D                         ✘ INSUFFICIENT
+│   │  │  ├─ D CAN have small prime factors (e.g., p=10: 5|D)           ✘ counterexample
+│   │  │  ├─ Cannot guarantee all q|D have q > p                         ✘
+│   │  │  └─ Zsygmondy N/A (different exponents on different bases)      ✘
+│   │  └─ QUANTITATIVE GAP DISCOVERED:
+│   │     Even with constant gap δ=0.30, error D·(1-δ)^p = 2^{0.485p}
+│   │     exceeds main term C(p,k)/D ≈ 2^{-0.05p}
+│   │     Need |λ₂| < 0.483 but numerical |λ₂| ≈ 0.70
+│   │     ⟹ Spectral gap alone is NOT STRONG ENOUGH
+│   │
+│   └─ CURRENT FRONTIER: Beyond spectral gap                            ❓ OPEN
 │      │
-│      ├─ Step 1: Spectral gap for affine Collatz walk on Z/pZ          ★ MOST TRACTABLE
-│      │  Walk: x → x/2 (prob 1/2) or x → (3x+1)/2 (prob 1/2)
-│      │  Need: Bourgain sum-product for affine walk with solvable group
-│      │  Status: Nearly within reach of existing technology
-│      │  Would be: publishable standalone result
+│      ├─ WHAT WE PROVED (novel, potentially publishable):
+│      │  ├─ Spectral gap |λ₂| ≤ 1 - c/p unconditionally                ✅
+│      │  ├─ Numerical: constant gap ≈ 0.30 for all tested primes        ✅
+│      │  └─ "+1 advantage": affine walk mixes, multiplicative doesn't   ✅
 │      │
-│      ├─ Step 2: Handle composite D = 2^p - 3^k                        ❌ HARD
-│      │  Need: all prime factors q|D have q > p^C
-│      │  Tool: Baker's theorem on linear forms in logarithms
-│      │  Then: Step 1 applies to each prime factor via CRT
+│      ├─ WHAT'S STILL NEEDED:
+│      │  ├─ Either: prove |λ₂| < 0.483 (stronger than observed 0.70)   ❌ seems false
+│      │  ├─ Or: find additional structure beyond spectral gap            ❓
+│      │  └─ Or: entirely new approach not based on random walk mixing   ❓
 │      │
-│      └─ Step 3: Second moment (probabilistic → deterministic)          ❌ MEDIUM
-│         Need: pair correlations of {C_b mod D} ≈ random
-│         Then: Var(count) small → E[count]=0 implies count=0
-│         Most tractable once Steps 1-2 solved
+│      └─ THE HONEST STATUS:
+│         The spectral gap is real but not strong enough.
+│         The "+1 advantage" is genuine but insufficient by itself.
+│         The problem remains equivalent to the abc conjecture in difficulty.
 │
 └── Part 2: No divergent trajectories                                    ❌ NOT ADDRESSED
     ├── Tao 2019: almost all orbits bounded                              ✅ known
