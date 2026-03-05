@@ -90,7 +90,31 @@ Collatz Conjecture
 │   │  │  ★ Prove the channel error rate δ is bounded away from 0
 │   │  │  ★ i.e., prove the spectral gap is CONSTANT (not c/p)
 │   │  │  ★ Proved: δ ≥ c/p. Measured: δ ≈ 0.30. Gap: c/p vs constant.
-│   │  └─ If δ = Ω(1): information theory proves no nontrivial cycles
+│   │  ├─ If δ = Ω(1): information theory proves no nontrivial cycles
+│   │  │
+│   │  PROOF ATTEMPT (Round 10):
+│   │  ├─ PROVED: ||Mχ_r||² = ½ exactly for all r ≠ 0                  ✅
+│   │  │  Single characters contract by 1/√2 per step.
+│   │  │  1 - 1/√2 ≈ 0.293 matches numerical gap 0.30.
+│   │  ├─ DISCOVERED: does NOT extend to superpositions                  ⚠
+│   │  │  ||Mv||² = ½||v||² + ½Re⟨T₀v,T₁v⟩
+│   │  │  Cross term can equal ||v||² for orbit-constant functions.
+│   │  │  So ||Mv|| = ||v|| IS possible. One-step argument fails.
+│   │  ├─ PROVED: only λ = ±1 possible on unit circle                  ✅
+│   │  │  |λ|=1 with λ≠±1 ⟹ |2λ-1/λ|=1 ⟹ cos(2φ)=1 ⟹ λ=±1
+│   │  ├─ PROVED: λ = 1 ⟹ v = 0 (constant, orthogonal to 1)          ✅
+│   │  ├─ PROVED: λ = -1 requires three simultaneous conditions:        ✅
+│   │  │  (a) ord_p(2) is even
+│   │  │  (b) v constant on orbits of y → 3y + 2^{-1}
+│   │  │  (c) ×2 map sends each affine orbit to a DIFFERENT orbit
+│   │  │  These are mutually inconsistent for MOST primes.
+│   │  ├─ NOT PROVED: (a)+(b)+(c) inconsistent for ALL primes           ❌
+│   │  │  The margin varies with p. Cannot bound uniformly.
+│   │  └─ THIS IS THE FINAL GAP:
+│   │     Prove λ = -1 is impossible for the affine Collatz walk
+│   │     on Z/pZ for ALL primes p ≥ 5.
+│   │     Equivalently: the ×2 map and the affine map y→3y+2^{-1}
+│   │     NEVER have fully compatible orbit structures on (Z/pZ)*.
 │   │
 │   ├─ ROUND 7: Candidate frameworks (2 agents)
 │   │  ├─ Furstenberg ×2,×3 measure rigidity                            ✘ FAILS
