@@ -74,7 +74,23 @@ Collatz Conjecture
 │   │  ├─ P5: Multi-prime coherence                                      required
 │   │  ├─ P6: Self-referential awareness                                 required
 │   │  ├─ P7: Multi-scale                                                required
-│   │  └─ P8: Non-archimedean + archimedean fusion                      required
+│   │  ├─ P8: Non-archimedean + archimedean fusion                      required
+│   │  │
+│   │  INFORMATION-THEORETIC REFRAMING (discovered late):
+│   │  ├─ The ×3/÷2 dynamics is an INFORMATION CHANNEL
+│   │  │  ├─ Each +1 injects 1 bit of additive information
+│   │  │  ├─ Each ÷2 destroys 1 bit (discards lowest bit)
+│   │  │  ├─ Net over p steps: k - p = -0.37p bits (DEFICIT)
+│   │  │  └─ This IS the Kolmogorov bound (2^{0.37p} reachable patterns)
+│   │  ├─ The spectral gap IS the channel error rate
+│   │  │  ├─ δ ≈ 0.30 means 0.30 bits of additive noise per step
+│   │  │  ├─ After p steps: signal degraded by 0.70^p ≈ 0
+│   │  │  └─ Not enough surviving info to specify target (0 mod D)
+│   │  ├─ ALL 8 PROPERTIES REDUCE TO ONE:
+│   │  │  ★ Prove the channel error rate δ is bounded away from 0
+│   │  │  ★ i.e., prove the spectral gap is CONSTANT (not c/p)
+│   │  │  ★ Proved: δ ≥ c/p. Measured: δ ≈ 0.30. Gap: c/p vs constant.
+│   │  └─ If δ = Ω(1): information theory proves no nontrivial cycles
 │   │
 │   ├─ ROUND 7: Candidate frameworks (2 agents)
 │   │  ├─ Furstenberg ×2,×3 measure rigidity                            ✘ FAILS
