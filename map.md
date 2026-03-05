@@ -108,13 +108,26 @@ Collatz Conjecture
 │   │  │  (b) v constant on orbits of y → 3y + 2^{-1}
 │   │  │  (c) ×2 map sends each affine orbit to a DIFFERENT orbit
 │   │  │  These are mutually inconsistent for MOST primes.
-│   │  ├─ NOT PROVED: (a)+(b)+(c) inconsistent for ALL primes           ❌
-│   │  │  The margin varies with p. Cannot bound uniformly.
-│   │  └─ THIS IS THE FINAL GAP:
-│   │     Prove λ = -1 is impossible for the affine Collatz walk
-│   │     on Z/pZ for ALL primes p ≥ 5.
-│   │     Equivalently: the ×2 map and the affine map y→3y+2^{-1}
-│   │     NEVER have fully compatible orbit structures on (Z/pZ)*.
+│   │  ├─ ★ PROVED: λ = -1 impossible for ALL primes p ≥ 5              ✅ KEY LEMMA
+│   │  │  Proof (by user):
+│   │  │  (1) f(2y)=-f(y) applied twice: f(4y)=f(y)
+│   │  │  (2) Substitute y→4y in f(3y+α)=f(y): f(12y+α)=f(y)
+│   │  │  (3) Substitute y→3y+α in f(4y)=f(y): f(12y+4α)=f(y)
+│   │  │  (4) Therefore f(u)=f(u+3α) for all u (since gcd(12,p)=1)
+│   │  │  (5) 3α=3·2⁻¹≠0 mod p, and Z/pZ prime ⟹ f constant ⟹ f=0  ∎
+│   │  │
+│   │  └─ COMBINED THEOREM:                                              ✅ PROVED
+│   │     For every prime p ≥ 5, every eigenvalue of the affine
+│   │     Collatz operator on the non-constant subspace satisfies |λ|<1.
+│   │     Proof: |λ|=1 ⟹ λ=±1 (algebraic) ⟹ f=0 (both cases).
+│   │
+│   │     REMAINING QUANTITATIVE QUESTION:
+│   │     Is |λ₂| ≤ 1 - c for a UNIVERSAL constant c?
+│   │     ├─ Proved: |λ₂| < 1 for each individual prime              ✅
+│   │     ├─ Measured: |λ₂| ≈ 0.70 for all 93 tested primes           ✅
+│   │     ├─ Not proved: universal constant bound                       ❌
+│   │     └─ This is now a QUANTITATIVE gap, not a structural one.
+│   │        The structural obstruction (λ on unit circle) is eliminated.
 │   │
 │   ├─ ROUND 7: Candidate frameworks (2 agents)
 │   │  ├─ Furstenberg ×2,×3 measure rigidity                            ✘ FAILS
