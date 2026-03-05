@@ -158,6 +158,16 @@ Collatz Conjecture
 │         Equivalent in difficulty to the abc conjecture.
 │         Resolution requires genuinely new mathematics.
 │
+│         GENERAL FORMULATION (Collatz-free):
+│         Given multiplicatively independent integers a, b:
+│         Can a SHORT linear combination of mixed powers a^i · b^j
+│         (O(log D) terms) vanish modulo D = a^n - b^m?
+│         i.e., can short sums of {a,b}-smooth numbers be divisible
+│         by specific {a,b}-smooth targets?
+│         This is the fundamental open problem at the boundary of
+│         additive combinatorics, multiplicative number theory,
+│         and Diophantine approximation.
+│
 └── Part 2: No divergent trajectories                                    ❌ NOT ADDRESSED
     ├── Tao 2019: almost all orbits bounded                              ✅ known
     └── Full proof for all orbits                                        ❌ requires different techniques
