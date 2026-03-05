@@ -114,22 +114,49 @@ Collatz Conjecture
 │   │     Need |λ₂| < 0.483 but numerical |λ₂| ≈ 0.70
 │   │     ⟹ Spectral gap alone is NOT STRONG ENOUGH
 │   │
-│   └─ CURRENT FRONTIER: Beyond spectral gap                            ❓ OPEN
+│   ├─ ROUND 9: Beyond spectral gap (2 agents)
+│   │  ├─ Second moment / pair correlation                               ✘ PROVED IMPOSSIBLE
+│   │  │  ├─ Cauchy-Schwarz + Parseval requires C(p,k) > D              ✘
+│   │  │  ├─ But C(p,k) ≈ 2^{0.95p} < D ≈ 2^p                         ✘ wrong regime
+│   │  │  ├─ Gap: D/C ≈ 2^{0.05p} — exponential, unbridgeable          ✘
+│   │  │  └─ No weight/sieve variant can overcome this                   ✘ PROVED
+│   │  └─ Direct algebraic impossibility (6 approaches)                  ✘ ALL FAIL
+│   │     ├─ 2^p ≡ 3^k mod D relation                                   ✘ no contradiction
+│   │     ├─ Size bounds on S and n₀                                     ✘ range too large
+│   │     ├─ Mod-q sieve for q|D                                         ✘ → abc barrier
+│   │     ├─ Transfer matrix / closed loop                               ✘ tautological
+│   │     ├─ Obstruction certificates (2-adic)                           ✘ necessary not sufficient
+│   │     └─ Monotonicity / convexity                                    ✘ too weak
+│   │
+│   └─ TERMINAL STATE: All known approaches exhausted
 │      │
-│      ├─ WHAT WE PROVED (novel, potentially publishable):
-│      │  ├─ Spectral gap |λ₂| ≤ 1 - c/p unconditionally                ✅
-│      │  ├─ Numerical: constant gap ≈ 0.30 for all tested primes        ✅
-│      │  └─ "+1 advantage": affine walk mixes, multiplicative doesn't   ✅
+│      ├─ WHAT WE PROVED (novel results):
+│      │  ├─ Theorem 4: Equidistribution of S mod q                      ✅ rigorous
+│      │  ├─ Theorem 5: Composite moduli extension                       ✅ rigorous
+│      │  ├─ Theorem 6: abc ⟹ no nontrivial cycles                     ✅ conditional
+│      │  ├─ Spectral gap |λ₂| ≤ 1 - c/p (affine Collatz walk)         ✅ novel, unconditional
+│      │  ├─ Numerical: constant gap ≈ 0.30 (93 primes tested)          ✅ strong evidence
+│      │  ├─ "+1 advantage": ratio > 16000× over multiplicative walk    ✅ confirmed
+│      │  ├─ Kolmogorov reduction to 2^{0.37p} candidates               ✅ rigorous
+│      │  └─ No cycles for p ≤ 29 (correct formula)                     ✅ computational
 │      │
-│      ├─ WHAT'S STILL NEEDED:
-│      │  ├─ Either: prove |λ₂| < 0.483 (stronger than observed 0.70)   ❌ seems false
-│      │  ├─ Or: find additional structure beyond spectral gap            ❓
-│      │  └─ Or: entirely new approach not based on random walk mixing   ❓
+│      ├─ WHAT'S BEEN RULED OUT:
+│      │  ├─ Equidistribution mod D directly                             ✘ blocks too large
+│      │  ├─ Sieve + rad(D) unconditionally                              ✘ abc barrier
+│      │  ├─ Tao's 3-adic technique                                      ✘ wrong modulus + entropy
+│      │  ├─ Circle method                                               ✘ IS Fourier mod D
+│      │  ├─ Modular Feedback Theorem                                    ✘ formula error
+│      │  ├─ Second moment / Parseval                                    ✘ C < D regime
+│      │  ├─ Spectral gap alone                                          ✘ |λ₂| > threshold
+│      │  ├─ Furstenberg measure rigidity                                ✘ invariance has O(1) error
+│      │  └─ All 6 direct algebraic approaches                          ✘ insufficient
 │      │
-│      └─ THE HONEST STATUS:
-│         The spectral gap is real but not strong enough.
-│         The "+1 advantage" is genuine but insufficient by itself.
-│         The problem remains equivalent to the abc conjecture in difficulty.
+│      └─ THE IRREDUCIBLE BARRIER:
+│         The problem requires controlling Σ 3^{k-j}·2^{i_j} mod (2^p - 3^k).
+│         This is a SUM of PRODUCTS modulo a DIFFERENCE — the exact intersection
+│         of additive and multiplicative number theory where all methods fail.
+│         Equivalent in difficulty to the abc conjecture.
+│         Resolution requires genuinely new mathematics.
 │
 └── Part 2: No divergent trajectories                                    ❌ NOT ADDRESSED
     ├── Tao 2019: almost all orbits bounded                              ✅ known

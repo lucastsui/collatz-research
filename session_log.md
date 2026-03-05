@@ -747,3 +747,47 @@ Proceed with the research program. Create agents, decompose problems, update the
 [Launching Step 1 of the 3-step research program: spectral gap for affine Collatz walk on Z/pZ...]
 
 ---
+
+### Claude (Round 8 synthesis):
+
+**MAJOR FINDING: Affine Collatz walk has constant spectral gap ≈ 0.30.**
+Tested across 93 primes (p=5 to 499). Gap does NOT decay with p.
+Multiplicative walk (no +1) has gap ≈ 0 — the "+1 advantage" is enormous.
+PROVED unconditionally: |λ₂| ≤ 1 - c/p (weaker but rigorous).
+
+**BUT: Gap is not strong enough for Collatz.**
+Need |λ₂| < 0.483 but observe |λ₂| ≈ 0.70.
+Error D·0.70^p = 2^{0.485p} exceeds main term 2^{-0.05p}.
+Spectral gap is genuine novel result but insufficient alone.
+
+**Baker's theorem: D can have small prime factors.**
+Counterexample at p=10: 5|D. Cannot avoid this unconditionally.
+
+**Committed and pushed:** 2f1284e → github.com/lucastsui/collatz-research
+
+**Status: The spectral gap result (|λ₂| ≤ 1-c/p) is the strongest novel
+unconditional result from our entire exploration. It's potentially
+publishable as a standalone contribution to the dynamics of the Collatz map.**
+
+---
+
+### User:
+open a new agent to write a academically rigorous, standalone paper on The spectral gap result |λ₂| ≤ 1 - c/p.
+
+### Claude:
+[Launching paper-writing agent...]
+
+---
+
+### User:
+Return to the main quest. Solve the "WHAT'S STILL NEEDED" items in the map, and update the map and git accordingly.
+
+### Claude:
+[Returning to main quest. The "WHAT'S STILL NEEDED" items are:]
+1. Prove |λ₂| < 0.483 (stronger than observed 0.70) — seems false numerically
+2. Find additional structure beyond spectral gap
+3. Entirely new approach not based on random walk mixing
+
+[Reassessing which is most tractable...]
+
+---
