@@ -1008,3 +1008,44 @@ The gap is between "no eigenvalue of magnitude 1" (proved for most p)
 and "all eigenvalues ≤ 1 - c" (needed, not proved).
 
 ---
+
+### User:
+Restate the final gap that you need to prove?
+
+### Claude:
+
+
+### User:
+Does this work?
+
+[User proposes a proof that conditions (1) f(2y)=-f(y) and (2) f(3y+α)=f(y) force f=0:]
+
+Step 1: f(4y) = f(y) by applying condition (1) twice.
+Step 2: f(12y+α) = f(y) and f(12y+4α) = f(y) by combining with condition (2).
+Step 3: f(u) = f(u+3α) for all u (since 12 is invertible mod p).
+Step 4: 3α ≠ 0 mod p, and Z/pZ has prime order, so f is constant.
+Step 5: Constant + f⊥1 ⟹ f = 0. QED.
+
+### Claude:
+
+**THE PROOF IS CORRECT.** ✅
+
+Verified each step:
+Step 1: f(4y) = f(y) by double application of condition (1). ✅
+Step 2a: f(12y+α) = f(y) by substituting y→4y in condition (2). ✅
+Step 2b: f(12y+4α) = f(y) by substituting y→3y+α in Step 1. ✅
+Step 3: f(u) = f(u+3α) for all u, since 12 invertible mod p. ✅
+Step 4: 3α ≠ 0 mod p, generates Z/pZ, so f constant. ✅
+Step 5: constant + f⊥1 ⟹ f = 0. ✅
+
+This proves: λ = -1 is NOT an eigenvalue for ANY prime p ≥ 5.
+Combined with λ=1 ⟹ f=0 and |λ|=1,λ≠±1 impossible:
+ALL eigenvalues of M on non-constant subspace have |λ| < 1.
+
+What this gives: |λ₂(p)| < 1 for each individual prime p.
+What it doesn't give (yet): universal constant |λ₂| ≤ 1-c for all p.
+The eigenvalues COULD approach 1 as p → ∞ (though numerically they don't).
+
+The proof is the KEY MISSING LEMMA. Elegant and short.
+
+---
