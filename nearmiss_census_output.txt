@@ -1,0 +1,94 @@
+=== Collatz Near-Miss Census ===
+
+Target ratio k/p = log(2)/log(3) = 0.630930
+
+p= 2, k= 1 (k/p=0.5000), denom=           1, patterns=       2, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0,)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1,)
+      VERIFIED CYCLE! n0=2
+p= 3, k= 1 (k/p=0.3333), denom=           5, patterns=       3, exact=0, best_rem_ratio=0.200000
+p= 4, k= 1 (k/p=0.2500), denom=          13, patterns=       4, exact=0, best_rem_ratio=0.076923
+p= 4, k= 2 (k/p=0.5000), denom=           7, patterns=       6, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0, 2)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1, 3)
+      VERIFIED CYCLE! n0=2
+p= 5, k= 2 (k/p=0.4000), denom=          23, patterns=      10, exact=0, best_rem_ratio=0.217391
+p= 5, k= 3 (k/p=0.6000), denom=           5, patterns=      10, exact=0, best_rem_ratio=0.200000
+p= 6, k= 2 (k/p=0.3333), denom=          55, patterns=      15, exact=0, best_rem_ratio=0.018182
+p= 6, k= 3 (k/p=0.5000), denom=          37, patterns=      20, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0, 2, 4)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1, 3, 5)
+      VERIFIED CYCLE! n0=2
+p= 7, k= 3 (k/p=0.4286), denom=         101, patterns=      35, exact=0, best_rem_ratio=0.009901
+p= 7, k= 4 (k/p=0.5714), denom=          47, patterns=      35, exact=0, best_rem_ratio=0.042553
+p= 8, k= 4 (k/p=0.5000), denom=         175, patterns=      70, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0, 2, 4, 6)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1, 3, 5, 7)
+      VERIFIED CYCLE! n0=2
+p= 8, k= 5 (k/p=0.6250), denom=          13, patterns=      56, exact=0, best_rem_ratio=0.076923
+p= 9, k= 4 (k/p=0.4444), denom=         431, patterns=     126, exact=0, best_rem_ratio=0.025522
+p= 9, k= 5 (k/p=0.5556), denom=         269, patterns=     126, exact=0, best_rem_ratio=0.014870
+p=10, k= 5 (k/p=0.5000), denom=         781, patterns=     252, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0, 2, 4, 6, 8)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1, 3, 5, 7, 9)
+      VERIFIED CYCLE! n0=2
+p=10, k= 6 (k/p=0.6000), denom=         295, patterns=     210, exact=0, best_rem_ratio=0.003390
+p=11, k= 5 (k/p=0.4545), denom=       1,805, patterns=     462, exact=0, best_rem_ratio=0.002770
+p=11, k= 6 (k/p=0.5455), denom=       1,319, patterns=     462, exact=0, best_rem_ratio=0.000758
+p=12, k= 6 (k/p=0.5000), denom=       3,367, patterns=     924, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0, 2, 4, 6, 8, 10)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1, 3, 5, 7, 9, 11)
+      VERIFIED CYCLE! n0=2
+p=12, k= 7 (k/p=0.5833), denom=       1,909, patterns=     792, exact=0, best_rem_ratio=0.003667
+p=13, k= 7 (k/p=0.5385), denom=       6,005, patterns=   1,716, exact=0, best_rem_ratio=0.000333
+p=13, k= 8 (k/p=0.6154), denom=       1,631, patterns=   1,287, exact=0, best_rem_ratio=0.000613
+p=14, k= 7 (k/p=0.5000), denom=      14,197, patterns=   3,432, exact=2, best_rem_ratio=0.000000
+  *** EXACT SOLUTION: n0=1, pattern=(0, 2, 4, 6, 8, 10, 12)
+      VERIFIED CYCLE! n0=1
+  *** EXACT SOLUTION: n0=2, pattern=(1, 3, 5, 7, 9, 11, 13)
+      VERIFIED CYCLE! n0=2
+p=14, k= 8 (k/p=0.5714), denom=       9,823, patterns=   3,003, exact=0, best_rem_ratio=0.001832
+p=15, k= 8 (k/p=0.5333), denom=      26,207, patterns=   6,435, exact=0, best_rem_ratio=0.000229
+p=15, k= 9 (k/p=0.6000), denom=      13,085, patterns=   5,005, exact=0, best_rem_ratio=0.000535
+p=16, k= 9 (k/p=0.5625), denom=      45,853, patterns=  11,440, exact=0, best_rem_ratio=0.000240
+p=16, k=10 (k/p=0.6250), denom=       6,487, patterns=   8,008, exact=0, best_rem_ratio=0.000154
+p=17, k= 9 (k/p=0.5294), denom=     111,389, patterns=  24,310, exact=0, best_rem_ratio=0.000162
+p=17, k=10 (k/p=0.5882), denom=      72,023, patterns=  19,448, exact=0, best_rem_ratio=0.000042
+p=18, k=10 (k/p=0.5556), denom=     203,095, patterns=  43,758, exact=0, best_rem_ratio=0.000084
+p=18, k=11 (k/p=0.6111), denom=      84,997, patterns=  31,824, exact=0, best_rem_ratio=0.000012
+p=19, k=10 (k/p=0.5263), denom=     465,239, patterns=  92,378, exact=0, best_rem_ratio=0.000004
+p=19, k=11 (k/p=0.5789), denom=     347,141, patterns=  75,582, exact=0, best_rem_ratio=0.000003
+p=20, k=11 (k/p=0.5500), denom=     871,429, patterns= 167,960, exact=0, best_rem_ratio=0.000002
+p=20, k=12 (k/p=0.6000), denom=     517,135, patterns= 125,970, exact=0, best_rem_ratio=0.000002
+p=21, k=12 (k/p=0.5714), denom=   1,565,711, patterns= 293,930, exact=0, best_rem_ratio=0.000001
+p=21, k=13 (k/p=0.6190), denom=     502,829, patterns= 203,490, exact=0, best_rem_ratio=0.000002
+p=22, k=12: C(p,k)=   646,646 -- skipping (too large)
+p=22, k=13 (k/p=0.5909), denom=   2,599,981, patterns= 497,420, exact=0, best_rem_ratio=0.000005
+p=23, k=13: C(p,k)= 1,144,066 -- skipping (too large)
+p=23, k=14: C(p,k)=   817,190 -- skipping (too large)
+p=24, k=14: C(p,k)= 1,961,256 -- skipping (too large)
+p=24, k=15: C(p,k)= 1,307,504 -- skipping (too large)
+p=25, k=14: C(p,k)= 4,457,400 -- skipping (too large)
+p=25, k=15: C(p,k)= 3,268,760 -- skipping (too large)
+p=26, k=15: C(p,k)= 7,726,160 -- skipping (too large)
+p=26, k=16: C(p,k)= 5,311,735 -- skipping (too large)
+p=27, k=16: C(p,k)=13,037,895 -- skipping (too large)
+p=27, k=17: C(p,k)= 8,436,285 -- skipping (too large)
+p=28, k=16: C(p,k)=30,421,755 -- skipping (too large)
+p=28, k=17: C(p,k)=21,474,180 -- skipping (too large)
+p=29, k=17: C(p,k)=51,895,935 -- skipping (too large)
+p=29, k=18: C(p,k)=34,597,290 -- skipping (too large)
+
+=== Distribution of best remainder ratios ===
+(How close the nearest pattern gets to an integer solution)
+
+  < 0.001: 15
+  < 0.01: 5
+  < 0.1: 6
+  >= 0.1: 3

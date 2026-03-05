@@ -1,0 +1,63 @@
+=== Exact computation for p=15, k=9 ===
+
+C(15,9) = 5,005
+2^15 - 3^9 = 13085
+
+  q= 2: denom mod q = 1, P(S≡0 mod 2) = 2002/5005 = 0.400000 (vs 1/2 = 0.500000)
+  q= 3: denom mod q = 2, P(S≡0 mod 3) = 0/5005 = 0.000000 (vs 1/3 = 0.333333)
+  q= 5: denom mod q = 0, P(S≡0 mod 5) = 840/5005 = 0.167832 (vs 1/5 = 0.200000)
+  q= 7: denom mod q = 2, P(S≡0 mod 7) = 710/5005 = 0.141858 (vs 1/7 = 0.142857)
+  q=11: denom mod q = 6, P(S≡0 mod 11) = 468/5005 = 0.093506 (vs 1/11 = 0.090909)
+  q=13: denom mod q = 7, P(S≡0 mod 13) = 344/5005 = 0.068731 (vs 1/13 = 0.076923)
+  q=17: denom mod q = 12, P(S≡0 mod 17) = 306/5005 = 0.061139 (vs 1/17 = 0.058824)
+  q=19: denom mod q = 13, P(S≡0 mod 19) = 273/5005 = 0.054545 (vs 1/19 = 0.052632)
+  q=23: denom mod q = 21, P(S≡0 mod 23) = 228/5005 = 0.045554 (vs 1/23 = 0.043478)
+  q=29: denom mod q = 6, P(S≡0 mod 29) = 164/5005 = 0.032767 (vs 1/29 = 0.034483)
+
+  Product of fractions: 0.0000000000
+  1/C(15,9) = 0.0001998002
+  Ratio (product / (1/C(p,k))): 0.0000
+
+=== Monte Carlo for p=100, k=63 ===
+
+C(100,63) ~ 10^27.5
+2^100 - 3^63 = 123089326797391906610753508949
+
+  q= 2: denom mod q =  1, P(S≡0 mod 2) ≈ 0.370840 (expected if uniform: 0.500000)
+  q= 3: denom mod q =  1, P(S≡0 mod 3) ≈ 0.000000 (expected if uniform: 0.333333)
+  q= 5: denom mod q =  4, P(S≡0 mod 5) ≈ 0.200320 (expected if uniform: 0.200000)
+  q= 7: denom mod q =  3, P(S≡0 mod 7) ≈ 0.142980 (expected if uniform: 0.142857)
+  q=11: denom mod q =  7, P(S≡0 mod 11) ≈ 0.091230 (expected if uniform: 0.090909)
+  q=13: denom mod q =  2, P(S≡0 mod 13) ≈ 0.076945 (expected if uniform: 0.076923)
+  q=17: denom mod q = 10, P(S≡0 mod 17) ≈ 0.059805 (expected if uniform: 0.058824)
+  q=19: denom mod q = 18, P(S≡0 mod 19) ≈ 0.052810 (expected if uniform: 0.052632)
+  q=23: denom mod q = 19, P(S≡0 mod 23) ≈ 0.042930 (expected if uniform: 0.043478)
+  q=29: denom mod q = 13, P(S≡0 mod 29) ≈ 0.034265 (expected if uniform: 0.034483)
+  q=31: denom mod q =  5, P(S≡0 mod 31) ≈ 0.032430 (expected if uniform: 0.032258)
+  q=37: denom mod q = 13, P(S≡0 mod 37) ≈ 0.026650 (expected if uniform: 0.027027)
+  q=41: denom mod q = 28, P(S≡0 mod 41) ≈ 0.024635 (expected if uniform: 0.024390)
+  q=43: denom mod q =  5, P(S≡0 mod 43) ≈ 0.022635 (expected if uniform: 0.023256)
+  q=47: denom mod q = 19, P(S≡0 mod 47) ≈ 0.020975 (expected if uniform: 0.021277)
+
+  Product over 15 primes: 0.00e+00
+  1/prod(primes) = 1.63e-18
+  If fractions ≈ 1/q, product ≈ 1/primorial(47)
+
+=== Distribution of S mod q for p=100, k=63 ===
+
+  S mod 5: ['0.2008', '0.2007', '0.2000', '0.1999', '0.1985']
+  Expected uniform: 0.2000 each
+  Chi-squared: 3.29 (df=4)
+
+  S mod 7: ['0.1427', '0.1439', '0.1427', '0.1438', '0.1411', '0.1427', '0.1431']
+  Expected uniform: 0.1429 each
+  Chi-squared: 7.34 (df=6)
+
+  S mod 11: ['0.0906', '0.0902', '0.0921', '0.0902', '0.0924', '0.0907', '0.0910', '0.0903', '0.0905', '0.0897', '0.0922']
+  Expected uniform: 0.0909 each
+  Chi-squared: 18.43 (df=10)
+
+  S mod 13: ['0.0765', '0.0764', '0.0775', '0.0768', '0.0776', '0.0775', '0.0777', '0.0764', '0.0765', '0.0769', '0.0770', '0.0765', '0.0766']
+  Expected uniform: 0.0769 each
+  Chi-squared: 7.28 (df=12)
+
