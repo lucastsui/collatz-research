@@ -1,6 +1,6 @@
 # Collatz Conjecture — Problem Decomposition Map
 
-*Last updated: 2026-03-06 (Session 2, Round 13 — FINAL)*
+*Last updated: 2026-03-06 (Session 2, Round 14 — FINAL)*
 
 **Legend:** ✅ proved/done · ✘ failed/dead end · ❌ blocked/open · ⚠ error found · ~ partial · ❓ unexplored · ★ recommended
 
@@ -315,14 +315,50 @@ Collatz Conjecture
 │      │  │  Theory gives gap ≥ c/K² (shrinking), data says gap ≈ 0.30.
 │      │  │  Discrepancy: sequential error accumulation in CDG bootstrap.
 │      │  │
-│      │  └─ FINAL ASSESSMENT:
-│      │     Every path has reached a natural barrier:
-│      │     ├─ Spectral gap (universal): non-perturbative bound needed    ❌
-│      │     ├─ Spectral + Sieve: abc conjecture needed                    ❌
-│      │     ├─ Carry analysis: decorrelation = the conjecture             ❌
-│      │     ├─ Direct algebraic: all 6 approaches exhausted               ✘
-│      │     └─ WHY IT'S HARD: 2-adic expansion rate 1.0002/step gives
-│      │        only 5% margin. The problem is at the edge of criticality.
+│      │  └─ (Assessment moved to Round 14 below)
+│      │
+│      ├─ ROUND 14: Prime-power sieve + quotient-graph (2 agents)
+│      │  │
+│      │  ├─ Agent A: Prime-power equidistribution sieve                   ~ PARTIAL WIN
+│      │  │  ├─ Hensel lifting: ord_{q^e}(2) = ord_q(2)·q^{e-1} (proved)  ✅
+│      │  │  ├─ Equidistribution mod q^e for non-Wieferich q, e≥2          ✅
+│      │  │  ├─ Gauss sum mod q^e via Iwaniec-Kowalski                     ✅
+│      │  │  ├─ Conductor reduction for non-unit frequencies               ✅
+│      │  │  ├─ Sieve upgraded: rad(D) → D^{eff} including prime powers   ✅
+│      │  │  ├─ ★ BUT: D is squarefree ~93% of the time                   ✘ CRITICAL
+│      │  │  │  For squarefree D: all e_q = 1, prime powers give ZERO
+│      │  │  │  advantage over rad(D) sieve. Hensel is irrelevant.
+│      │  │  ├─ Real obstruction: primes q|D with ord_q(2) ≤ 2√q          ❌
+│      │  │  └─ Reduces abc to: "bad primes product < 2^{0.05p}"          ~ weaker but unproved
+│      │  │
+│      │  ├─ Agent B: Quotient-graph inter-coset expansion                 ~ CLEANER but SAME
+│      │  │  ├─ Complete mode-basis formula for transfer matrix             ✅ new
+│      │  │  ├─ Modes do NOT decouple (off-diagonal ~ diagonal)           ✅ important negative
+│      │  │  ├─ Cocycle is unitary (Parseval: Σ|F_i(Δ)|² = 1)            ✅ structural
+│      │  │  ├─ Diagonal blocks give ρ ~ 1/2 (actual |λ₂| ~ 0.7 from
+│      │  │  │  cross-mode coupling)                                       ✅ explains gap
+│      │  │  └─ Same obstruction: bounding F_i(0) = (1/L)Σω^{3^j r_i}   ❌
+│      │  │
+│      │  └─ FINAL ASSESSMENT (Session 2, all 14 rounds):
+│      │     ├─ PROVED (novel, publishable):
+│      │     │  Theorems 12-17 (spectral gap theory for affine Collatz)
+│      │     │  Carry Weight Identity (exact algebraic constraint)
+│      │     │  Hensel lifting for equidistribution mod q^e
+│      │     │  Theorem 17 strongest: constant gap for |⟨2,3⟩| ≥ p^δ
+│      │     │
+│      │     ├─ BARRIERS (each requires genuinely new ideas):
+│      │     │  ├─ Universal spectral gap: non-perturbative bound needed   ❌
+│      │     │  ├─ Sieve to no-cycles: abc (or bad-primes product bound)  ❌
+│      │     │  ├─ Carry to no-cycles: decorrelation = the conjecture     ❌
+│      │     │  └─ Prime-power sieve: D typically squarefree              ❌
+│      │     │
+│      │     └─ WHY IT'S HARD:
+│      │        ├─ 2-adic expansion rate ~1.0002/step (barely supercritical)
+│      │        ├─ Only 5% margin between C(p,k) and D
+│      │        ├─ D = 2^p - 3^k is squarefree ~93% of the time
+│      │        ├─ Problem sits at intersection of additive combinatorics,
+│      │        │  multiplicative number theory, and abc conjecture
+│      │        └─ Resolution requires genuinely new mathematics
 │      │
 │      └─ GENERAL FORMULATION (Collatz-free):
 │         Given multiplicatively independent integers a, b:
@@ -350,4 +386,5 @@ Collatz Conjecture
 - Shmerkin, "On Furstenberg's intersection conjecture" (Annals, 2019)
 - Stewart, "On divisors of Lucas and Lehmer numbers" (Acta Math, 2013)
 - Bourgain-Glibichuk-Konyagin, "Estimates for sums and products in fields of prime order" (J. London Math. Soc., 2006)
+- Iwaniec-Kowalski, "Analytic Number Theory" (AMS, 2004) — Gauss sums mod prime powers
 - Eliahou, "The 3x+1 problem: new lower bounds on nontrivial cycle lengths" (Discrete Math, 1993)
