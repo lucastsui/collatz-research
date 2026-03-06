@@ -1,6 +1,6 @@
 # Collatz Conjecture — Problem Decomposition Map
 
-*Last updated: 2026-03-05*
+*Last updated: 2026-03-05 (Session 2)*
 
 **Legend:** ✅ proved/done · ✘ failed/dead end · ❌ blocked/open · ⚠ error found · ~ partial · ❓ unexplored · ★ recommended
 
@@ -181,17 +181,44 @@ Collatz Conjecture
 │   │     ├─ Obstruction certificates (2-adic)                           ✘ necessary not sufficient
 │   │     └─ Monotonicity / convexity                                    ✘ too weak
 │   │
-│   └─ TERMINAL STATE: All known approaches exhausted
+│   └─ CURRENT STATE
 │      │
 │      ├─ WHAT WE PROVED (novel results):
 │      │  ├─ Theorem 4: Equidistribution of S mod q                      ✅ rigorous
 │      │  ├─ Theorem 5: Composite moduli extension                       ✅ rigorous
 │      │  ├─ Theorem 6: abc ⟹ no nontrivial cycles                     ✅ conditional
-│      │  ├─ Spectral gap |λ₂| ≤ 1 - c/p (affine Collatz walk)         ✅ novel, unconditional
+│      │  ├─ Theorem 11: Spectral gap |λ₂| ≤ 1 - c/p (weak bound)     ✅ novel, unconditional
+│      │  ├─ Theorem 12: ||Mχ_r||² = ½ (single-character contraction)  ✅ exact
+│      │  ├─ Theorem 13: |λ|=1 ⟹ λ=±1 (algebraic restriction)        ✅ rigorous
+│      │  ├─ Theorem 14: λ=1 ⟹ f=0 on non-constant subspace           ✅ rigorous
+│      │  ├─ Theorem 15: λ=-1 ⟹ f=0 (key lemma, user's proof)        ✅ rigorous
+│      │  ├─ ★ COMBINED THEOREM: No unit-circle eigenvalues for M       ✅ MAIN RESULT
+│      │  │  For every prime p ≥ 5, every eigenvalue of M on the
+│      │  │  non-constant subspace satisfies |λ| < 1.
+│      │  │  Proof: |λ|=1 ⟹ λ=±1 (Thm 13) ⟹ f=0 (Thms 14,15).
 │      │  ├─ Numerical: constant gap ≈ 0.30 (93 primes tested)          ✅ strong evidence
 │      │  ├─ "+1 advantage": ratio > 16000× over multiplicative walk    ✅ confirmed
 │      │  ├─ Kolmogorov reduction to 2^{0.37p} candidates               ✅ rigorous
 │      │  └─ No cycles for p ≤ 29 (correct formula)                     ✅ computational
+│      │
+│      ├─ ACTIVE FRONTIER:                                               ❌ OPEN
+│      │  Prove |λ₂| ≤ 1 - c for a UNIVERSAL constant c > 0.
+│      │  ├─ Structural part done: no eigenvalues on unit circle         ✅
+│      │  ├─ Quantitative part open: eigenvalues could accumulate at 1   ❌
+│      │  ├─ Corrected numerics: |λ₂| ∈ [0.66, 0.81] for 166 primes    ✅
+│      │  │  (Paper's Table 1 had WRONG individual values; mean OK)
+│      │  ├─ Key correlate: index of ⟨2,3⟩ predicts |λ₂| (r=-0.36)    ✅
+│      │  ├─ Even worst primes (index 12): |λ₂| ≤ 0.77                  ✅
+│      │  ├─ If proved: info-theoretic argument ⟹ no cycles             ★
+│      │  ├─ APPROACHES TRIED (Session 2):
+│      │  │  ├─ ||M²||_op < 1 for all primes BUT grows → 1             ✘ no uniform bound
+│      │  │  ├─ Fourier cross-term → orbit-averaging of sin²            ~ reduces to key lemma
+│      │  │  ├─ Phase decoherence in M²: ||M²χ_r||² ≤ 3/8              ✅ for single chars
+│      │  │  └─ Gauss sum bound on orbit average: needs L₂ > √p        ✘ partial
+│      │  └─ ★ KEY MISSING LEMMA:
+│      │     Universal lower bound on (1/L₂) Σ sin²(πb·2^j/p)
+│      │     over ⟨2⟩-orbits, independent of p and b ≠ 0.
+│      │     Would immediately give the constant spectral gap.
 │      │
 │      ├─ WHAT'S BEEN RULED OUT:
 │      │  ├─ Equidistribution mod D directly                             ✘ blocks too large
@@ -200,18 +227,11 @@ Collatz Conjecture
 │      │  ├─ Circle method                                               ✘ IS Fourier mod D
 │      │  ├─ Modular Feedback Theorem                                    ✘ formula error
 │      │  ├─ Second moment / Parseval                                    ✘ C < D regime
-│      │  ├─ Spectral gap alone                                          ✘ |λ₂| > threshold
+│      │  ├─ Spectral gap alone (info-theoretic needs |λ₂|<0.483)      ✘ numerical |λ₂|≈0.70
 │      │  ├─ Furstenberg measure rigidity                                ✘ invariance has O(1) error
 │      │  └─ All 6 direct algebraic approaches                          ✘ insufficient
 │      │
-│      └─ THE IRREDUCIBLE BARRIER:
-│         The problem requires controlling Σ 3^{k-j}·2^{i_j} mod (2^p - 3^k).
-│         This is a SUM of PRODUCTS modulo a DIFFERENCE — the exact intersection
-│         of additive and multiplicative number theory where all methods fail.
-│         Equivalent in difficulty to the abc conjecture.
-│         Resolution requires genuinely new mathematics.
-│
-│         GENERAL FORMULATION (Collatz-free):
+│      └─ GENERAL FORMULATION (Collatz-free):
 │         Given multiplicatively independent integers a, b:
 │         Can a SHORT linear combination of mixed powers a^i · b^j
 │         (O(log D) terms) vanish modulo D = a^n - b^m?

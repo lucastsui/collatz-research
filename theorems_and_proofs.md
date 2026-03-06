@@ -270,14 +270,18 @@ f(u) = f(u + 3α) for all u ∈ Z/pZ.
 
 ## Numerical Result: Constant Spectral Gap (Not a Theorem)
 
-**Observation (computational, not proved).** For all 93 primes p from 5 to 499:
+**Observation (computational, Session 2 — corrected).** For all 166 primes p from 5 to 997:
 
-- The spectral gap 1 − |λ₂| ≈ 0.30 (mean 0.2987, std 0.0232)
-- |λ₂| ≈ 1/√2 ≈ 0.707 (consistent with the single-character contraction)
-- The gap shows no decay with p (power-law fit: gap ~ 0.287·p^{0.008})
-- The affine walk gap exceeds the multiplicative walk gap by a factor > 16,000 at p = 509
+- |λ₂| ∈ [0.662, 0.809], mean ≈ 0.699, std ≈ 0.019
+- Spectral gap 1 − |λ₂| ∈ [0.191, 0.338], mean ≈ 0.301
+- No trend toward 1 as p grows; large primes (p > 800) have |λ₂| ∈ [0.676, 0.725]
+- Maximum |λ₂| = 0.809 occurs at p = 5 (small-prime artifact); for p ≥ 7, max is 0.767 at p = 431
+- The strongest predictor of |λ₂| is the index [(p−1)/|⟨2,3⟩|]: primes where ⟨2,3⟩ is a proper subgroup have larger |λ₂| (correlation r = −0.36)
+- Even extreme-index primes (index 12 at p = 4057) have |λ₂| = 0.739
 
-**Conjecture.** |λ₂(p)| ≤ 1/√2 for all primes p ≥ 5, with equality in the limit p → ∞.
+**Note:** The numerical table in the earlier paper draft (paper_spectral_gap.md, Table 1 and Appendix A) contains incorrect eigenvalue values. The individual gap values were wrong, but the average gap ≈ 0.30 was accidentally correct.
+
+**Corrected conjecture.** |λ₂(p)| ≤ 0.81 for all primes p ≥ 5. For p ≥ 7: |λ₂(p)| ≤ 0.77. The mean |λ₂| ≈ 0.70 ≈ 1/√2 but individual values fluctuate in [0.66, 0.77].
 
 ---
 
@@ -287,4 +291,16 @@ f(u) = f(u + 3α) for all u ∈ Z/pZ.
 
 |λ₂(p)| ≤ 1 − c
 
-The Combined Theorem proves |λ₂(p)| < 1 for each individual p. The numerical evidence strongly suggests c ≈ 0.293 = 1 − 1/√2. Proving this conjecture would, via the information-theoretic channel capacity argument, imply the nonexistence of nontrivial Collatz cycles.
+The Combined Theorem proves |λ₂(p)| < 1 for each individual p. Numerical evidence for 166 primes strongly suggests c ≥ 0.19 (since max |λ₂| = 0.809). Proving this conjecture would, via the information-theoretic channel capacity argument, imply the nonexistence of nontrivial Collatz cycles.
+
+**Identified approaches and obstacles (Session 2):**
+
+1. **Two-step operator norm:** ||M²||_op < 1 for all tested primes, but grows toward 1 as p → ∞. Cannot give uniform bound.
+
+2. **Fourier cross-term:** ||Mf||² = ½||f||² + ½Re⟨T₀f, T₁f⟩ where ⟨T₀f, T₁f⟩ = Σ_s a_{3s}·ā_s·ω^{−sα}. Equality |⟨T₀f, T₁f⟩| = ||f||² requires f invariant under y → 3y + α (exactly the Combined Theorem's conditions).
+
+3. **Orbit-averaging for sin²:** The quantitative version reduces to bounding (1/L₂) Σ sin²(πb·2^j/p) from below. The Gauss-sum bound gives ≥ 1/2 − √p/(2L₂), useful only when ord_p(2) > √p.
+
+4. **Phase decoherence in M²:** For single characters, ||M²χ_r||² ≤ 3/8 + O(1/p²) < 1/2. The "+1" phases genuinely improve two-step contraction. But operator norm for superpositions is harder.
+
+5. **Missing Key Lemma:** A universal lower bound on the average of sin²(πb·2^j/p) over ⟨2⟩-orbits in (Z/pZ)*, independent of p and b ≠ 0. This would immediately give the constant spectral gap via the Fourier cross-term analysis.
