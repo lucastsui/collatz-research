@@ -1,6 +1,6 @@
 # Collatz Conjecture — Problem Decomposition Map
 
-*Last updated: 2026-03-06 (Session 2)*
+*Last updated: 2026-03-06 (Session 5)*
 
 **Legend:** ✅ proved/done · ✘ failed/dead end · ❌ blocked/open · ⚠ error found · ~ partial · ❓ unexplored · ★ recommended
 
@@ -8,6 +8,202 @@
 
 ```
 Collatz Conjecture
+│
+├── Part 0: INVENT THE MISSING MATHEMATICAL FRAMEWORK           ★ TRUE GOAL
+│   │
+│   │  THE PROJECT'S CORE FINDING: 14+ rounds of systematic exploration
+│   │  confirm that NO existing mathematical framework can prove Part 1.
+│   │  Every known tool either decomposes D into primes (→ abc barrier)
+│   │  or works at full modulus D (→ equivalent to the conjecture).
+│   │  The gap between polynomial-scale tools and exponential-scale targets
+│   │  is structural, not technical. New mathematics is required.
+│   │
+│   │  THE MISSING TOOL MUST BE:
+│   │  (1) GLOBAL at scale D: talk about divisibility by D = 2^p - 3^k
+│   │      as a single event, not a conjunction of events mod prime factors.
+│   │  (2) STRUCTURE-AWARE: exploit that S(I) = Σ 3^{k-j}·2^{i_j} is a
+│   │      structured sum (geometric weights, ordered positions, {a,b}-smooth),
+│   │      not a generic integer of its size.
+│   │  (3) NON-ABELIAN: capture correlations between {q | S(I)} events
+│   │      across primes q | D, or bypass prime decomposition entirely.
+│   │      The CRT/sieve is abelian and assumes independence — this fails.
+│   │
+│   │  HISTORICAL PARALLELS:
+│   │  ├─ FLT (regular primes) → Kummer invented ideal theory (1850s)
+│   │  ├─ Weil conjectures → Grothendieck invented étale cohomology (1960s)
+│   │  ├─ FLT (full) → Wiles invented modularity lifting (1995)
+│   │  └─ Mordell conjecture → Faltings invented height machinery (1983)
+│   │  In each case: existing tools hit a hard barrier, new framework
+│   │  was required that could "see" structure invisible to prior methods.
+│   │
+│   │  THE TWO BARRIERS (why every attempt fails):
+│   │  ┌─────────────────────────────────────────────────────────────┐
+│   │  │ Barrier 1: SIZE-COUNTING (= abc)                          │
+│   │  │ Blocks: methods that bound #{I : D|S} by comparing        │
+│   │  │ C(p,k) to D. Includes sieve, character sums, lattice      │
+│   │  │ counting, probabilistic arguments.                         │
+│   │  │ Diagnosis: needs rad(D) > 2^{0.95p}, which is abc.        │
+│   │  ├─────────────────────────────────────────────────────────────┤
+│   │  │ Barrier 2: REFORMULATION (= equivalence)                   │
+│   │  │ Blocks: methods that restate D|S(I) without reducing it.   │
+│   │  │ Includes lattice certificate, defect identity, carry       │
+│   │  │ analysis, parity tower, all of 6g-ii.                      │
+│   │  │ Diagnosis: every reformulation collapses to the cycle      │
+│   │  │ equation under normalization. No reduction achieved.       │
+│   │  ├─────────────────────────────────────────────────────────────┤
+│   │  │ A WORKING METHOD MUST AVOID BOTH:                          │
+│   │  │ (a) Not size-counting — prove D ∤ S(I) structurally,      │
+│   │  │     not by bounding solution counts against modulus size.  │
+│   │  │ (b) Non-trivially reducing — derive a condition strictly   │
+│   │  │     WEAKER than the cycle equation, yet still impossible.  │
+│   │  └─────────────────────────────────────────────────────────────┘
+│   │
+│   │  DIRECTIONS FOR INVENTION:
+│   │
+│   ├─ 0A. Non-abelian sieve methods                                  ✘ EXPLORED, CIRCULAR
+│   │  │  IDEA: exploit anti-correlation between {q₁|S(I)} and {q₂|S(I)}
+│   │  │  for prime factors q₁,q₂ of D. Geometric coefficients create
+│   │  │  rank-dependent coupling → different "phase patterns" per prime
+│   │  │  → interference → anti-correlation.
+│   │  │
+│   │  │  COMPUTATION (norm_constraint.py, anticorrelation_deep.py):
+│   │  │  Anti-correlation confirmed for all tested composite D.
+│   │  │  (10,6): D=5×59, P(5)·P(59)=0.014, P(D)=0. Ratio=0.
+│   │  │  (16,10): D=13×499, P(13)·P(499)=0.0006, P(D)=0. Ratio=0.
+│   │  │  Individual primes show EXCESS divisibility, joint is 0.
+│   │  │
+│   │  │  STRUCTURAL RESULT: S(I) is never divisible by b = 3
+│   │  │  (last term is 2^{i_k}, coprime to 3). First structural
+│   │  │  non-divisibility not requiring abc. But b ∤ D anyway.
+│   │  │
+│   │  │  WHY IT FAILS: need pairwise ε > 0.45 in composite Weil bound.
+│   │  │  Far beyond any known result. And the anti-correlation itself
+│   │  │  may be EQUIVALENT to the conjecture (not independent of it).
+│   │  │  Proving anti-correlation from structure = proving no cycles.
+│   │  │  File: agent_nonabelian_sieve.md
+│   │
+│   ├─ 0B. Arithmetic intersection theory on R = Z[x]/(x^p - b^k)     ❓ OPEN
+│   │  │  The cycle equation is: does the lattice point c_I lie in
+│   │  │  the sublattice (x-a)R of covolume D? (from 6g-ii)
+│   │  │
+│   │  │  Arakelov geometry counts lattice points in sublattices using
+│   │  │  height functions and intersection numbers. The missing ingredient:
+│   │  │  an Arakelov-theoretic framework for the specific order R that
+│   │  │  can distinguish STRUCTURED vectors c_I (sparse, geometric entries)
+│   │  │  from generic lattice points.
+│   │  │
+│   │  │  If c_I has "Arakelov height" incompatible with membership in
+│   │  │  (x-a)R, that would prove non-divisibility.
+│   │  │  CHALLENGE: Arakelov theory is developed for arithmetic surfaces
+│   │  │  and abelian varieties, not for orders like Z[x]/(x^p - b^k).
+│   │
+│   ├─ 0D. TRANSVERSAL ZERO-SUM BARRIER                               ★ NEW FRAMEWORK
+│   │  │
+│   │  │  KEY DISCOVERY (Session 3): The Collatz no-cycles conjecture
+│   │  │  is equivalent to a RESTRICTED ZERO-SUM TRANSVERSAL problem:
+│   │  │
+│   │  │  S(I) = Σ 3^{k-j} · 2^{i_j} is a weighted sum from k "slices"
+│   │  │  A_j = {3^{k-1-j} · 2^r mod D : r = 0,...,p-1} in Z/DZ.
+│   │  │  The unrestricted sumset A_0 + ... + A_{k-1} is ALWAYS all of
+│   │  │  Z/DZ. But the restricted sumset (distinct positions, monotone
+│   │  │  weight assignment) NEVER contains 0. Verified for all p ≤ 21.
+│   │  │
+│   │  │  EMPIRICAL FINDINGS:
+│   │  │  ├─ U = Z/DZ for all tested (p,k)                              ✅
+│   │  │  │  (Proved via Cauchy-Davenport for prime D.)
+│   │  │  ├─ 0 ∉ R for all tested (p,k) up to p=21                     ✅ empirical
+│   │  │  ├─ For (5,3) and (8,5): 0 is the ONLY excluded residue       ✅
+│   │  │  ├─ Zero-sum with distinct positions requires ≥1 inversion     ✅
+│   │  │  │  from the anti-sorted Collatz convention
+│   │  │  └─ The organized 3-divisibility of the certificate is the     ✅ structural
+│   │  │     algebraic mechanism enforcing the transversal constraint
+│   │  │
+│   │  │  WHY THIS AVOIDS THE BARRIERS:
+│   │  │  ├─ Not size-counting: "0 ∉ R" is set-membership, not a
+│   │  │  │  count against D. No abc/rad(D) needed.
+│   │  │  ├─ Structure-aware: exploits the DISTINCT-POSITION constraint
+│   │  │  │  (= orbit visits each timestep once) and MONOTONE WEIGHT
+│   │  │  │  assignment (= geometric 3-coefficients decrease with rank).
+│   │  │  └─ Connects to new tools: additive combinatorics, transversal
+│   │  │     theory, zero-sum Ramsey theory, Cauchy-Davenport.
+│   │  │
+│   │  │  PROOF PROGRAM:
+│   │  │  1. Prove U = Z/DZ for all (p,k).                              ~ mostly done
+│   │  │     Done for prime D (Cauchy-Davenport). For composite D:
+│   │  │     CRT + C-D per factor covers all tested except (13,8)/q=233.
+│   │  │     Empirically verified U = Z/DZ for ALL (p,k), p ≤ 25.
+│   │  │  2. Prove 0 ∉ R.                                               ❌ = CONJECTURE
+│   │  │     CASCADE REDUCTION (C7): 0 ∉ R ⟺ no Syracuse periodic
+│   │  │     points. Proved for k ≤ 30 (C9). For general k: reduces to
+│   │  │     Collatz conjecture for n ≤ (3/2)^{k-1}.
+│   │  │  3. Status: cascade fully characterizes the problem but        ⚠
+│   │  │     does not escape the equivalence barrier. The cascade IS
+│   │  │     the Collatz iteration (C7), so proving it fails = proving
+│   │  │     the Collatz conjecture. No independent reduction found.
+│   │  │
+│   │  │  RECURSIVE DESCENT (computational theorem):
+│   │  │  For all (p,k) up to p=18: peeling off the first term and
+│   │  │  checking if any valid i_1 exists gives ZERO dangerous cases.
+│   │  │  The archimedean bound explains why: 2^{i_1} ≤ 3nΔ forces
+│   │  │  i_1 to be tiny, but ordering constraint i_1 < min(I')
+│   │  │  eliminates it. For n=1: i_1 < 0 always (proved).
+│   │  │
+│   │  │  ARCHIMEDEAN CASCADE (new theorem):
+│   │  │  If D|S(I), positions must be tightly packed:
+│   │  │  i_j ≈ j*log_2(3) + O(j). Starting value n ≥ 1/(3Δ) ≈ p^10.
+│   │  │  Recovers Steiner bound from pure sumset reasoning.
+│   │  │  File: theorem_archimedean_descent.md
+│   │  │
+│   │  │  2-ADIC CASCADE (Sessions 4-5, theorems C1-C10):        ★ KEY RESULTS
+│   │  │  ├─ C1: WLOG i_1 = 0 (D odd, factor out 2^{i_1})        ✅ proved
+│   │  │  ├─ C2: n must be odd and coprime to 3                    ✅ proved
+│   │  │  ├─ C3: Positions uniquely determined by n via v_2        ✅ proved
+│   │  │  ├─ C4: n=1 → trivial cycle (p=2k) or no solution        ✅ proved
+│   │  │  ├─ C5: k ≤ 4: no nontrivial cycles for ANY p            ✅ proved
+│   │  │  ├─ C6: All p ≤ 60 (83 pairs, 3.3M candidates): 0 found ✅ computed
+│   │  │  ├─ C7: SYRACUSE-CASCADE DUALITY                         ✅ proved
+│   │  │  │  c_j = (3·S^j(n)+1)·3^{k-1-j} where S = Syracuse map
+│   │  │  │  Cascade succeeds iff n is period-k point of S
+│   │  │  ├─ C8: Fixed-k bound: n_max → (3/2)^{k-1} - 1          ✅ proved
+│   │  │  ├─ C9: k ≤ 30: no nontrivial cycles for ANY p           ✅ proved
+│   │  │  │  (all odd n ≤ 127834 verified to reach 1)
+│   │  │  ├─ C10: Post-orbit obstruction: odd n≥3 ⟹ n∤4          ✅ proved
+│   │  │  └─ Min distance to 0: stays at 1 (exclusion tight)      ✅ empirical
+│   │  │  File: theorem_cascade.md, cascade_syracuse.py,
+│   │  │         cascade_extended_v2.py, cascade_nearcritical.py
+│   │  │
+│   │  │  CONFIRMED RISK: The Syracuse-Cascade Duality (C7) proves
+│   │  │  that 0 ∉ R IS exactly the Collatz conjecture (not just
+│   │  │  equivalent: the cascade literally IS the Syracuse iteration).
+│   │  │  However, the cascade provides: (a) efficient computation,
+│   │  │  (b) clean proofs for fixed k (C9: k≤30), (c) the post-orbit
+│   │  │  obstruction "n∤4" (C10), and (d) the reduction to Collatz
+│   │  │  verification for bounded n values (C8+C10). These are genuine
+│   │  │  structural insights even if they don't escape the barrier.
+│   │  │
+│   │  │  Files: framework_transversal_zero_sum.md,
+│   │  │         distinct_position_barrier.py,
+│   │  │         monotone_weight_barrier.py,
+│   │  │         residue_zero_special.py
+│   │  │
+│   └─ 0C. Motivic / categorical structure on {a,b}-smooth sums       ❓ OPEN
+│      │  The set of {2,3}-smooth numbers has multiplicative structure
+│      │  (generated by 2 and 3). Sums of smooth numbers with geometric
+│      │  weights form a structured subset of Z.
+│      │
+│      │  If this subset had algebraic/categorical structure (a scheme,
+│      │  a motive, a derived category) whose cohomology encoded
+│      │  divisibility properties, one could prove non-vanishing at
+│      │  scale D using cohomological methods.
+│      │
+│      │  ANALOGY: Weil conjectures were proved by inventing a cohomology
+│      │  theory (étale cohomology) that made the "number of points on
+│      │  a variety mod p" into a topological invariant. Here: we need
+│      │  a cohomology that makes "number of divisible structured sums
+│      │  mod D" into a computable invariant.
+│      │
+│      │  CHALLENGE: nothing like this exists today. Would be a major
+│      │  contribution to arithmetic geometry independent of Collatz.
 │
 ├── Part 1: No nontrivial cycles ← ACTIVE FOCUS
 │   │
@@ -109,7 +305,19 @@ Collatz Conjecture
 │   │  │  ├─ Stewart 2013: log rad ≥ c√p/log p                          ✘ need 0.95p
 │   │  │  ├─ Potential: log rad ≥ c·p/log p (Baker+Yu p-adic)          ❓ needs verification
 │   │  │  ├─ D is prime ~50%, squarefree ~93% (computation)             ✅ empirical
-│   │  │  └─ log₂(rad)/p ≥ 0.82 for all p ≥ 9 tested                  ✅ empirical
+│   │  │  ├─ log₂(rad)/p ≥ 0.82 for all p ≥ 9 tested                  ✅ empirical
+│   │  │  │
+│   │  │  └─ PATH 1: Improve Baker for (log 2, log 3)                   ❓ OPEN RESEARCH PROGRAM
+│   │  │     Baker's method bounds |β₁ log 2 + β₂ log 3| > exp(-C√p log p).
+│   │  │     Converting to rad(D) lower bound loses a square root.
+│   │  │     TARGET: improve exp(c√p/log p) → exp(cp) for rad(2^p - 3^k).
+│   │  │     This is a specific problem in transcendence theory — does NOT
+│   │  │     require proving full abc, only abc for the family 2^p = 3^k + D.
+│   │  │     Open since Baker (1960s). Progress incremental (Laurent,
+│   │  │     Mignotte, Nesterenko, Matveev, Yu). The gap (√p vs p) is
+│   │  │     enormous but the problem is well-defined and has a community.
+│   │  │     DIFFICULTY: decades-open. Would be a major result in
+│   │  │     Diophantine approximation independent of Collatz.
 │   │  │
 │   │  ├─ 4d. The "bad primes" reformulation                            ❌ OPEN
 │   │  │  After prime-power lifting, the residual obstruction is:
@@ -276,6 +484,100 @@ Collatz Conjecture
 │   │     │
 │   │     No known framework. Likely requires genuinely new mathematics.
 │   │     Full task specification: TASK_6g_structured_non_divisibility.md
+│   │     │
+│   │     ATTEMPTS:
+│   │     │
+│   │     ├─ 6g-i. GPT-OSS-120B: Zsigmondy + S-unit equations             ✘ SAME WALL
+│   │     │  Zsigmondy gives a primitive prime q | D not dividing any term
+│   │     │  of S(I). Reduces to S-unit equation with k+2 terms over S={2,3}.
+│   │     │  Evertse-Schlickewei gives FINITENESS, but the bound on
+│   │     │  exponents depends on k (= number of terms), which grows with p.
+│   │     │  So finiteness only holds for fixed k, not k ~ 0.63p → ∞.
+│   │     │  This is the sieve rediscovered with a different entry point.
+│   │     │  File: gpt_oss_response_6g.md
+│   │     │
+│   │     └─ 6g-ii. Codex: Global lattice reformulation                    ✘ EQUIVALENT TO CONJECTURE
+│   │        D | S(I) iff coefficient vector c_I ∈ M·Z^p, where M is a
+│   │        companion-type matrix with det = ±D. Equivalently:
+│   │        [F_I(x)] ∈ (x-a)R in the order R = Z[x]/(x^p - b^k).
+│   │        │
+│   │        Gives a rigid certificate sequence q with:
+│   │        (a) strict negativity: q_r < 0 for all r
+│   │        (b) sparse geometric differences: q_{r-1} - a·q_r ∈ {0, b^0,...,b^{k-1}}
+│   │        (c) trailing-b divisibility: b^{s_r} | q_r
+│   │        After normalization u_r = -q_r / b^{s_{r+1}}, the certificate
+│   │        IS the Collatz orbit: u_{r+1} = u_r/2 or (3u_r+1)/2.
+│   │        │
+│   │        Clean global reformulation native at scale D (no prime
+│   │        decomposition), but (a)+(b)+(c) inconsistency = no nontrivial
+│   │        cycles = the FULL CONJECTURE (not a weaker sub-problem).
+│   │        File: agent_global_lattice.md
+│   │        │
+│   │        Follow-up (agent_q_defect.md): proved the defect identity
+│   │        Δ = Σ_{r∈I} log(1 + 1/(3u_r)), showing the near-critical
+│   │        slack is distributed across tiny jumps at odd steps.
+│   │        When Δ = O(p^{-9}), all odd orbit values ≫ p^9.
+│   │        But this is essentially the classical Collatz orbit bound
+│   │        (Steiner, Simons-de Weger) in logarithmic language.
+│   │        │
+│   │        VERDICT: The lattice reformulation looked like a new angle,
+│   │        but the certificate constraints collapse to the full cycle
+│   │        equation under normalization. No reduction achieved —
+│   │        proving (a)+(b)+(c) inconsistent IS proving Part 1.
+│   │     │
+│   │     OPEN RESEARCH PROGRAMS (paths that haven't been ruled out):
+│   │     │
+│   │     ├─ 6g-iii. Quantitative ×2 ×3 rigidity                          ✘ EXPLORED, FAILS
+│   │     │  Furstenberg (1967): only ×2-and-×3-invariant measures on R/Z
+│   │     │  are Lebesgue and atomic. Rudolph (1990), EKL (2006).
+│   │     │  │
+│   │     │  STRUCTURAL FAILURE (not technical):
+│   │     │  (1) Cycle measure μ = (1/p)Σδ_{u_r/D} is ATOMIC (finitely
+│   │     │      supported on rationals) — explicitly ALLOWED by the
+│   │     │      Furstenberg-Rudolph classification.
+│   │     │  (2) μ is T-invariant (Collatz map), NOT ×2- or ×3-invariant.
+│   │     │      Approximate invariance is meaningless: pushforward (×2)_*μ
+│   │     │      has support {2u_r/D}, which ≠ {u_r/D}.
+│   │     │  (3) The dual action on (Z/DZ)* reduces to the sieve via CRT.
+│   │     │  (4) Simultaneous 2-adic + archimedean Diophantine constraints
+│   │     │      are compatible for n ~ p^{10} (no contradiction).
+│   │     │  (5) Decomposition mod 2^p and mod 3^k gives trivial info
+│   │     │      (gcd(D, 2^p) = gcd(D, 3^k) = 1).
+│   │     │  │
+│   │     │  CONCLUSION: the thematic connection (Collatz uses ×2 and ×3,
+│   │     │  log2/log3 irrational) is real but the formal connection to
+│   │     │  measure rigidity is broken. Atomic measures on rationals
+│   │     │  are the "allowed case" and that's exactly what cycles are.
+│   │     │  File: agent_x2x3_rigidity.md
+│   │     │
+│   │     ├─ 6g-iv. Multi-adic Hasse obstruction                           ❓ SPECULATIVE
+│   │     │  Work in Z_2 × Z_3 simultaneously. In Z_2, the Collatz map
+│   │     │  is conjugate to a shift on binary sequences — periodic 2-adic
+│   │     │  orbits are plentiful and classified. In Z_3, the ×3 steps
+│   │     │  are contractions and "+1" additions create different rigidity.
+│   │     │  │
+│   │     │  NEEDED: show the 2-adic periodic point set and the 3-adic
+│   │     │  constraint set have empty intersection in Z_{>0}.
+│   │     │  A Hasse-principle-failure argument: cycle exists locally
+│   │     │  (in Z_2 and Z_3 separately) but not globally.
+│   │     │  DIFFICULTY: high. Hasse failures usually need Brauer-Manin
+│   │     │  obstruction or descent, which require algebraic variety
+│   │     │  structure. Collatz map doesn't live on a variety.
+│   │     │
+│   │     └─ 6g-v. Composite-modulus character sums for e_k                ❓ SPECULATIVE
+│   │        Estimate Σ_{|I|=k} χ(S(I)) for characters χ mod D WITHOUT
+│   │        CRT-decomposing into prime characters. The structure
+│   │        F(t) = e_k(γ_0,...,γ_{p-1}) (elementary symmetric polynomial)
+│   │        might admit Weil-type bounds at composite modulus that
+│   │        don't factor through primes.
+│   │        │
+│   │        NEEDED: a Weil-type bound for e_k evaluated at roots of
+│   │        unity of composite order. Does not exist in the literature.
+│   │        Would be a contribution to algebraic combinatorics even
+│   │        independent of Collatz.
+│   │        DIFFICULTY: the composite-modulus Weil bound is itself a
+│   │        hard open problem (cf. Bourgain on exponential sums to
+│   │        composite moduli).
 │   │
 │   ├─ 7. FAILED APPROACHES (comprehensive list)
 │   │  ├─ Equidistribution mod D directly                               ✘ blocks > p
@@ -343,6 +645,9 @@ Collatz Conjecture
 
 - **Session 1** (2026-03-05): Rounds 1-10. Formulation, equidistribution, sieve, spectral gap, Combined Theorem.
 - **Session 2** (2026-03-05/06): Rounds 10-14. Theorems 15-17, carry analysis, prime-power sieve, quotient-graph. 20+ agent analyses. All tractable approaches exhausted.
+- **Session 3** (2026-03-06): Part 0 attack. Discovered the Transversal Zero-Sum Barrier (direction 0D). Key finding: unrestricted sumset always contains 0, but distinct-position constraint excludes it. New framework connecting Collatz to additive combinatorics and transversal theory.
+- **Session 4** (2026-03-06): Proved WLOG i₁=0 reduction, n parity constraints, complete n=1 classification (trivial cycle iff p=2k), k≤4 no-cycles theorem. Developed 2-adic cascade method. Verified no nontrivial cycles for all p≤34 and near-critical (46,29). Min-distance analysis shows exclusion of 0 is tight (distance 1).
+- **Session 5** (2026-03-06): Proved Syracuse-Cascade Duality (C7): cascade remainders c_j exactly track the Syracuse orbit of n. Proved fixed-k bound (C8): n_max → (3/2)^{k-1}. Proved k≤30 no-cycles (C9) via Collatz verification for n≤127834. Proved post-orbit obstruction (C10): odd n≥3 fails via n∤4. Extended cascade to p≤60 (83 pairs, 3.3M candidates). Proved U=Z/DZ for most composite D via CRT+Cauchy-Davenport. Established that the cascade IS the Collatz iteration (equivalence barrier confirmed for 0D).
 
 ## File Index
 
@@ -369,3 +674,16 @@ Collatz Conjecture
 | `collatz_m2_norm.py` | M² operator norm computation |
 | `paper_spectral_gap.md` | Draft paper (needs updating) |
 | `session_log.md` | Verbatim conversation log |
+| `framework_transversal_zero_sum.md` | **Direction 0D: Transversal Zero-Sum framework** |
+| `distinct_position_barrier.py` | Computation: unrestricted vs restricted sumsets |
+| `monotone_weight_barrier.py` | Computation: inversion analysis for zero-sum |
+| `residue_zero_special.py` | Why residue 0 is structurally special |
+| `session3_summary.md` | Session 3 summary and findings |
+| `theorem_cascade.md` | **Session 4: 2-adic cascade theorems C1-C6** |
+| `cascade_verifier.py` | Cascade verification for standard pairs |
+| `cascade_extended.py` | Extended cascade to p≤34 |
+| `cascade_p46.py` | Optimized cascade for (46,29) near-critical |
+| `gap_analysis.py` | Min-distance-to-0 analysis |
+| `cascade_syracuse.py` | **Session 5: Syracuse-Cascade Duality verification** |
+| `cascade_extended_v2.py` | Extended cascade to p≤60 + U=Z/DZ analysis |
+| `cascade_nearcritical.py` | Near-critical pairs (54,34) and (59,37) |

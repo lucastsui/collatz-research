@@ -1583,3 +1583,203 @@ Norm constraints vacuous. The abc barrier appears in every formulation.
 
 Updated map: 6a' marked as explored/fails.
 Full analysis: agent_mihailescu.md
+
+---
+
+# Session Log — 2026-03-06 (continued session)
+
+### User:
+Does agent_global_lattice.md answer problem 6g in the map?
+
+### Claude:
+No. It provides a clean global reformulation, not a proof of non-divisibility.
+
+6g asks for a technique that proves S(I) not divisible by D using the structure of S.
+agent_global_lattice.md provides: (1) exact reformulation D|S(I) iff c_I in M*Z^p where
+M is companion-type with det = +/-D, (2) rigid certificate sequence q with strict negativity,
+sparse geometric differences, trailing-b divisibility, (3) bridge to dynamical orbit.
+
+Section 7 states explicitly: "This note does not bypass the main barrier by itself."
+It sets up a framework for Target C but the contradiction hasn't been found.
+Reformulation only — the hard part remains open.
+
+### User:
+record this attempt in 6g and say what subtask remains for this attempt
+
+### Claude:
+Recorded both attempts under 6g in the map:
+- 6g-i (GPT-OSS-120B): Zsigmondy + S-unit — marked FAIL, same abc wall.
+- 6g-ii (Codex): Global lattice reformulation — marked PARTIAL (reformulation only).
+Remaining subtask (6g-ii-open): prove three certificate constraints (a)+(b)+(c) mutually
+inconsistent for large p with k/p ~ log2/log3.
+
+### User:
+Does agent_q_defect.md answer 6g-ii-open?
+
+### Claude:
+No. It explicitly says "This does not yet prove inconsistency of the q-certificate."
+
+Key finding: the three certificate constraints (a)+(b)+(c) are EXACTLY EQUIVALENT to
+the existence of a genuine positive integer period-p Collatz orbit. The normalization
+u_r = -q_r / b^{s_{r+1}} turns the lattice certificate into the orbit itself.
+So proving (a)+(b)+(c) inconsistent IS proving no nontrivial cycles — the full conjecture.
+
+New tool: defect identity Delta = sum_{r in I} log(1 + 1/(3u_r)), showing near-critical
+slack distributed across tiny jumps at odd steps. When Delta = O(p^{-9}), all odd orbit
+values >> p^9. But this is essentially the classical bound (Steiner, Simons-de Weger).
+
+Net: the lattice reformulation looked like a new angle, but certificate constraints
+collapse to the full cycle equation under normalization. No reduction achieved.
+
+Updated 6g-ii in map to EQUIVALENT TO CONJECTURE.
+
+### User:
+I am at a loss of ideas. Any ideas?
+
+### Claude:
+Honest assessment: the project has confirmed that this problem may be beyond current
+techniques. Every approach reduces to abc. But four paths haven't been fully ruled out:
+
+PATH 1 (under Sub-problem B): Improve Baker's theorem for (log 2, log 3).
+Currently rad(D) > exp(c*sqrt(p)/log p) (Stewart 2013). Need exp(0.95p).
+Well-defined problem in transcendence theory. Open since 1960s.
+
+PATH 2a (6g-iii): Quantitative x2 x3 rigidity.
+Furstenberg/Rudolph/EKL measure rigidity. A cycle defines an approximately
+invariant measure. Need quantitative version handling O(Delta)-approximate
+invariance. Most promising direction.
+
+PATH 2b (6g-iv): Multi-adic Hasse obstruction.
+Work in Z_2 x Z_3 simultaneously. Show 2-adic and 3-adic periodic point sets
+have empty intersection in Z_{>0}. Speculative — no framework exists.
+
+PATH 2c (6g-v): Composite-modulus character sums for e_k.
+Weil-type bound for elementary symmetric polynomials at composite roots of unity.
+Speculative — open even for simpler sums.
+
+Recommended: Path 2a (x2 x3 rigidity) as most promising.
+
+### User:
+Can all these paths be grouped as sub-problems of any problem in the map?
+
+### Claude:
+Yes. Path 1 -> Sub-problem B (Arithmetic of D, the abc barrier). Paths 2a, 2b, 2c -> 6g
+(Structure-exploiting methods). The map already has the right structure.
+
+### User:
+yes (record them)
+
+### Claude:
+Recorded all four paths in the map:
+- Path 1 under 4c (abc barrier) as open research program
+- 6g-iii: Quantitative x2 x3 rigidity (marked "most promising")
+- 6g-iv: Multi-adic Hasse obstruction (speculative)
+- 6g-v: Composite-modulus character sums for e_k (speculative)
+
+### User:
+is the log updated?
+
+### Claude:
+No — log was last updated at the Mihailescu exploration. Appended all exchanges from
+the current session.
+
+---
+
+# Session 3 — 2026-03-06: The Transversal Zero-Sum Framework
+
+## Main Achievement
+
+Discovered and verified a new mathematical framework for the Collatz no-cycles conjecture: **the Transversal Zero-Sum Barrier** (direction 0D in map.md).
+
+## The Discovery
+
+The Collatz cycle equation $D \mid S(I)$ can be viewed as a weighted sumset problem in $\mathbb{Z}/D\mathbb{Z}$:
+- **Unrestricted sumset** $U = A_0 + A_1 + \cdots + A_{k-1}$ (any positions, repeats allowed)
+- **Restricted sumset** $R$ (distinct positions, monotone weight assignment)
+
+Key finding (verified for all $p \leq 21$):
+- $U = \mathbb{Z}/D\mathbb{Z}$ always (unrestricted sumset is FULL)
+- $0 \notin R$ always (restricted sumset NEVER contains 0)
+- For (5,3) and (8,5): 0 is the ONLY excluded residue
+- Every zero-sum with distinct positions requires $\geq 1$ inversion from anti-sorted convention
+
+## Proved Results
+
+1. $U = \mathbb{Z}/D\mathbb{Z}$ for prime $D$ via Cauchy-Davenport (Theorem T1)
+2. Structural non-vanishing of partial sums (Theorem T2)
+3. No cycles for $k \leq 2$ (Theorem T3)
+4. Monotone-weight inversion barrier (Theorem T4)
+5. Recursive descent: zero dangerous cases for all $(p,k)$ up to $p = 18$
+6. Archimedean cascade: positions must be tightly packed, $n \geq p^{10}/3$, $n=1$ impossible
+
+## Files Created
+
+`framework_transversal_zero_sum.md`, `theorems_transversal.md`, `distinct_position_barrier.py`, `monotone_weight_barrier.py`, `residue_zero_special.py`, `recursive_descent.py`, `transversal_proof.py`, `theorem_archimedean_descent.md`, `session3_summary.md`
+
+---
+
+# Session 4 — 2026-03-06: 2-Adic Cascade Method
+
+## Main Achievement
+
+Developed the 2-adic cascade method: given $n$, the positions $h_0 = 0, h_1, \ldots, h_{k-1}$ satisfying $C = nD$ are uniquely determined by iteratively extracting 2-adic valuations.
+
+## Theorems Proved
+
+- **C1 (WLOG Reduction):** $D \mid S(I) \Leftrightarrow D \mid C(g)$ where $C(g) = S(I)/2^{i_1}$. WLOG $i_1 = 0$.
+- **C2 (Parity Constraints):** $n$ must be odd and coprime to 3.
+- **C3 (2-Adic Cascade):** Positions uniquely determined by $n$ via $T_0 = nD - 3^{k-1}$, $h_{j+1} = h_j + v_2(T_j)$, $T_{j+1} = T_j/2^{v_2(T_j)} - 3^{k-2-j}$.
+- **C4 (n=1 Classification):** $n=1$ gives positions $h_j = 2j$, final remainder $2^{p-2k+2} - 4$. Solution iff $p = 2k$ (trivial cycle). Proved for ALL $(p,k)$.
+- **C5 (k ≤ 4):** No nontrivial cycles for any $p$.
+
+## Computational Verification
+
+- All $p \leq 34$ (30 standard pairs): no nontrivial cycles
+- $(46,29)$ near-critical: 1,149,910 candidates checked, 0 solutions
+- Min distance to 0 mod $D$: stays at 1 (exclusion is tight)
+
+## Files Created
+
+`theorem_cascade.md`, `cascade_verifier.py`, `cascade_extended.py`, `cascade_p46.py`, `gap_analysis.py`
+
+---
+
+# Session 5 — 2026-03-06: Syracuse-Cascade Duality and Equivalence Barrier
+
+## Main Achievement
+
+Proved that the 2-adic cascade IS the Syracuse (Collatz) iteration: the cascade remainder $c_j = (3 S^j(n)+1) \cdot 3^{k-1-j}$ where $S$ is the Syracuse map. This confirms that direction 0D hits the equivalence barrier — the Transversal Zero-Sum Exclusion is exactly the Collatz conjecture, not a weaker sub-problem.
+
+## Theorems Proved
+
+- **C7 (Syracuse-Cascade Duality):** $c_j = (3 S^j(n)+1) \cdot 3^{k-1-j}$. Cascade succeeds iff $n$ is a period-$k$ point of the Syracuse map with total halving count $p$. Proved by induction.
+- **C8 (Fixed-k Bound):** For fixed $k$ and large $p$: $n_{\max} \to (3/2)^{k-1} - 1$. Only finitely many candidates independent of $p$.
+- **C9 (k ≤ 30 No Cycles):** All odd $n$ coprime to 3 up to $(3/2)^{29} \approx 127{,}834$ verified to reach 1 under Collatz. Combined with cascade for small $p$: no nontrivial cycles with $k \leq 30$ odd steps.
+- **C10 (Post-Orbit Obstruction):** For odd $n \geq 3$: once orbit reaches 1, cascade requires $n \mid 4$, which fails. This is the algebraic mechanism behind "reaching 1 implies not on a nontrivial cycle."
+
+## Extended Computation
+
+- 83 $(p,k)$ pairs verified up to $p = 60$, including near-critical (54,34) with 2.9M candidates and (59,37) with 3.3M candidates. Zero nontrivial cycles.
+- $U = \mathbb{Z}/D\mathbb{Z}$ proved for most composite $D$ via CRT + Cauchy-Davenport per prime factor.
+
+## Equivalence Barrier Confirmed
+
+The Syracuse-Cascade Duality (C7) proves definitively that $0 \notin R$ IS the Collatz conjecture (the cascade literally computes the Syracuse orbit). Direction 0D provides powerful computational tools and clean structural theorems but does not escape Barrier 2.
+
+### Status of all explored directions:
+
+| Direction | Barrier |
+|-----------|---------|
+| 0A. Non-abelian sieve | Equivalence |
+| 0D. Transversal zero-sum | Equivalence (confirmed Session 5) |
+| Sub-problems A-C (spectral, sieve, carry) | abc / equivalence |
+| Sub-problem D / 6g (all attempts) | abc / equivalence |
+| 0B, 0C (Arakelov, motivic) | Unexplored, highly speculative |
+
+## Files Created
+
+`cascade_syracuse.py`, `cascade_extended_v2.py`, `cascade_nearcritical.py`
+
+## Files Updated
+
+`theorem_cascade.md` (added C7-C10), `map.md` (Session 5 results, updated proof program status, file index)
