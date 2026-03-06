@@ -212,14 +212,18 @@ Collatz Conjecture
 │      │  ├─ Corrected numerics: |λ₂| ∈ [0.66, 0.81] for 166 primes    ✅
 │      │  ├─ ★ THEOREM 16 (NEW): constant gap for ALMOST ALL primes     ✅ PROVED
 │      │  │  If |⟨2,3⟩| ≥ p^{1/2+ε}, then |λ₂| ≤ 1 - c(ε).
-│      │  │  By Erdős-Murty: holds for density-1 set of primes.
 │      │  │  Proof: phase constraint + orbit equidistribution + Gauss sums.
-│      │  │  Full proof in agent_sum_product.md, Sections 3-9.
+│      │  ├─ ★★ THEOREM 17 (NEW): EXTENDED via Bourgain-Konyagin         ✅ PROVED
+│      │  │  For ANY δ > 0: if |⟨2,3⟩| ≥ p^δ, then |λ₂| ≤ 1 - c₁
+│      │  │  where c₁ is ABSOLUTE (independent of δ)!
+│      │  │  Replaces Gauss bound with BGK (2006) character sum estimate.
+│      │  │  Exceptional primes (|⟨2,3⟩| < p^δ): at most O(X^{1-δ+ε}).
+│      │  │  Full proof in theorem16_extended.md.
 │      │  ├─ Bounded orbit → constant gap (by compactness + Combined Thm) ✅
 │      │  ├─ If universal gap proved: info-theoretic ⟹ no cycles        ★
 │      │  │
-│      │  ├─ REMAINING GAP: primes where |⟨2,3⟩| < p^{1/2+ε}          ❌ OPEN
-│      │  │  Both ord_p(2) and ord_p(3) are O(√p).
+│      │  ├─ REMAINING GAP: primes where |⟨2,3⟩| = p^{o(1)}            ❌ OPEN
+│      │  │  (Narrowed from p^{1/2+ε} to sub-polynomial by Thm 17)
 │      │  │  3 agents independently converge to same algebraic core:
 │      │  │  ├─ B-G: standard framework fails (D=1), need bilinear      ✘
 │      │  │  │  sum-product with phases

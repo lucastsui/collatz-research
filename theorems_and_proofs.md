@@ -329,4 +329,26 @@ The Combined Theorem proves |λ₂(p)| < 1 for each individual p. Numerical evid
 
 *Proof of Corollary.* By Erdős-Murty, for almost all p, ord_p(a) ≥ p^{1−ε} for any fixed a. Hence |⟨2,3⟩| ≥ max(ord_p(2), ord_p(3)) ≥ p^{1−ε} ≥ p^{1/2+ε}. Apply Theorem. ∎
 
-**Remaining gap:** Primes where |⟨2,3⟩| < p^{1/2+ε} (both ord_p(2) and ord_p(3) are O(√p)). Three agents independently identified the same algebraic core: the missing piece is **inter-coset expansion** — how multiplication by 2 mixes energy between ⟨3⟩-cosets within ⟨2,3⟩-orbits.
+**Remaining gap (narrowed):** Primes where |⟨2,3⟩| < p^δ for all δ > 0 (sub-polynomial subgroup). See Theorem 17 below.
+
+---
+
+## Theorem 17: Extended Spectral Gap via Bourgain-Glibichuk-Konyagin (NEW — Session 2)
+
+**Theorem.** There exists an absolute constant c₁ > 0 such that for every δ > 0, there exists p₀(δ) with the following property: if p ≥ p₀(δ) is prime with |⟨2, 3⟩| ≥ p^δ in F_p*, then every eigenvalue λ ≠ 1 of M satisfies |λ| ≤ 1 − c₁.
+
+**Key improvement:** The constant c₁ is ABSOLUTE (independent of δ). Only the threshold p₀(δ) depends on δ.
+
+**Corollary.** For every δ₀ > 0, the number of exceptional primes p ≤ X (where the constant gap might fail) is at most O(X^{1−δ₀+ε}).
+
+**Proof sketch** (full details in theorem16_extended.md):
+
+The proof follows Theorem 16's structure with ONE key replacement:
+- **Old (Theorem 16):** Gauss bound |Σ_{h∈H} e(th/p)| ≤ √p → needs |H| > √p
+- **New:** BGK bound |Σ_{h∈H} e(th/p)| ≤ |H|·p^{−σ(δ)} → needs only |H| ≥ p^δ
+
+Steps 1-2 (arc concentration + approximate invariance) are unchanged. Step 3: equidistribution error becomes p^{−σ(δ)/2} → 0 (instead of √p/|H|). Step 4: 1 − Cη ≤ C√η + p^{−σ(δ)/2} forces η ≥ c₁ > 0 for p ≥ p₀(δ).
+
+**What remains:** Primes where |⟨2,3⟩| grows sub-polynomially (|⟨2,3⟩| = p^{o(1)}). These primes exist but have density zero. The universal gap for ALL primes requires either:
+- Colliding-modes cancellation (Conjecture 8.3)
+- Or a fundamentally different approach for sub-polynomial subgroups

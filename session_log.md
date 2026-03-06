@@ -1466,3 +1466,26 @@ Two ingredients needed: (1) constant gap AND (2) rad(D) > 2^{0.95p}.
 - Making decorrelation rigorous IS equivalent to the conjecture
 
 **Agent 1 (Theorem 16 clean proof): still running**
+
+---
+
+### Claude (Bourgain-Konyagin result):
+
+**★★ THEOREM 17 PROVED — Extended spectral gap via BGK (2006)**
+
+For ANY δ > 0: if p prime with |⟨2,3⟩| ≥ p^δ, then |λ₂| ≤ 1 - c₁
+where c₁ is an ABSOLUTE constant (independent of δ)!
+
+Key improvement over Theorem 16:
+- Theorem 16: needs |⟨2,3⟩| ≥ p^{1/2+ε}
+- Theorem 17: needs |⟨2,3⟩| ≥ p^δ for ANY δ > 0
+- The gap narrowed from "small subgroup" to "sub-polynomial subgroup"
+- Exceptional primes: at most O(X^{1-δ+ε}) below X
+
+Proof: replace Gauss bound with Bourgain-Glibichuk-Konyagin (2006)
+character sum estimate for multiplicative subgroups. Everything else
+in Theorem 16's proof carries through unchanged.
+
+Full proof: theorem16_extended.md
+
+Updated theorems_and_proofs.md and map.md.
