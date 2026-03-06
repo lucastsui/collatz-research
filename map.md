@@ -215,10 +215,18 @@ Collatz Conjecture
 │      │  │  ├─ Fourier cross-term → orbit-averaging of sin²            ~ reduces to key lemma
 │      │  │  ├─ Phase decoherence in M²: ||M²χ_r||² ≤ 3/8              ✅ for single chars
 │      │  │  └─ Gauss sum bound on orbit average: needs L₂ > √p        ✘ partial
-│      │  └─ ★ KEY MISSING LEMMA:
-│      │     Universal lower bound on (1/L₂) Σ sin²(πb·2^j/p)
-│      │     over ⟨2⟩-orbits, independent of p and b ≠ 0.
-│      │     Would immediately give the constant spectral gap.
+│      │  ├─ ✘ KEY LEMMA DISPROVED:
+│      │  │  Orbit-averaged sin² over ⟨2⟩-orbits is NOT constant.
+│      │  │  For Mersenne primes p=2^n-1: avg ~ 1.70/n → 0.
+│      │  │  Yet |λ₂| stays bounded (0.69-0.72). Mechanism is elsewhere.
+│      │  │
+│      │  └─ ★ ACTUAL MECHANISM (identified, unproven):
+│      │     Energy coupling between ⟨2⟩-cosets within ⟨2,3⟩-orbits.
+│      │     The ×3 map transfers energy from "bad" cosets (near 0)
+│      │     to "good" cosets (near p/2), forcing eigenvectors to
+│      │     have energy on both types. Formalizing this is the
+│      │     key open challenge. May require Bourgain-Gamburd style
+│      │     expansion for solvable groups or sum-product estimates.
 │      │
 │      ├─ WHAT'S BEEN RULED OUT:
 │      │  ├─ Equidistribution mod D directly                             ✘ blocks too large

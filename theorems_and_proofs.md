@@ -303,4 +303,8 @@ The Combined Theorem proves |λ₂(p)| < 1 for each individual p. Numerical evid
 
 4. **Phase decoherence in M²:** For single characters, ||M²χ_r||² ≤ 3/8 + O(1/p²) < 1/2. The "+1" phases genuinely improve two-step contraction. But operator norm for superpositions is harder.
 
-5. **Missing Key Lemma:** A universal lower bound on the average of sin²(πb·2^j/p) over ⟨2⟩-orbits in (Z/pZ)*, independent of p and b ≠ 0. This would immediately give the constant spectral gap via the Fourier cross-term analysis.
+5. **Disproved Key Lemma:** The orbit-averaged sin²(πb·2^j/p) over ⟨2⟩-orbits is NOT bounded below by a universal constant. For Mersenne primes p = 2^n − 1, the average decays as C/n ≈ 1.70/log₂(p) → 0. Yet |λ₂| stays bounded (0.69−0.72 for Mersenne primes). This means individual ⟨2⟩-orbit analysis is inherently too crude.
+
+6. **The actual mechanism (identified but unproven):** The constant gap comes from the interaction between different ⟨2⟩-cosets within the full ⟨2,3⟩-orbit. The ×3 connections transfer energy from "bad" cosets (near 0, small sin²) to "good" cosets (far from 0, large sin²). The eigenvalue equation forces eigenvectors to have energy on BOTH types of cosets. Formalizing this interaction is the key open challenge.
+
+7. **Lyapunov weight approach:** Tried w(r) = sin²(πr/p) as a Lyapunov function. For single characters, the weighted contraction ratio ≤ 5/8 (better than unweighted!). But the weighted operator norm grows as O(p) due to energy transfer from near-0 modes to near-p/2 modes via the ×2⁻¹ map. Lyapunov approach fails.

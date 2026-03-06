@@ -1307,3 +1307,28 @@ work on the universal constant gap
 ### Claude (continued):
 Updated theorems_and_proofs.md with corrected numerical data and identified approaches.
 Updated map.md active frontier with Session 2 exploration results and the Key Missing Lemma.
+
+---
+
+### User:
+commit and push, check if log file is updated. Then Attack this lemma.
+
+### Claude:
+Committed and pushed. Then attacked the key missing lemma.
+
+**Major finding: The key lemma is FALSE.**
+
+For Mersenne primes p = 2^n - 1:
+- orbit-averaged sin²(πb·2^j/p) ~ 1.70/n → 0 as n → ∞
+- Yet |λ₂| stays bounded: 0.69-0.72 for all Mersenne primes tested
+- The mechanism keeping |λ₂| bounded is NOT the ⟨2⟩-orbit structure alone
+
+**Approaches tried and failed:**
+1. sin²-weight Lyapunov: works for single characters (ratio ≤ 5/8) but weighted operator norm grows as O(p)
+2. Orbit-averaging: too crude, misses the ⟨3⟩-interaction
+3. Approximate periodicity: loses factor p in telescoping, recovers only 1-c/p
+
+**Actual mechanism identified:**
+The constant gap comes from coupling between different ⟨2⟩-cosets within the ⟨2,3⟩-orbit via the ×3 connections. Energy at "bad" modes (near 0) is forced to "good" modes (near p/2) by the eigenvalue equation. Formalizing this requires Bourgain-Gamburd style expansion for solvable groups or sum-product estimates.
+
+Updated theorems_and_proofs.md and map.md with these findings.
