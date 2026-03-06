@@ -169,18 +169,30 @@ Collatz Conjecture
 │   │  │  A solution requires methods that talk about D|S(I) as a
 │   │  │  single integer/polynomial equation without breaking it apart.
 │   │  │
-│   │  ├─ 6a. Function-field lift (Mason-Stothers)                      ❓ ★ MOST PROMISING
-│   │  │  abc is PROVED for polynomials (Mason-Stothers 1983).
-│   │  │  Replace (2,3) by indeterminates (x,y), work in Z[x,y].
-│   │  │  D(x,y) = x^p - y^k, S(I)(x,y) = Σ y^{k-j} x^{i_j}.
-│   │  │  KEY FACT: deg_x(S) ≤ p-1 < p = deg_x(D), so D ∤ S in Z[x,y].
-│   │  │  Polynomial non-divisibility is FREE (degree mismatch).
-│   │  │  QUESTION: can this constrain the integer specialization
-│   │  │  at (x,y) = (2,3)? Nobody has tried this for Collatz.
-│   │  │  OBSTACLE: specialization can create divisibility that doesn't
-│   │  │  exist at the polynomial level (e.g., x²-4 ∤ x+2 but 0|4 at x=2).
-│   │  │  APPROACH: bound the "specialization defect" — how much
-│   │  │  divisibility can specialization create?
+│   │  ├─ 6a. Function-field lift (Mason-Stothers)                      ✘ EXPLORED, FAILS
+│   │  │  abc is proved for polynomials, but the polynomial division
+│   │  │  is TRIVIAL: deg_x(S) < deg_x(D), so quotient Q = 0, R = S_I.
+│   │  │  Mason-Stothers constrains polynomial relations, not integer
+│   │  │  divisibility at (2,3). Resultants, Wronskians also fail.
+│   │  │  Full analysis: agent_function_field.md
+│   │  │
+│   │  ├─ 6a'. Mihailescu-style cyclotomic methods                      ❓ ★ MOST PROMISING
+│   │  │  DISCOVERED via 6a investigation. The factorization
+│   │  │  D = 2^p - 3^k = ∏(2 - ζ^m · 3^{k/p}) in Q(ζ_p, 3^{1/p})
+│   │  │  is how Mihailescu proved Catalan's conjecture (2002).
+│   │  │  Tools: Stickelberger's theorem, Thaine's theorem on circular
+│   │  │  units, class group annihilation.
+│   │  │  These operate on the ARITHMETIC of D, not polynomial structure.
+│   │  │  QUESTION: can the divisibility D|S(I) be constrained using
+│   │  │  the cyclotomic factorization of D?
+│   │  │  CONNECTS TO: Catalan's conjecture is the case S = D (n₀ = 1).
+│   │  │  Our problem generalizes: S = n₀·D with n₀ ≥ 1, S structured.
+│   │  │
+│   │  ├─ 6a''. Corvaja-Zannier / Subspace Theorem                     ~ FINITENESS ONLY
+│   │  │  Since x^p - 3^k is irreducible over Q, Corvaja-Zannier (2004)
+│   │  │  gives FINITENESS of {x ∈ Z : (x^p - 3^k) | S_I(x)}.
+│   │  │  This is the right theorem but INEFFECTIVE: cannot exclude x=2.
+│   │  │  An effective version would solve the problem.
 │   │  │
 │   │  ├─ 6b. 2-adic fixed-point theory                                 ❓ ★ PROMISING
 │   │  │  The cycle equation T^p(n₀) = n₀ is a FIXED-POINT problem

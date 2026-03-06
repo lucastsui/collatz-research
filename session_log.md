@@ -1548,3 +1548,19 @@ The parity tower is algebraically identical to the cycle equation — provides N
 - Section 5 overstates: CRT is algebraic, not probabilistic
 - Real obstruction: large primes q|D with ord_q(2) > p (blocks don't fit)
 - But the deeper issue: for squarefree D, prime powers don't help at all
+
+---
+
+### User:
+explore 6a. Function-field lift (Mason-Stothers)
+
+### Claude:
+Launched agent. Result: Mason-Stothers FAILS (polynomial division is trivial).
+
+BUT discovered two promising leads:
+1. Mihailescu-style cyclotomic methods: factorize D in Q(ζ_p, 3^{1/p}),
+   use Stickelberger/Thaine. This is how Catalan was proved.
+2. Corvaja-Zannier: Subspace Theorem gives finiteness but ineffectively.
+
+Updated map: 6a marked as explored/fails, added 6a' (Mihailescu) and 6a'' (Corvaja-Zannier).
+Full analysis: agent_function_field.md
