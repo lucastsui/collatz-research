@@ -1489,3 +1489,40 @@ in Theorem 16's proof carries through unchanged.
 Full proof: theorem16_extended.md
 
 Updated theorems_and_proofs.md and map.md.
+
+### User:
+[Shared Session 2 summary showing Theorems 16-17, corrected errors, disproved conjectures, and two barriers identified. Asked: what direction do you propose?]
+
+### Claude:
+
+**RECOMMENDATION: Direction 2 (carry analysis).**
+
+Three directions considered:
+1. Close spectral gap (5% remaining) — tractable but needs abc for full proof anyway
+2. Carry analysis (90% gap but only path avoiding abc) — HIGH RISK, HIGH REWARD
+3. Improve rad(D) bound — incremental, still short of target
+
+Direction 2 is the only path that stands alone (doesn't need both barriers solved).
+The Carry Weight Identity is proved and exact. The parity feedback interaction
+is unexplored territory. If it works: unconditional proof, no abc, no spectral gap needed.
+
+Next step: how does parity self-consistency (n₀'s bits ↔ pattern ↔ n₀) interact
+with the Θ(p²) carry weight in the multiplication n₀·D = S(I)?
+
+---
+
+---
+
+### Claude (Round 13 complete):
+
+**Agent A (carry-parity):** Overdetermination ratio 1.106. Conditional: expected cycles ≤ 2^{-0.05p}. But carry independence unproved.
+
+**Agent B (overdetermined system): CRITICAL FINDING**
+The parity tower is algebraically identical to the cycle equation — provides NO additional constraint beyond D|S(I). The "overdetermination" is illusory. 2-adic expansion rate ~1.0002/step (barely supercritical). The 5% margin is the fundamental reason the problem is hard.
+
+**Agent C (compactness gap):** Theory gives gap ≥ c/K² (shrinking). But computation shows ρ(K) does NOT approach 1:
+- 240+ values of K tested, all ρ(K) ≤ 0.81
+- For K > 50: ρ(K) ≤ 0.76
+- No upward trend
+
+**Conclusion:** The carry analysis path reformulates but doesn't resolve the conjecture. The decorrelation between S(I)/D and the trajectory parity IS the conjecture. The spectral gap is empirically universal but theoretically unproved for the last density-zero set.
