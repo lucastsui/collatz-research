@@ -235,27 +235,47 @@ Collatz Conjecture
 │   │  │  because they all ultimately do size-counting.
 │   │  │
 │   │  └─ 6g. STRUCTURE-EXPLOITING METHODS                              ❓ ★ TRUE FRONTIER
-│   │     The only escape: a method that uses the SPECIFIC ALGEBRAIC
-│   │     STRUCTURE of S(I) = Σ 3^{k-j} · 2^{i_j}, not just its size.
 │   │     │
-│   │     The terms are products of powers of 2 and 3 with GEOMETRIC
-│   │     coefficients (3^{k-1}, 3^{k-2}, ..., 3, 1). This is not a
-│   │     generic sum — it has rigid combinatorial structure:
-│   │     ├─ The coefficients form a geometric progression in 3
-│   │     ├─ The exponents i_j are an ORDERED subset of {0,...,p-1}
-│   │     ├─ S(I) = elementary symmetric function of specific roots
-│   │     │  (collatz_charsum.md: reversal trick removes rank-dependence)
-│   │     ├─ S(I) encodes the trajectory: each term corresponds to
-│   │     │  one odd step of the Collatz map
-│   │     └─ The constraint D|S means the trajectory CLOSES — this is
-│   │        a dynamical condition, not just a number-theoretic one
+│   │     THE REQUIRED TECHNIQUE: prove non-divisibility of structured
+│   │     sums by structured divisors at exponential scale.
 │   │     │
-│   │     WHAT'S NEEDED: a method that sees the difference between
-│   │     "a generic integer of size 2^{0.95p}" and "this specific
-│   │     structured sum of {2,3}-smooth terms with geometric weights."
+│   │     Formally: show that Σ b^{k-j} a^{i_j} ≢ 0 mod (a^p - b^k)
+│   │     for all ordered subsets I ⊂ {0,...,p-1} with |I| = k,
+│   │     using the STRUCTURE of the sum, not the factorization of D.
 │   │     │
-│   │     No known mathematical framework does this at the required
-│   │     scale. This is the TRUE frontier of the problem.
+│   │     STRUCTURAL PROPERTIES TO EXPLOIT:
+│   │     ├─ All terms positive, {a,b}-smooth (no cancellation)
+│   │     ├─ Geometric coefficients: weights b^{k-1},...,b,1
+│   │     ├─ Elementary symmetric function (charsum reversal trick)
+│   │     ├─ Ordered subset constraint on positions
+│   │     ├─ Divisor D = a^p - b^k has matching {a,b}-smooth structure
+│   │     └─ Dynamical origin: S/D is an orbit starting value
+│   │     │
+│   │     WHY NOTHING EXISTING WORKS:
+│   │     ├─ Baker: archimedean bound, not D-adic. Gap: √p vs p.
+│   │     ├─ Subspace Theorem: finiteness but ineffective
+│   │     ├─ Charsum/Weil: already fully exploited → Theorem 4
+│   │     ├─ Carry analysis: equivalent to cycle equation
+│   │     └─ Every structural property either already used or = conjecture
+│   │     │
+│   │     WHAT IT WOULD LOOK LIKE:
+│   │     An effective quantitative lower bound on |S(I)|_D (the D-adic
+│   │     valuation) that uses the geometric structure of the sum to
+│   │     bypass prime-by-prime decomposition of D. Equivalently: a
+│   │     proof that structured {a,b}-smooth sums with geometric weights
+│   │     cannot be divisible by a^p - b^k at exponential scale.
+│   │     │
+│   │     This is a new type of result: effective S-unit non-divisibility.
+│   │     It would live at the intersection of Diophantine approximation,
+│   │     additive combinatorics, and algebraic number theory.
+│   │     │
+│   │     CLOSEST ANALOGUES:
+│   │     ├─ Mihailescu (Catalan): proves a^p - b^k ≠ 1, but needs D = 1
+│   │     ├─ Baker: bounds |Σ β_i log α_i|, continuous not discrete
+│   │     └─ Corvaja-Zannier: finiteness of integer points, ineffective
+│   │     │
+│   │     No known framework. Likely requires genuinely new mathematics.
+│   │     Full task specification: TASK_6g_structured_non_divisibility.md
 │   │
 │   ├─ 7. FAILED APPROACHES (comprehensive list)
 │   │  ├─ Equidistribution mod D directly                               ✘ blocks > p
