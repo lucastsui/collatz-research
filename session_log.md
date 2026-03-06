@@ -1442,3 +1442,27 @@ Strategic analysis of the map revealed:
 Two ingredients needed: (1) constant gap AND (2) rad(D) > 2^{0.95p}.
 
 **MAP UPDATED with Round 11 results and synthesis of two independent paths.**
+
+---
+
+### Claude (Round 12 partial results):
+
+**Agent 4 (spectral data): KEY FINDING**
+- gap × p GROWS with p (not constant!) → gap is NOT 1/p
+- For ALL primes with L₂ ≤ 50: |λ₂| ≤ 0.809, gap ≥ 0.191
+- Finitely many primes per L₂ value → finite verification possible
+- Data saved to spectral_small_L2.md
+
+**Agent 2 (universal gap v2): HONEST NEGATIVE**
+- Phase transition: equidistributed regime (gap ≈ 0.29) vs perturbative (gap ≈ 1/K²)
+- Middle range K ∈ [K₀, p^{1/2+ε}] remains open
+- New identity: Σ log|1 + ω^{r₀h}| over full orbit H = 0 exactly
+- All approaches reduce to equidistribution bounds failing at K < √p
+
+**Agent 3 (parity feedback): KEY INSIGHT**
+- Contraction-Expansion Duality: real contracts (3^k/2^p), 2-adic expands (2^p)
+- Parity is 2-adic → self-consistency exponentially fragile
+- Random-map heuristic: expected cycles ≈ 2^{-0.05p} → 0
+- Making decorrelation rigorous IS equivalent to the conjecture
+
+**Agent 1 (Theorem 16 clean proof): still running**
