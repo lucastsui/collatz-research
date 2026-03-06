@@ -162,7 +162,72 @@ Collatz Conjecture
 │   │     either decomposes into primes (→ abc) or stays global
 │   │     (→ equivalent to the conjecture itself).
 │   │
-│   ├─ 6. FAILED APPROACHES (comprehensive list)
+│   ├─ 6. SUB-PROBLEM D: NATIVELY GLOBAL METHODS                        ❓ UNEXPLORED
+│   │  │  All methods in A-C decompose D|S(I) into local pieces
+│   │  │  (mod primes, bit-by-bit). The reassembly always fails because
+│   │  │  tools at scale p^{O(1)} cannot reach moduli at scale 2^p.
+│   │  │  A solution requires methods that talk about D|S(I) as a
+│   │  │  single integer/polynomial equation without breaking it apart.
+│   │  │
+│   │  ├─ 6a. Function-field lift (Mason-Stothers)                      ❓ ★ MOST PROMISING
+│   │  │  abc is PROVED for polynomials (Mason-Stothers 1983).
+│   │  │  Replace (2,3) by indeterminates (x,y), work in Z[x,y].
+│   │  │  D(x,y) = x^p - y^k, S(I)(x,y) = Σ y^{k-j} x^{i_j}.
+│   │  │  KEY FACT: deg_x(S) ≤ p-1 < p = deg_x(D), so D ∤ S in Z[x,y].
+│   │  │  Polynomial non-divisibility is FREE (degree mismatch).
+│   │  │  QUESTION: can this constrain the integer specialization
+│   │  │  at (x,y) = (2,3)? Nobody has tried this for Collatz.
+│   │  │  OBSTACLE: specialization can create divisibility that doesn't
+│   │  │  exist at the polynomial level (e.g., x²-4 ∤ x+2 but 0|4 at x=2).
+│   │  │  APPROACH: bound the "specialization defect" — how much
+│   │  │  divisibility can specialization create?
+│   │  │
+│   │  ├─ 6b. 2-adic fixed-point theory                                 ❓ ★ PROMISING
+│   │  │  The cycle equation T^p(n₀) = n₀ is a FIXED-POINT problem
+│   │  │  on Z₂ (2-adic integers).
+│   │  │  KEY FACT: T^p has 2-adic derivative = 2^p (expanding map).
+│   │  │  Fixed points of expanding maps on Z₂ are isolated.
+│   │  │  TOOLS: Strassmann's theorem (bounds zeros of p-adic power
+│   │  │  series), Newton polygons (locates p-adic roots),
+│   │  │  Hensel's lemma (lifts solutions).
+│   │  │  ADVANTAGE: natively works with the full equation, no primes.
+│   │  │  CONNECTS TO: the Contraction-Expansion Duality (Sub-problem C).
+│   │  │  The real metric contracts (3^k/2^p), the 2-adic expands (2^p).
+│   │  │  A joint archimedean + non-archimedean analysis might give
+│   │  │  a contradiction for large p.
+│   │  │
+│   │  ├─ 6c. Polynomial method (Croot-Lev-Pach / capset style)        ❓
+│   │  │  S(I) = Σ 3^{k-j}·2^{i_j} is an ELEMENTARY SYMMETRIC FUNCTION
+│   │  │  of the variables γ_r = e^{2πit·3^{k-1}·2^r/q} (collatz_charsum.md).
+│   │  │  Symmetric functions have rigid algebraic structure.
+│   │  │  APPROACH: encode cycle equation as polynomial system,
+│   │  │  use slice rank or tensor methods for impossibility bounds.
+│   │  │  OBSTACLE: the polynomial has degree k ≈ 0.63p (growing),
+│   │  │  not fixed. Most polynomial method results need bounded degree.
+│   │  │
+│   │  ├─ 6d. Transcendence / Subspace Theorem (Schmidt-Schlickewei)    ❓
+│   │  │  The cycle equation Σ 3^{k-j}·2^{i_j} = n₀(2^p - 3^k) is an
+│   │  │  S-UNIT EQUATION with S = {2,3}.
+│   │  │  The Subspace Theorem gives FINITENESS of non-degenerate
+│   │  │  solutions for fixed number of terms.
+│   │  │  OBSTACLE: k ≈ 0.63p terms (growing). Quantitative Subspace
+│   │  │  Theorem (Evertse-Schlickewei) gives bounds super-exponential in k.
+│   │  │  POSSIBLE FIX: the terms have very specific structure (geometric
+│   │  │  progressions in 2 and 3) — not generic S-unit equations.
+│   │  │  A structure-aware version might give polynomial bounds.
+│   │  │
+│   │  └─ 6e. Thermodynamic formalism / transfer operators              ❓
+│   │     View cycle as symbolic sequence in {0,1}^p.
+│   │     Define pressure P(β) = lim (1/p) log Σ_I |S(I)/D|^{-β}.
+│   │     If P(β) has a phase transition at β < ∞: cycles are excluded
+│   │     by an "entropy vs energy" argument (too few patterns with
+│   │     S(I) ≡ 0 to overcome the combinatorial entropy of patterns).
+│   │     CONNECTS TO: the 5% margin. The entropy of patterns is
+│   │     H ≈ 0.95p bits, the "energy cost" of divisibility is ≈ p bits.
+│   │     Deficit = 0.05p bits. Thermodynamic methods might make this
+│   │     rigorous without decomposing into primes.
+│   │
+│   ├─ 7. FAILED APPROACHES (comprehensive list)
 │   │  ├─ Equidistribution mod D directly                               ✘ blocks > p
 │   │  ├─ Sieve + rad(D) unconditionally                                ✘ abc barrier
 │   │  ├─ Tao's 3-adic technique                                        ✘ wrong modulus, avg-case
@@ -181,39 +246,20 @@ Collatz Conjecture
 │   │  ├─ Parity tower as independent constraint                         ✘ = cycle equation
 │   │  └─ Prime-power sieve for squarefree D                             ✘ zero advantage
 │   │
-│   ├─ 7. WHY THE PROBLEM IS HARD
+│   ├─ 8. WHY THE PROBLEM IS HARD
 │   │  ├─ The 5% margin: C(p,k)/D ≈ 2^{-0.05p}. Barely subcritical.
 │   │  ├─ 2-adic expansion rate ~1.0002/step. Barely supercritical.
 │   │  ├─ D = 2^p - 3^k is squarefree ~93% of the time.
-│   │  ├─ Every local-to-global method needs moduli at scale 2^p
-│   │  │  but tools work at scale p^{O(1)}. Exponential gap.
-│   │  ├─ Every global method (carry, parity) is equivalent to D|S(I).
+│   │  ├─ Local-to-global methods (A,B) need scale 2^p, tools reach p^{O(1)}.
+│   │  ├─ Global methods (C) are equivalent to D|S(I) — the conjecture itself.
+│   │  ├─ Natively global methods (D) are unexplored — the best hope.
 │   │  ├─ The problem sits at the intersection of:
 │   │  │  ├─ Additive combinatorics (short sums of smooth numbers)
 │   │  │  ├─ Multiplicative number theory (radical of 2^p - 3^k)
-│   │  │  └─ The abc conjecture (the controlling barrier)
+│   │  │  └─ The abc conjecture (the controlling barrier for local methods)
 │   │  └─ GENERAL FORMULATION (Collatz-free):
 │   │     Can a SHORT sum of {2,3}-smooth numbers vanish mod 2^p - 3^k?
 │   │     This is the irreducible core at the boundary of all three areas.
-│   │
-│   ├─ 8. UNEXPLORED DIRECTIONS                                         ❓
-│   │  ├─ Function-field lift (Mason-Stothers = abc for polynomials)     ❓
-│   │  │  x^p - y^k does NOT divide Σy^{k-j}x^{i_j} in Z[x,y]
-│   │  │  (degree mismatch). Can polynomial non-divisibility constrain
-│   │  │  the integer specialization at (x,y) = (2,3)?
-│   │  ├─ 2-adic fixed-point theory (Strassmann, Newton polygons)       ❓
-│   │  │  T^p is 2-adically expanding (derivative 2^p). Fixed points
-│   │  │  of expanding maps on Z_2 are isolated. Can p-adic analytic
-│   │  │  methods count or exclude them?
-│   │  ├─ Polynomial method (Croot-Lev-Pach / capset style)             ❓
-│   │  │  S(I) is an elementary symmetric function (collatz_charsum.md).
-│   │  │  Slice rank or related algebraic bounds?
-│   │  ├─ Subspace Theorem (Schmidt-Schlickewei)                        ❓
-│   │  │  S-unit equation with S = {2,3}. Gives finiteness for
-│   │  │  fixed number of terms, but k grows with p.
-│   │  └─ Thermodynamic formalism / transfer operators                   ❓
-│   │     Pressure function P(β) = lim (1/p) log Σ|S(I)/D|^{-β}.
-│   │     Phase transition excluding cycles?
 │   │
 │   └─ 9. NUMERICAL DATA
 │      ├─ |λ₂| ∈ [0.66, 0.81] for 240+ primes (p=5 to p=1499)         ✅
