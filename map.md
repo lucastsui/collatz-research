@@ -1,6 +1,6 @@
 # Collatz Conjecture — Problem Decomposition Map
 
-*Last updated: 2026-03-05 (Session 2, Round 11)*
+*Last updated: 2026-03-06 (Session 2, Round 13 — FINAL)*
 
 **Legend:** ✅ proved/done · ✘ failed/dead end · ❌ blocked/open · ⚠ error found · ~ partial · ❓ unexplored · ★ recommended
 
@@ -201,7 +201,11 @@ Collatz Conjecture
 │      │  │  For every prime p ≥ 5, every eigenvalue of M on the
 │      │  │  non-constant subspace satisfies |λ| < 1.
 │      │  │  Proof: |λ|=1 ⟹ λ=±1 (Thm 13) ⟹ f=0 (Thms 14,15).
-│      │  ├─ Numerical: constant gap ≈ 0.30 (93 primes tested)          ✅ strong evidence
+│      │  ├─ Theorem 16: constant gap for |⟨2,3⟩| ≥ p^{1/2+ε}         ✅ proved
+│      │  ├─ ★★ Theorem 17: constant gap for |⟨2,3⟩| ≥ p^δ (any δ)   ✅ STRONGEST
+│      │  │  Uses Bourgain-Glibichuk-Konyagin (2006). Absolute c₁.
+│      │  ├─ Carry Weight Identity: W_c = Σs₁(3^m) - s₁(n₀D)          ✅ exact, new
+│      │  ├─ Numerical: constant gap ≈ 0.30 (240+ primes tested)       ✅ strong evidence
 │      │  ├─ "+1 advantage": ratio > 16000× over multiplicative walk    ✅ confirmed
 │      │  ├─ Kolmogorov reduction to 2^{0.37p} candidates               ✅ rigorous
 │      │  └─ No cycles for p ≤ 29 (correct formula)                     ✅ computational
@@ -289,7 +293,36 @@ Collatz Conjecture
 │      │     PATH B (Carry Analysis):
 │      │       ├─ Exact algebraic constraints (no abc needed)              ✅
 │      │       ├─ Carry weight identity proved                             ✅
-│      │       └─ Parity feedback interaction: unexplored                  ❌ ~90% gap
+│      │       └─ Parity feedback: explored, = conjecture itself           ❌ EQUIVALENT
+│      │
+│      ├─ ROUND 13: Carry-parity deep dive + spectral data (3 agents)
+│      │  │
+│      │  ├─ Agent A: Carry weight × parity feedback                       ~ CONDITIONAL
+│      │  │  Overdetermination ratio 1.106 (1.05p constraints on 0.949p unknowns)
+│      │  │  Under carry independence: expected cycles ≤ 2^{-0.05p} → 0
+│      │  │  BUT carry independence is unproved.
+│      │  │
+│      │  ├─ Agent B: Overdetermined system analysis                       ✘ KEY NEGATIVE
+│      │  │  ★ Parity tower = cycle equation algebraically.
+│      │  │  The tower provides NO additional constraint beyond D|S(I).
+│      │  │  "Overdetermination" is ILLUSORY.
+│      │  │  2-adic expansion rate ~1.0002/step (barely supercritical).
+│      │  │  The 5% margin (log₂D/p ≈ 0.05) = fundamental difficulty.
+│      │  │
+│      │  ├─ Agent C: ρ(K) computation (spectral radius by subgroup size) ✅ DATA
+│      │  │  ρ(K) does NOT approach 1 as K → ∞.
+│      │  │  240+ values tested: all ρ(K) ≤ 0.81, K>50: ρ(K) ≤ 0.76.
+│      │  │  Theory gives gap ≥ c/K² (shrinking), data says gap ≈ 0.30.
+│      │  │  Discrepancy: sequential error accumulation in CDG bootstrap.
+│      │  │
+│      │  └─ FINAL ASSESSMENT:
+│      │     Every path has reached a natural barrier:
+│      │     ├─ Spectral gap (universal): non-perturbative bound needed    ❌
+│      │     ├─ Spectral + Sieve: abc conjecture needed                    ❌
+│      │     ├─ Carry analysis: decorrelation = the conjecture             ❌
+│      │     ├─ Direct algebraic: all 6 approaches exhausted               ✘
+│      │     └─ WHY IT'S HARD: 2-adic expansion rate 1.0002/step gives
+│      │        only 5% margin. The problem is at the edge of criticality.
 │      │
 │      └─ GENERAL FORMULATION (Collatz-free):
 │         Given multiplicatively independent integers a, b:
@@ -316,4 +349,5 @@ Collatz Conjecture
 - Tao, "Almost all orbits of the Collatz map attain almost bounded values" (Forum of Math Pi, 2022)
 - Shmerkin, "On Furstenberg's intersection conjecture" (Annals, 2019)
 - Stewart, "On divisors of Lucas and Lehmer numbers" (Acta Math, 2013)
+- Bourgain-Glibichuk-Konyagin, "Estimates for sums and products in fields of prime order" (J. London Math. Soc., 2006)
 - Eliahou, "The 3x+1 problem: new lower bounds on nontrivial cycle lengths" (Discrete Math, 1993)
