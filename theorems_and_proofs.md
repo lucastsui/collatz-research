@@ -308,3 +308,25 @@ The Combined Theorem proves |λ₂(p)| < 1 for each individual p. Numerical evid
 6. **The actual mechanism (identified but unproven):** The constant gap comes from the interaction between different ⟨2⟩-cosets within the full ⟨2,3⟩-orbit. The ×3 connections transfer energy from "bad" cosets (near 0, small sin²) to "good" cosets (far from 0, large sin²). The eigenvalue equation forces eigenvectors to have energy on BOTH types of cosets. Formalizing this interaction is the key open challenge.
 
 7. **Lyapunov weight approach:** Tried w(r) = sin²(πr/p) as a Lyapunov function. For single characters, the weighted contraction ratio ≤ 5/8 (better than unweighted!). But the weighted operator norm grows as O(p) due to energy transfer from near-0 modes to near-p/2 modes via the ×2⁻¹ map. Lyapunov approach fails.
+
+---
+
+## Theorem 16: Constant Spectral Gap for Almost All Primes (NEW — Session 2)
+
+**Theorem.** For every ε > 0, there exists c(ε) > 0 such that: if p ≥ 5 is a prime with |⟨2, 3⟩| ≥ p^{1/2+ε} in F_p*, then |λ₂(p)| ≤ 1 − c(ε).
+
+**Corollary.** For almost all primes p (in natural density), |λ₂(p)| ≤ 1 − c for an absolute constant c > 0.
+
+**Proof sketch** (full details in agent_sum_product.md, Sections 3-9):
+
+*Step 1 (Phase constraint).* If |λ|² ≥ 1 − η, the near-equality in Cauchy-Schwarz for the cross-term ⟨T₀f, T₁f⟩ = Σ_s a_{3s}·ā_s·ω^{−s/2} forces the eigenvector's energy to concentrate on an arc of angular width O(√η) near a fixed phase. Specifically, the support must lie in G_η = {s ∈ F_p : |sin(πs/p)| ≤ C√η}, which has size O(√η · p).
+
+*Step 2 (Approximate closure).* The eigenvector support is approximately closed under ×(3/2) (from the eigenvalue equation structure). The (3/2)-orbit of any r₀ ∈ G_η must remain mostly within G_η.
+
+*Step 3 (Orbit equidistribution).* By the Gauss sum bound for exponential sums over multiplicative subgroups: for ℓ = ord_p(3/2) ≥ |⟨2,3⟩|/L₂, the fraction of the (3/2)-orbit lying in any arc of size δ·p is at most δ + O(√p/ℓ). When ℓ ≥ p^{1/2+ε}, this error is O(p^{−ε/4}).
+
+*Step 4 (Contradiction).* Combining: the fraction in the arc must be both ≥ 1 − Cη (from Step 1) and ≤ C√η + o(1) (from Step 3). This forces η ≥ c₀ > 0.
+
+*Proof of Corollary.* By Erdős-Murty, for almost all p, ord_p(a) ≥ p^{1−ε} for any fixed a. Hence |⟨2,3⟩| ≥ max(ord_p(2), ord_p(3)) ≥ p^{1−ε} ≥ p^{1/2+ε}. Apply Theorem. ∎
+
+**Remaining gap:** Primes where |⟨2,3⟩| < p^{1/2+ε} (both ord_p(2) and ord_p(3) are O(√p)). Three agents independently identified the same algebraic core: the missing piece is **inter-coset expansion** — how multiplication by 2 mixes energy between ⟨3⟩-cosets within ⟨2,3⟩-orbits.

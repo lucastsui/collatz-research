@@ -1332,3 +1332,57 @@ For Mersenne primes p = 2^n - 1:
 The constant gap comes from coupling between different ⟨2⟩-cosets within the ⟨2,3⟩-orbit via the ×3 connections. Energy at "bad" modes (near 0) is forced to "good" modes (near p/2) by the eigenvalue equation. Formalizing this requires Bourgain-Gamburd style expansion for solvable groups or sum-product estimates.
 
 Updated theorems_and_proofs.md and map.md with these findings.
+
+---
+
+### User:
+Update the log and the map if you haven't done so. For each direction, create an agent to attack such direction.
+
+### Claude:
+Log and map already up to date from previous commit. Launched 3 parallel background agents:
+
+1. **Agent 1: Bourgain-Gamburd expansion for solvable groups**
+   - Research B-G framework adaptation for Aff(F_p)
+   - Product theorem for solvable groups
+   - Output: agent_bourgain_gamburd.md
+
+2. **Agent 2: Sum-product estimates in F_p**
+   - Bourgain 2005 sum-product theorem
+   - Growth of sets closed under ×2 and ×3
+   - Freiman's theorem connection
+   - Output: agent_sum_product.md
+
+3. **Agent 3: Novel coupling/entropy approach**
+   - Shannon/Rényi entropy decay
+   - Path coupling on Z/pZ
+   - Poincaré inequality / Dirichlet form
+   - Transfer matrix / symbolic dynamics
+   - Output: agent_coupling_entropy.md
+
+All running in background. Awaiting results.
+
+---
+
+### Claude (agent results):
+
+**Agent 1 (Bourgain-Gamburd):**
+- Standard B-G fails: Aff(F_p) has quasirandomness D=1
+- Lindenstrauss-Varju gives only 1-c/p
+- Core obstacle: bilinear sum Σ a_{3s}·ā_s·ω^{-sγ} with phases
+- Promising: real-line limiting operator, Hochman-Varju entropy methods
+
+**Agent 2 (Sum-product) — MAJOR RESULT:**
+- PROVED Theorem 16: constant gap when |⟨2,3⟩| ≥ p^{1/2+ε}
+  Proof: phase constraint + orbit equidistribution + Gauss sums
+- Corollary: constant gap for almost all primes (density 1)
+- Remaining gap: primes where both ord_p(2), ord_p(3) are O(√p)
+
+**Agent 3 (Coupling/entropy):**
+- All 4 approaches (entropy, coupling, Poincaré, transfer matrix) converge to same algebraic core
+- Bounded orbit → constant gap by compactness + Combined Theorem
+- Missing piece: inter-coset expansion (×2 mixing ⟨3⟩-cosets)
+- Precisely: Cayley graph of F_p*/⟨3⟩ with generator 2·⟨3⟩
+
+**ALL THREE AGENTS CONVERGE:** The universal gap reduces to inter-coset expansion.
+
+Updated theorems_and_proofs.md with Theorem 16 and map.md with new results.

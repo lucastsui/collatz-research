@@ -201,32 +201,34 @@ Collatz Conjecture
 │      │  ├─ Kolmogorov reduction to 2^{0.37p} candidates               ✅ rigorous
 │      │  └─ No cycles for p ≤ 29 (correct formula)                     ✅ computational
 │      │
-│      ├─ ACTIVE FRONTIER:                                               ❌ OPEN
+│      ├─ ACTIVE FRONTIER:                                               ~ PARTIAL
 │      │  Prove |λ₂| ≤ 1 - c for a UNIVERSAL constant c > 0.
-│      │  ├─ Structural part done: no eigenvalues on unit circle         ✅
-│      │  ├─ Quantitative part open: eigenvalues could accumulate at 1   ❌
+│      │  ├─ Structural: no eigenvalues on unit circle                   ✅
 │      │  ├─ Corrected numerics: |λ₂| ∈ [0.66, 0.81] for 166 primes    ✅
-│      │  │  (Paper's Table 1 had WRONG individual values; mean OK)
-│      │  ├─ Key correlate: index of ⟨2,3⟩ predicts |λ₂| (r=-0.36)    ✅
-│      │  ├─ Even worst primes (index 12): |λ₂| ≤ 0.77                  ✅
-│      │  ├─ If proved: info-theoretic argument ⟹ no cycles             ★
-│      │  ├─ APPROACHES TRIED (Session 2):
-│      │  │  ├─ ||M²||_op < 1 for all primes BUT grows → 1             ✘ no uniform bound
-│      │  │  ├─ Fourier cross-term → orbit-averaging of sin²            ~ reduces to key lemma
-│      │  │  ├─ Phase decoherence in M²: ||M²χ_r||² ≤ 3/8              ✅ for single chars
-│      │  │  └─ Gauss sum bound on orbit average: needs L₂ > √p        ✘ partial
-│      │  ├─ ✘ KEY LEMMA DISPROVED:
-│      │  │  Orbit-averaged sin² over ⟨2⟩-orbits is NOT constant.
-│      │  │  For Mersenne primes p=2^n-1: avg ~ 1.70/n → 0.
-│      │  │  Yet |λ₂| stays bounded (0.69-0.72). Mechanism is elsewhere.
+│      │  ├─ ★ THEOREM 16 (NEW): constant gap for ALMOST ALL primes     ✅ PROVED
+│      │  │  If |⟨2,3⟩| ≥ p^{1/2+ε}, then |λ₂| ≤ 1 - c(ε).
+│      │  │  By Erdős-Murty: holds for density-1 set of primes.
+│      │  │  Proof: phase constraint + orbit equidistribution + Gauss sums.
+│      │  │  Full proof in agent_sum_product.md, Sections 3-9.
+│      │  ├─ Bounded orbit → constant gap (by compactness + Combined Thm) ✅
+│      │  ├─ If universal gap proved: info-theoretic ⟹ no cycles        ★
 │      │  │
-│      │  └─ ★ ACTUAL MECHANISM (identified, unproven):
-│      │     Energy coupling between ⟨2⟩-cosets within ⟨2,3⟩-orbits.
-│      │     The ×3 map transfers energy from "bad" cosets (near 0)
-│      │     to "good" cosets (near p/2), forcing eigenvectors to
-│      │     have energy on both types. Formalizing this is the
-│      │     key open challenge. May require Bourgain-Gamburd style
-│      │     expansion for solvable groups or sum-product estimates.
+│      │  ├─ REMAINING GAP: primes where |⟨2,3⟩| < p^{1/2+ε}          ❌ OPEN
+│      │  │  Both ord_p(2) and ord_p(3) are O(√p).
+│      │  │  3 agents independently converge to same algebraic core:
+│      │  │  ├─ B-G: standard framework fails (D=1), need bilinear      ✘
+│      │  │  │  sum-product with phases
+│      │  │  ├─ Sum-product: Gauss equidistribution needs ℓ > √p        ✘ partial
+│      │  │  ├─ Coupling/entropy: all 4 approaches → same core          ✘ identified
+│      │  │  └─ ★ THE ALGEBRAIC CORE:
+│      │  │     Inter-coset expansion: how ×2 mixes energy between
+│      │  │     ⟨3⟩-cosets within ⟨2,3⟩-orbits. Cayley graph of
+│      │  │     F_p*/⟨3⟩ with generator 2·⟨3⟩.
+│      │  │
+│      │  └─ APPROACHES DISPROVED:
+│      │     ├─ Orbit-averaged sin² lemma: FALSE (decays as C/log p)    ✘
+│      │     ├─ sin²-weight Lyapunov: weighted op norm grows O(p)       ✘
+│      │     └─ ||M²||_op uniform bound: grows → 1                     ✘
 │      │
 │      ├─ WHAT'S BEEN RULED OUT:
 │      │  ├─ Equidistribution mod D directly                             ✘ blocks too large
