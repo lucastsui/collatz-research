@@ -193,50 +193,69 @@ Collatz Conjecture
 │   │  │  This is the right theorem but INEFFECTIVE: cannot exclude x=2.
 │   │  │  An effective version would solve the problem.
 │   │  │
-│   │  ├─ 6b. 2-adic fixed-point theory                                 ❓ ★ PROMISING
-│   │  │  The cycle equation T^p(n₀) = n₀ is a FIXED-POINT problem
-│   │  │  on Z₂ (2-adic integers).
-│   │  │  KEY FACT: T^p has 2-adic derivative = 2^p (expanding map).
-│   │  │  Fixed points of expanding maps on Z₂ are isolated.
-│   │  │  TOOLS: Strassmann's theorem (bounds zeros of p-adic power
-│   │  │  series), Newton polygons (locates p-adic roots),
-│   │  │  Hensel's lemma (lifts solutions).
-│   │  │  ADVANTAGE: natively works with the full equation, no primes.
-│   │  │  CONNECTS TO: the Contraction-Expansion Duality (Sub-problem C).
-│   │  │  The real metric contracts (3^k/2^p), the 2-adic expands (2^p).
-│   │  │  A joint archimedean + non-archimedean analysis might give
-│   │  │  a contradiction for large p.
+│   │  ├─ 6b. 2-adic fixed-point theory                                 ✘ PREDICTED FAIL
+│   │  │  T^p is piecewise-linear on Z₂: 2^p branches, one per pattern.
+│   │  │  Each branch is affine: n → (3^k/2^p)n + C_I/2^p.
+│   │  │  Fixed point of branch I is n₀ = C_I/(2^p-3^k) = S(I)/D.
+│   │  │  So the fixed-point equation IS the cycle equation.
+│   │  │  Strassmann bounds zeros of analytic functions, but T^p is
+│   │  │  not analytic (piecewise). Tools repackage, don't escape.
+│   │  │  REASON: reduces to "S(I)/D ∉ Z_{>0}", same size-counting wall.
 │   │  │
-│   │  ├─ 6c. Polynomial method (Croot-Lev-Pach / capset style)        ❓
-│   │  │  S(I) = Σ 3^{k-j}·2^{i_j} is an ELEMENTARY SYMMETRIC FUNCTION
-│   │  │  of the variables γ_r = e^{2πit·3^{k-1}·2^r/q} (collatz_charsum.md).
-│   │  │  Symmetric functions have rigid algebraic structure.
-│   │  │  APPROACH: encode cycle equation as polynomial system,
-│   │  │  use slice rank or tensor methods for impossibility bounds.
-│   │  │  OBSTACLE: the polynomial has degree k ≈ 0.63p (growing),
-│   │  │  not fixed. Most polynomial method results need bounded degree.
+│   │  ├─ 6c. Polynomial method (Croot-Lev-Pach / capset style)        ✘ PREDICTED FAIL
+│   │  │  Encoding D|S(I) over a finite field F_q loses the SIZE info
+│   │  │  (D ≈ 2^p is exponentially large, invisible to fixed F_q).
+│   │  │  The 5% margin lives in the size comparison C(p,k) < D,
+│   │  │  which polynomial methods over fixed finite fields can't see.
+│   │  │  Degree k ≈ 0.63p is growing, not fixed.
+│   │  │  REASON: needs size of D vs S, which is lost over finite fields.
 │   │  │
-│   │  ├─ 6d. Transcendence / Subspace Theorem (Schmidt-Schlickewei)    ❓
-│   │  │  The cycle equation Σ 3^{k-j}·2^{i_j} = n₀(2^p - 3^k) is an
-│   │  │  S-UNIT EQUATION with S = {2,3}.
-│   │  │  The Subspace Theorem gives FINITENESS of non-degenerate
-│   │  │  solutions for fixed number of terms.
-│   │  │  OBSTACLE: k ≈ 0.63p terms (growing). Quantitative Subspace
-│   │  │  Theorem (Evertse-Schlickewei) gives bounds super-exponential in k.
-│   │  │  POSSIBLE FIX: the terms have very specific structure (geometric
-│   │  │  progressions in 2 and 3) — not generic S-unit equations.
-│   │  │  A structure-aware version might give polynomial bounds.
+│   │  ├─ 6d. Transcendence / Subspace Theorem (Schmidt-Schlickewei)    ✘ PREDICTED FAIL
+│   │  │  Corvaja-Zannier gives FINITENESS (confirmed in 6a'').
+│   │  │  Making it effective requires bounding HEIGHT of solutions,
+│   │  │  which for S-units with S = {2,3} reduces to Baker-type bounds
+│   │  │  on linear forms in logarithms → same exp(c√p) as Stewart.
+│   │  │  REASON: effective height bounds = Baker = abc barrier.
 │   │  │
-│   │  └─ 6e. Thermodynamic formalism / transfer operators              ❓
-│   │     View cycle as symbolic sequence in {0,1}^p.
-│   │     Define pressure P(β) = lim (1/p) log Σ_I |S(I)/D|^{-β}.
-│   │     If P(β) has a phase transition at β < ∞: cycles are excluded
-│   │     by an "entropy vs energy" argument (too few patterns with
-│   │     S(I) ≡ 0 to overcome the combinatorial entropy of patterns).
-│   │     CONNECTS TO: the 5% margin. The entropy of patterns is
-│   │     H ≈ 0.95p bits, the "energy cost" of divisibility is ≈ p bits.
-│   │     Deficit = 0.05p bits. Thermodynamic methods might make this
-│   │     rigorous without decomposing into primes.
+│   │  ├─ 6e. Thermodynamic formalism / transfer operators              ✘ PREDICTED FAIL
+│   │  │  Pressure P(β) = lim (1/p) log Σ|S(I)/D|^{-β}.
+│   │  │  P(0) ≈ 0.95 (entropy), P(1) ≈ -0.05 (subcritical).
+│   │  │  Phase transition EXISTS at β* < 1. But making P(1) < 0
+│   │  │  rigorous requires Σ|S(I)/D|^{-1} → 0, which IS the
+│   │  │  expected-count-goes-to-zero problem = the original conjecture.
+│   │  │  REASON: rigorous pressure = rigorous expected count = abc.
+│   │  │
+│   │  ├─ 6f. WHY ALL THESE FAIL (the meta-theorem):                    ⚠ KEY INSIGHT
+│   │  │  Any method that treats S(I) and D as "generic" integers of
+│   │  │  their respective sizes will need to prove 2^{0.95p} random
+│   │  │  trials don't hit a target of size 2^p. That's trivially true
+│   │  │  (probability 2^{-0.05p}) but making it rigorous for the
+│   │  │  SPECIFIC S(I) and D requires controlling their arithmetic
+│   │  │  interaction — which is abc. Every framework encounters this
+│   │  │  because they all ultimately do size-counting.
+│   │  │
+│   │  └─ 6g. STRUCTURE-EXPLOITING METHODS                              ❓ ★ TRUE FRONTIER
+│   │     The only escape: a method that uses the SPECIFIC ALGEBRAIC
+│   │     STRUCTURE of S(I) = Σ 3^{k-j} · 2^{i_j}, not just its size.
+│   │     │
+│   │     The terms are products of powers of 2 and 3 with GEOMETRIC
+│   │     coefficients (3^{k-1}, 3^{k-2}, ..., 3, 1). This is not a
+│   │     generic sum — it has rigid combinatorial structure:
+│   │     ├─ The coefficients form a geometric progression in 3
+│   │     ├─ The exponents i_j are an ORDERED subset of {0,...,p-1}
+│   │     ├─ S(I) = elementary symmetric function of specific roots
+│   │     │  (collatz_charsum.md: reversal trick removes rank-dependence)
+│   │     ├─ S(I) encodes the trajectory: each term corresponds to
+│   │     │  one odd step of the Collatz map
+│   │     └─ The constraint D|S means the trajectory CLOSES — this is
+│   │        a dynamical condition, not just a number-theoretic one
+│   │     │
+│   │     WHAT'S NEEDED: a method that sees the difference between
+│   │     "a generic integer of size 2^{0.95p}" and "this specific
+│   │     structured sum of {2,3}-smooth terms with geometric weights."
+│   │     │
+│   │     No known mathematical framework does this at the required
+│   │     scale. This is the TRUE frontier of the problem.
 │   │
 │   ├─ 7. FAILED APPROACHES (comprehensive list)
 │   │  ├─ Equidistribution mod D directly                               ✘ blocks > p
