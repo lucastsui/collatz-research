@@ -1526,3 +1526,25 @@ The parity tower is algebraically identical to the cycle equation — provides N
 - No upward trend
 
 **Conclusion:** The carry analysis path reformulates but doesn't resolve the conjecture. The decorrelation between S(I)/D and the trajectory parity IS the conjecture. The spectral gap is empirically universal but theoretically unproved for the last density-zero set.
+
+---
+
+### Claude (Round 14 complete):
+
+**Agent 1 (prime-power sieve): HONEST NEGATIVE**
+- Hensel lifting proved, equidistribution mod q^e proved
+- BUT: D is typically squarefree (93%), so prime powers give zero advantage
+- The obstruction is primes q|D with small ord_q(2), not prime powers
+- Reduces abc to "bad primes product < 2^{0.05p}" — weaker but still unproven
+- The fundamental barrier persists
+
+**Agent 2 (quotient-graph): CLEANER FORMULATION but same obstruction**
+- Modes don't decouple; cocycle is unitary
+- Everything reduces to bounding F_i(0) = (1/L)Σω^{3^j r_i}
+- Same exponential sum obstacle as before
+
+**prime_power_lift_obstruction.md: MOSTLY CORRECT**
+- Sections 1-4 correct (conductor reduction, Gauss bound)
+- Section 5 overstates: CRT is algebraic, not probabilistic
+- Real obstruction: large primes q|D with ord_q(2) > p (blocks don't fit)
+- But the deeper issue: for squarefree D, prime powers don't help at all
