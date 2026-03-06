@@ -90,7 +90,12 @@ Collatz Conjecture
 │   │  │  ★ Prove the channel error rate δ is bounded away from 0
 │   │  │  ★ i.e., prove the spectral gap is CONSTANT (not c/p)
 │   │  │  ★ Proved: δ ≥ c/p. Measured: δ ≈ 0.30. Gap: c/p vs constant.
-│   │  ├─ If δ = Ω(1): information theory proves no nontrivial cycles
+│   │  ├─ ⚠ CORRECTION (Session 2): spectral gap alone does NOT
+│   │  │  prove no cycles. The gap gives equidistribution mod each
+│   │  │  prime q separately, but the SIEVE combining across primes
+│   │  │  still needs rad(D) > C(p,k) ≈ 2^{0.95p} (the abc barrier).
+│   │  │  Spectral gap is ONE ingredient, not the whole proof.
+│   │  │  Two things needed: (1) constant gap AND (2) rad(D) large.
 │   │  │
 │   │  PROOF ATTEMPT (Round 10):
 │   │  ├─ PROVED: ||Mχ_r||² = ½ exactly for all r ≠ 0                  ✅
