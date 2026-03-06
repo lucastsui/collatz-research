@@ -176,17 +176,16 @@ Collatz Conjecture
 │   │  │  divisibility at (2,3). Resultants, Wronskians also fail.
 │   │  │  Full analysis: agent_function_field.md
 │   │  │
-│   │  ├─ 6a'. Mihailescu-style cyclotomic methods                      ❓ ★ MOST PROMISING
-│   │  │  DISCOVERED via 6a investigation. The factorization
-│   │  │  D = 2^p - 3^k = ∏(2 - ζ^m · 3^{k/p}) in Q(ζ_p, 3^{1/p})
-│   │  │  is how Mihailescu proved Catalan's conjecture (2002).
-│   │  │  Tools: Stickelberger's theorem, Thaine's theorem on circular
-│   │  │  units, class group annihilation.
-│   │  │  These operate on the ARITHMETIC of D, not polynomial structure.
-│   │  │  QUESTION: can the divisibility D|S(I) be constrained using
-│   │  │  the cyclotomic factorization of D?
-│   │  │  CONNECTS TO: Catalan's conjecture is the case S = D (n₀ = 1).
-│   │  │  Our problem generalizes: S = n₀·D with n₀ ≥ 1, S structured.
+│   │  ├─ 6a'. Mihailescu-style cyclotomic methods                      ✘ EXPLORED, FAILS
+│   │  │  D = 2^p - 3^k = ∏(2 - ζ^m · 3^{k/p}) in Q(ζ_p, 3^{1/p}).
+│   │  │  Mihailescu's proof requires D = 1 (Catalan): cyclotomic factors
+│   │  │  are UNITS → rigidly constrained by Stickelberger/Thaine/Wieferich.
+│   │  │  For D >> 1 (Collatz): factors generate non-principal ideals,
+│   │  │  behavior absorbed by CLASS GROUP. Controlling the class group
+│   │  │  IS the abc conjecture in algebraic-number-theoretic language.
+│   │  │  Stickelberger doesn't apply (K/Q non-abelian). No Wieferich
+│   │  │  condition derivable. Norm constraints vacuous over Q.
+│   │  │  Full analysis: agent_mihailescu.md
 │   │  │
 │   │  ├─ 6a''. Corvaja-Zannier / Subspace Theorem                     ~ FINITENESS ONLY
 │   │  │  Since x^p - 3^k is irreducible over Q, Corvaja-Zannier (2004)

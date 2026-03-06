@@ -1564,3 +1564,22 @@ BUT discovered two promising leads:
 
 Updated map: 6a marked as explored/fails, added 6a' (Mihailescu) and 6a'' (Corvaja-Zannier).
 Full analysis: agent_function_field.md
+
+---
+
+### User:
+explore 6a'. Mihailescu-style cyclotomic methods
+
+### Claude:
+Launched agent. Result: Mihailescu approach FAILS.
+
+Core reason: Mihailescu's proof requires D = 1 (Catalan). This forces
+cyclotomic factors to be UNITS → rigidly constrained. For D >> 1 (Collatz),
+factors generate non-principal ideals. The class group absorbs all constraints.
+Controlling the class group IS the abc conjecture in algebraic language.
+
+Stickelberger doesn't apply (K/Q non-abelian). No Wieferich condition.
+Norm constraints vacuous. The abc barrier appears in every formulation.
+
+Updated map: 6a' marked as explored/fails.
+Full analysis: agent_mihailescu.md
