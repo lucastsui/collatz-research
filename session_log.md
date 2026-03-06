@@ -1408,3 +1408,37 @@ Strategic analysis of the map revealed:
    - abc gives (2), but unconditionally Stewart only gives rad ≥ exp(c√p)
    - Binary carry analysis (Agent C) might bypass both the gap and abc barriers entirely
    - This is the most novel direction
+
+---
+
+### Claude (Round 11 agents complete):
+
+**Agent A (Theorem 16 verification): CORRECT WITH GAPS**
+- All gaps fixable (~1 page additional argument)
+- Key gap: ×(3/2) invariance needs eigenvalue equation for ×2 first
+- The theorem is sound as stated
+
+**Agent B (Universal gap): NEW IDEAS but not closed**
+- CDG product + phase condition → (2|λ|)^{L₂} = shifted cosine product
+- Exact case forces |λ| = 1/2 (base case)
+- Jensen + Gauss gives |λ| ≤ 1/√2 when L₂ ≥ √p (EXPLAINS numerics!)
+- Bootstrap gives η ≥ 3/4 but error term grows with L₂
+- Middle range still open
+
+**Agent C (Binary carry analysis): NEW APPROACH**
+- Proved Carry Weight Identity: W_c = Σs₁(3^m) - s₁(n₀D)
+- 2-adic cascade determines n₀ bit-by-bit (deterministic, no abc needed)
+- Carry weight W_c = Θ(p²) for any valid cycle
+- Conditional no-cycles under carry independence assumption
+- Gap: provides ~2^{0.05p} factor, need 2^{0.95p}
+
+**Agent D (Radical of D): NEW BOUND?**
+- D squarefree for 53/57 tested p values
+- log₂(rad)/p ≥ 0.82 for p ≥ 9 (close to 0.95 target)
+- Potential bound log rad ≥ c·p/log p (needs expert verification)
+- Still factor log p short of abc
+
+**CRITICAL CORRECTION:** "spectral gap alone → no cycles" was WRONG.
+Two ingredients needed: (1) constant gap AND (2) rad(D) > 2^{0.95p}.
+
+**MAP UPDATED with Round 11 results and synthesis of two independent paths.**

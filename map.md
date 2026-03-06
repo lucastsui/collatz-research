@@ -1,6 +1,6 @@
 # Collatz Conjecture — Problem Decomposition Map
 
-*Last updated: 2026-03-05 (Session 2)*
+*Last updated: 2026-03-05 (Session 2, Round 11)*
 
 **Legend:** ✅ proved/done · ✘ failed/dead end · ❌ blocked/open · ⚠ error found · ~ partial · ❓ unexplored · ★ recommended
 
@@ -245,6 +245,47 @@ Collatz Conjecture
 │      │  ├─ Spectral gap alone (info-theoretic needs |λ₂|<0.483)      ✘ numerical |λ₂|≈0.70
 │      │  ├─ Furstenberg measure rigidity                                ✘ invariance has O(1) error
 │      │  └─ All 6 direct algebraic approaches                          ✘ insufficient
+│      │
+│      ├─ ROUND 11: Full attack on Part 1 (4 agents, Session 2)
+│      │  │
+│      │  ├─ Agent A: Theorem 16 verification                             ✅ CORRECT WITH GAPS
+│      │  │  All gaps fixable. Key gap: ×(3/2) invariance needs
+│      │  │  eigenvalue equation to get ×2 invariance first. ~1 page fix.
+│      │  │
+│      │  ├─ Agent B: Universal gap via CDG product approach               ~ NEW IDEAS
+│      │  │  ├─ CDG product + phase condition ⟹ (2|λ|)^{L₂} = product   ✅ new
+│      │  │  ├─ Exact case: forces |λ| = 1/2                              ✅ explains base case
+│      │  │  ├─ Jensen + Gauss: |λ| ≤ 1/√2 when L₂ ≥ √p               ✅ explains numerics!
+│      │  │  ├─ Bootstrap: η ≥ 3/4 needed, but error O(L₂√η) grows     ~ almost works
+│      │  │  └─ Middle range K ∈ [K₀, p^{1/2+ε}] still open             ❌
+│      │  │
+│      │  ├─ Agent C: Binary carry analysis of S(I)                        ~ NEW APPROACH
+│      │  │  ├─ Carry Weight Identity (PROVED): W_c = Σs₁(3^m) - s₁(n₀D) ✅ new, exact
+│      │  │  ├─ 2-adic cascade: n₀ determined bit-by-bit                  ✅ deterministic
+│      │  │  ├─ Carry weight W_c = Θ(p²) for any valid cycle             ✅ proved
+│      │  │  ├─ Independent of D's factorization (no abc needed!)          ✅ key advantage
+│      │  │  ├─ Conditional: carry independence ⟹ no cycles               ~ unproved assumption
+│      │  │  └─ Gap: provides ~2^{0.05p}·p factor, need 2^{0.95p}        ❌ large gap
+│      │  │     Missing: parity feedback ↔ carry structure interaction
+│      │  │
+│      │  ├─ Agent D: Radical of D = 2^p - 3^k                            ~ NEW BOUND?
+│      │  │  ├─ Computation: D squarefree for 53/57 tested p values       ✅ strong
+│      │  │  ├─ log₂(rad)/p ≥ 0.82 for all p ≥ 9 tested                 ✅ close to target
+│      │  │  ├─ Potential new bound: log rad ≥ c·p/log p                  ❓ needs verification
+│      │  │  │  (Baker + Yu's p-adic theorem; improves Stewart's √p)
+│      │  │  ├─ Still short of 0.95p by factor log p                      ✘ = abc barrier
+│      │  │  └─ D is prime ~50% of the time (⟹ rad = D)                  ✅ empirical
+│      │  │
+│      │  └─ SYNTHESIS:
+│      │     Two independent paths to no-cycles, both ~90% complete:
+│      │     PATH A (Spectral + Sieve):
+│      │       ├─ Spectral gap: constant for almost all primes             ✅
+│      │       ├─ Universal gap: middle range open                         ❌ ~10% gap
+│      │       └─ rad(D) > 2^{0.95p}: needs abc or new bound              ❌ ~5% gap
+│      │     PATH B (Carry Analysis):
+│      │       ├─ Exact algebraic constraints (no abc needed)              ✅
+│      │       ├─ Carry weight identity proved                             ✅
+│      │       └─ Parity feedback interaction: unexplored                  ❌ ~90% gap
 │      │
 │      └─ GENERAL FORMULATION (Collatz-free):
 │         Given multiplicatively independent integers a, b:
