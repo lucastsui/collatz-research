@@ -551,6 +551,18 @@ Collatz Conjecture
 │   │     Specific case may be weaker than full abc/Vojta.
 │   │     File: fermat_curve_height.md
 │   │     │
+│   │     SELF-REFERENTIALITY HUNCH (Session 8):               ★ FUTURE THREAD
+│   │     β = 2/3 mod D, D = 2^p - 3^k, perturbations are 2^{e_j}.
+│   │     All three (the ratio, the modulus, the perturbations) are
+│   │     built from the SAME two primes (2 and 3). They are not
+│   │     independent objects. The geometric sum Σ β^j wraps around
+│   │     Z/DZ, but the wrapping is constrained by β^k = 2^{k-p} mod D
+│   │     — which ties the sum length k to the modulus D.
+│   │     A "generic" sum over a "generic" modulus would hit 0 at rate
+│   │     1/D. But this sum over THIS modulus might be algebraically
+│   │     prevented from hitting 0, precisely because they share the
+│   │     same DNA (2 and 3). Unexploited. May be the real proof path.
+│   │     │
 │   │     No known framework. Likely requires genuinely new mathematics.
 │   │     Full task specification: TASK_6g_structured_non_divisibility.md
 │   │     │
