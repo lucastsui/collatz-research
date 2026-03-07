@@ -4,7 +4,7 @@
 
 We record three observations on the Collatz no-cycles problem.
 
-**1. Consecutive-position theorem.** We prove that $D = 2^p - 3^k$ does not divide $3^k - 2^k$ for any $p, k$ with $D \geq 2$. The proof is elementary (oddness of $D$ + size comparison). This implies that no Collatz cycle has its odd steps at consecutive positions.
+**1. Consecutive-position theorem.** We prove that $D = 2^p - 3^k$ does not divide $3^k - 2^k$ for any $p, k$ with $D \geq 2$. The proof uses oddness of $D$, a size comparison, and monotonicity reduction to the minimal $p$ per $k$. Proved for all $k \leq 20000$ by exact computation; the asymptotic completion via LMN linear forms bounds is sketched but the explicit constant specialization is deferred. This implies that no Collatz cycle has its odd steps at consecutive positions.
 
 **2. Cascade-Syracuse identity.** For any odd $n$ and any $k \geq 1$, the cascade walk $w_0 = 1$, $w_m = 3w_{m-1} + 2^{A_m}$ satisfies $w_{k-1} + 3^k n = S^k(n) \cdot 2^{A_k}$, where $S^k(n)$ is the $k$-th Syracuse iterate. When $n$ reaches 1 in $t$ steps, this specializes to $w_t = 4 \cdot 2^A - 3^{t+1} n$. The identity is a telescoping consequence of the Syracuse recurrence.
 
@@ -18,7 +18,7 @@ We record three observations on the Collatz no-cycles problem.
 
 ## 1. Consecutive-Position Theorem
 
-**Theorem 1.** *For all integers $p \geq 3$ and $k \geq 1$ with $D = 2^p - 3^k \geq 2$: $D$ does not divide $3^k - 2^k$.*
+**Theorem 1.** *For all integers $p \geq 3$ and $1 \leq k \leq 20000$ with $D = 2^p - 3^k \geq 2$: $D$ does not divide $3^k - 2^k$. (Conjectured to hold for all $k \geq 1$; see Step 5 of the full proof in `theorem_consecutive_positions.md` for an asymptotic sketch.)*
 
 **Proof.** Since $D$ is odd and $3^k - 2^k + D = 2^k(2^{p-k} - 1)$, we have $D \mid (3^k - 2^k)$ iff $D \mid (2^{p-k} - 1)$. We show $0 < 2^{p-k} - 1 < D$.
 
@@ -28,7 +28,7 @@ From $D \geq 2$: $2^{p-k} \geq (3^k + 2)/2^k$, so
 
 $$2^{p-k}(2^k - 1) \geq (3^k + 2)(1 - 2^{-k}) = 3^k + 2 - (3/2)^k - 2^{1-k}.$$
 
-Define $F_k(p) = 2^{p-k}(2^k-1)-(3^k-1)$. Since $F_k$ is increasing in $p$, it suffices to verify $F_k(p_{\min}(k)) > 0$ where $p_{\min}(k) = \lceil \log_2(3^k+2) \rceil$. Equivalently: $2^{p_{\min}} > (3^k-1) \cdot 2^k/(2^k-1)$. For $k=1$: $8 > 4$. For $k=2$: $16 > 32/3$. For $k \geq 3$: verified computationally for all $k \leq 500$ using exact integer arithmetic. (See `theorem_consecutive_positions.md` for the full proof including the asymptotic argument via Laurent-Mignotte-Nesterenko 1995.) $\square$
+Define $F_k(p) = 2^{p-k}(2^k-1)-(3^k-1)$. Since $F_k$ is increasing in $p$, it suffices to verify $F_k(p_{\min}(k)) > 0$ where $p_{\min}(k)$ is the least integer $p$ with $2^p \geq 3^k + 2$. Equivalently: $2^{p_{\min}} > (3^k-1) \cdot 2^k/(2^k-1)$. For $k=1$: $8 > 4$. For $k=2$: $16 > 32/3$. For $3 \leq k \leq 20000$: verified by exact integer computation. An asymptotic argument via LMN (1995) is sketched in `theorem_consecutive_positions.md` but the explicit constant derivation is deferred.
 
 **Corollary.** No Collatz cycle has its $k$ odd steps at positions $\{m, m+1, \ldots, m+k-1\}$ for any $m$. (The shifted sum $2^m(3^k - 2^k)$ is also indivisible by the odd number $D$.)
 

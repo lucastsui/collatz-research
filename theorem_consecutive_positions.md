@@ -2,40 +2,58 @@
 
 ## Statement
 
-**Theorem.** For all integers $p \geq 3$ and $k \geq 1$ with $D = 2^p - 3^k \geq 2$: $D$ does not divide $3^k - 2^k$.
+**Theorem.** For all integers $p \geq 3$ and $1 \leq k \leq 20000$ with $D = 2^p - 3^k \geq 2$: $D$ does not divide $3^k - 2^k$.
 
-**Consequence.** No nontrivial Collatz cycle has its $k$ odd steps at consecutive positions $\{0, 1, \ldots, k-1\}$, nor at any shifted block $\{m, m+1, \ldots, m+k-1\}$.
+**Conjecture.** The same holds for all $k \geq 1$. A proof sketch for the asymptotic case $k > 20000$ via linear forms in logarithms is given in Step 5, but the explicit constant specialization is not completed here.
+
+**Consequence.** In the standard formulation of the Collatz cycle equation, the cycle sum for positions $I = \{i_1, \ldots, i_k\}$ is $S(I) = \sum_{j=1}^{k} 3^{k-j} \cdot 2^{i_j}$, and a cycle requires $D \mid S(I)$ where $D = 2^p - 3^k$ (see e.g. Steiner 1977, Eliahou 1993). For consecutive positions $I = \{0,1,\ldots,k-1\}$: $S = 3^k - 2^k$ (geometric series). The theorem shows $D \nmid (3^k - 2^k)$, so no cycle uses consecutive positions. More generally, any shifted block $\{m, m+1, \ldots, m+k-1\}$ gives $S = 2^m(3^k-2^k)$, also indivisible by the odd $D$.
 
 ## Proof
 
-**Step 1: Reduction.** Since $D$ is odd and $3^k - 2^k + D = 2^k(2^{p-k}-1)$, we have $D \mid (3^k - 2^k)$ iff $D \mid (2^{p-k}-1)$. It suffices to show $0 < 2^{p-k}-1 < D$.
+**Step 1: Reduction.** Since $D \geq 2$ and $2^k < 3^k \leq 2^p - 2$, we have $p > k$, so $2^{p-k} - 1$ is a positive integer. Since $D = 2^p - 3^k$ is odd (as $2^p$ is even and $3^k$ is odd), $\gcd(D, 2^k) = 1$. From the identity
 
-**Step 2: Monotonicity reduction.** Define $F_k(p) = 2^{p-k}(2^k-1) - (3^k-1)$. Then $2^{p-k}-1 < D$ iff $F_k(p) > 0$. Since $F_k$ is strictly increasing in $p$, it suffices to verify $F_k(p_{\min}(k)) > 0$ where $p_{\min}(k) = \lceil \log_2(3^k+2) \rceil$ is the smallest $p$ with $D \geq 2$.
+$$3^k - 2^k + D = 2^p - 2^k = 2^k(2^{p-k} - 1),$$
 
-**Step 3: Verification.** Equivalently, we need $2^{p_{\min}} > (3^k-1) \cdot 2^k / (2^k-1)$ for all $k \geq 1$. Verified computationally for all $k \leq 500$:
+it follows that $D \mid (3^k - 2^k)$ if and only if $D \mid 2^k(2^{p-k} - 1)$, which (by coprimality) holds if and only if $D \mid (2^{p-k} - 1)$.
 
-| $k$ | $2^{p_{\min}}$ | Bound $(3^k-1) \cdot 2^k/(2^k-1)$ | Margin |
-|-----|------------|-------------|--------|
-| 1 | 8 | 4.0 | 4.0 |
-| 2 | 16 | 10.7 | 5.3 |
-| 3 | 32 | 29.7 | 2.3 |
-| 5 | 256 | 249.8 | 6.2 |
-| 10 | 65536 | 59105.7 | 6430.3 |
-| 20 | $4.3 \times 10^9$ | $3.5 \times 10^9$ | $8.1 \times 10^8$ |
-| 50 | $\approx 2^{80}$ | $\approx 3^{50}$ | large |
+Since $2^{p-k} - 1 > 0$, it suffices to show $2^{p-k} - 1 < D$.
 
-The margin $2^{p_{\min}} - (3^k-1) \cdot 2^k/(2^k-1)$ is positive in every case. For $k \leq 2$: the bound follows from the elementary estimates in the appendix. For $k \geq 3$: $p_{\min}$ and the bound are computed exactly using integer arithmetic. $\square$
+**Step 2: Reformulation.** The inequality $2^{p-k}-1 < D = 2^p - 3^k$ is equivalent to
 
-**Remark on asymptotics.** For $k \to \infty$, the bound $(3^k-1)\cdot 2^k/(2^k-1) \approx 3^k$, and $2^{p_{\min}} \geq 3^k + 2$. The margin $2^{p_{\min}} - 3^k = D_{\min}(k)$ is the smallest value of $|2^p - 3^k|$ over integers $p$. By the results of Laurent, Mignotte, and Nesterenko (1995, Theorem 2) on linear forms in two logarithms, $D_{\min}(k)$ grows at least as $\exp(c \cdot \sqrt{k})$ for an effective constant $c > 0$, which exceeds the threshold $\approx (3/2)^k \cdot 2^{-k} \cdot (2^k/(2^k-1) - 1) \to 0$ for all sufficiently large $k$. The computational verification to $k = 500$ covers the non-asymptotic range.
+$$F_k(p) := 2^{p-k}(2^k - 1) - (3^k - 1) > 0. \qquad (*)$$
 
-## Appendix: Elementary proof for k ≤ 2
+Since $F_k$ is strictly increasing in $p$ (as $2^{p-k}$ doubles when $p$ increases by 1), it suffices to verify $(*)$ at $p = p_{\min}(k)$, the smallest integer $p$ with $D = 2^p - 3^k \geq 2$.
 
-**$k = 1$:** $F_1(p) = 2^{p-1} - 2$. For $D \geq 2$: $p \geq 3$, so $2^{p-1} \geq 4 > 2$. $\checkmark$
+**Step 3: Elementary cases.** $k = 1$: $p_{\min} = 3$, $F_1(3) = 2^2 \cdot 1 - 2 = 2 > 0$. $k = 2$: $p_{\min} = 4$, $F_2(4) = 2^2 \cdot 3 - 8 = 4 > 0$.
 
-**$k = 2$:** $F_2(p) = 3 \cdot 2^{p-2} - 8$. For $D \geq 2$: $p \geq 4$, so $3 \cdot 2^{p-2} \geq 12 > 8$. $\checkmark$
+**Step 4: Computational verification for $3 \leq k \leq 20000$.** For each $k$ in this range, compute $p_{\min}(k)$, the least integer $p$ with $2^p \geq 3^k + 2$, and verify $F_k(p_{\min}) > 0$ using exact integer arithmetic. No counterexample found. Selected values:
 
-## Context
+| $k$ | $p_{\min}$ | $F_k(p_{\min})$ | $D_{\min}$ |
+|-----|-----------|-----------------|------------|
+| 3 | 5 | 2 | 5 |
+| 5 | 8 | 6 | 13 |
+| 10 | 16 | 6424 | 6487 |
+| 50 | 80 | $\approx 4.9 \times 10^{23}$ | $\approx 4.9 \times 10^{23}$ |
+| 100 | 159 | $\approx 2.2 \times 10^{47}$ | $\approx 2.2 \times 10^{47}$ |
+| 500 | 793 | $\approx 1.6 \times 10^{238}$ | $\approx 1.6 \times 10^{238}$ |
+| 2000 | 3170 | $\approx 9.3 \times 10^{953}$ | $\approx 9.3 \times 10^{953}$ |
 
-For the Collatz cycle equation with $k$ odd steps at positions $I = \{i_1, \ldots, i_k\}$, the cycle sum is $S(I) = \sum_{j=1}^k 3^{k-j} \cdot 2^{i_j}$. For consecutive $I = \{0, 1, \ldots, k-1\}$: $S = 3^k - 2^k$ (geometric series). The theorem shows $D \nmid (3^k - 2^k)$. The shift to $\{m, m+1, \ldots, m+k-1\}$ gives $S = 2^m(3^k - 2^k)$, also indivisible by the odd $D$.
+**Step 5: Asymptotic argument for $k > 20000$.** Define $\Lambda_k = p_{\min}(k) \log 2 - k \log 3 > 0$. Then $D_{\min} = 3^k(e^{\Lambda_k} - 1)$. The inequality $(*)$ requires $D_{\min} > (3^k - 2^k)/(2^k - 1)$, i.e.,
 
-This is a structural constraint: any nontrivial cycle must have at least one gap in its odd-step positions.
+$$3^k(e^{\Lambda_k} - 1) > \frac{3^k - 2^k}{2^k - 1}.$$
+
+Dividing by $3^k$ and noting $(3^k - 2^k)/(3^k(2^k-1)) = (1-(2/3)^k)/(2^k-1) < 1/2^{k-1}$:
+
+$$e^{\Lambda_k} - 1 > \frac{1}{2^{k-1}}.$$
+
+For small $\Lambda_k$: $e^{\Lambda_k} - 1 \geq \Lambda_k$, so it suffices to show $\Lambda_k > 2^{1-k}$.
+
+By Theorem 2 of Laurent, Mignotte, and Nesterenko (*J. Number Theory* 55, 1995, pp. 285--321), applied to the linear form $\Lambda = b_1 \log \alpha_1 - b_2 \log \alpha_2$ with $\alpha_1 = 2$, $\alpha_2 = 3$, $b_1 = p_{\min} < 2k$, $b_2 = k$, one obtains a lower bound of the form
+
+$$\log \Lambda_k > -C_0$$
+
+where $C_0$ depends polynomially on $\log k$ (specifically, $C_0 = O((\log k)^2)$ after specializing the LMN parameters $D$, $h(\alpha_i)$, and $b'$ to $\alpha_1 = 2$, $\alpha_2 = 3$). The required inequality $\Lambda_k > 2^{1-k}$ then follows whenever $C_0 < (k-1)\log 2$, which holds for $k$ exceeding an explicit computable threshold $K_0$.
+
+**Remark.** The precise value of $K_0$ depends on the explicit constants obtained by specializing the LMN theorem to $(\alpha_1, \alpha_2) = (2, 3)$. This specialization (deriving the explicit constant $C$ and verifying $K_0 \leq 20000$) is not carried out here. The computational verification to $k = 20000$ is expected to provide sufficient margin, but until the LMN specialization is completed, Step 5 should be regarded as a proof sketch rather than a finished argument.
+
+**Status.** The theorem is proved for all $k \leq 20000$ (Steps 1--4). The asymptotic completion (Step 5) requires an explicit specialization of the LMN linear forms bound to $(\alpha_1, \alpha_2) = (2, 3)$, which is deferred.
