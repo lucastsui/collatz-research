@@ -1,6 +1,6 @@
 # Collatz Conjecture — Problem Decomposition Map
 
-*Last updated: 2026-03-06 (Session 7)*
+*Last updated: 2026-03-06 (Session 8)*
 
 **Legend:** ✅ proved/done · ✘ failed/dead end · ❌ blocked/open · ⚠ error found · ~ partial · ❓ unexplored · ★ recommended
 
@@ -106,6 +106,12 @@ Collatz Conjecture
 │   │  │  contains elements of ALL sizes and shapes. No height-based
 │   │  │  method can distinguish "structured sparse" from "generic"
 │   │  │  elements within a single residue class of R/(x-2)R ~ Z/DZ.
+│   │  │
+│   │  │  NOTE: This used the SINGLE-variable ring R = Z[x]/(x^p - 3^k).
+│   │  │  The later Fermat curve framework (Session 8 late) uses the
+│   │  │  TWO-variable ring A = Z[s,t]/(t^p - s^k), which has a DUAL
+│   │  │  degree bound and richer geometric structure. The failure of 0B
+│   │  │  does not preclude the Fermat curve approach.
 │   │  │  File: arakelov_0B.md, arakelov_verify.py
 │   │
 │   ├─ 0D. TRANSVERSAL ZERO-SUM BARRIER                               ★ NEW FRAMEWORK
@@ -503,6 +509,48 @@ Collatz Conjecture
 │   │     ├─ Baker: bounds |Σ β_i log α_i|, continuous not discrete
 │   │     └─ Corvaja-Zannier: finiteness of integer points, ineffective
 │   │     │
+│   │     THE FUNCTION FIELD KEY (Session 8):                     ★ DEEPEST INSIGHT
+│   │     Over F_q[t], the cycle equation is TRIVIALLY unsolvable:
+│   │     deg(S) = i_k ≤ p-1 < p = deg(D), and S ≠ 0. One line.
+│   │     This works because: (1) the degree is ultrametric,
+│   │     (2) coefficients (= constants in F_q) have degree 0, and
+│   │     (3) divisibility respects degree.
+│   │     Over Z, the proof breaks at OSTROWSKI'S THEOREM: no
+│   │     non-archimedean absolute value on Q has |2| > 1 (needed
+│   │     for the degree gap) because |2| = |1+1| ≤ max(|1|,|1|) = 1.
+│   │     The GAP-CONSTRAINT DICHOTOMY: "top" (highest 2-power)
+│   │     gives the gap but not the divisibility constraint; "bottom"
+│   │     (v_2) gives the constraint but not the gap. Function field
+│   │     degree gives BOTH. No single measure on Q gives both.
+│   │     THIS UNIFIES ALL THREE BARRIERS: they are all consequences
+│   │     of Q having exactly one archimedean place (not ultrametric).
+│   │     A proof requires: a "smooth degree" on Z with |2|>1, |3|=1,
+│   │     ultrametric — bypassing Ostrowski via ring extension, F_1-
+│   │     geometry, or a fundamentally different proof structure.
+│   │     File: function_field_collatz.md
+│   │     │
+│   │     FERMAT CURVE HEIGHT FRAMEWORK (Session 8, late):       ★ NEW DIRECTION
+│   │     The cycle equation D|S(I) is equivalent to IDEAL MEMBERSHIP:
+│   │     R_I in (s-3, t-2) inside A/DA, where A = Z[s,t]/(t^p - s^k)
+│   │     is the coordinate ring of the Fermat curve C: t^p = s^k.
+│   │     R_I(s,t) = sum s^{k-j} t^{i_j} is the two-variable lift.
+│   │     KEY: R_I has DUAL DEGREE BOUND: deg_s < k AND deg_t < p,
+│   │     strictly less than D in BOTH variables. Over Q, this makes
+│   │     ideal membership impossible (= function field proof).
+│   │     Over Z/DZ, the question is open.
+│   │     R_I has STAIRCASE structure: k nonzero 0-1 entries at
+│   │     positions (k-j, i_j) forming a monotone anti-diagonal.
+│   │     THE TWO-CONSTRAINT INSIGHT: The function field proof uses
+│   │     only Constraint 1 (degree). The integer proof may need BOTH
+│   │     Constraint 1 (bidegree on C) AND Constraint 2 (D|S(I)).
+│   │     The function field proof is an "incomplete shadow" —
+│   │     a degenerate case where one constraint suffices.
+│   │     PROPOSED: Collatz = HEIGHT INEQUALITY on Fermat curve C,
+│   │     for staircase functions evaluated at (3,2) mod D.
+│   │     Connects to: Arakelov theory, Vojta's conjecture, Frey curves.
+│   │     Specific case may be weaker than full abc/Vojta.
+│   │     File: fermat_curve_height.md
+│   │     │
 │   │     No known framework. Likely requires genuinely new mathematics.
 │   │     Full task specification: TASK_6g_structured_non_divisibility.md
 │   │     │
@@ -602,82 +650,56 @@ Collatz Conjecture
 │   │     │
 │   │     NEW DIRECTIONS (Session 7, not yet explored):
 │   │     │
-│   │     ├─ 6g-vi. Carry automaton (finite-state self-reference)        ❓ NEW, PROMISING
-│   │     │  Collatz map read LSB-first is a finite automaton with
-│   │     │  carry state c ∈ {0,1}. Cycle = self-referential periodic
-│   │     │  orbit: output bits must equal input bits. Question becomes:
-│   │     │  can a 1-bit state machine produce a self-consistent binary
-│   │     │  string of length p? This is COMBINATORIAL, not number-theoretic.
-│   │     │  Attack: classify carry-consistent cycles, show self-consistency
-│   │     │  forces contradictions in carry propagation. The carry creates
-│   │     │  LOCAL constraints (windows of 2-3 bits) + one GLOBAL constraint
-│   │     │  (wrap-around). May reduce to bounded-treewidth CSP.
-│   │     │  RISK: may reduce to cascade (C3) under different notation.
+│   │     ├─ 6g-vi. Carry automaton (finite-state self-reference)        ✘ PREDICTED FAIL (Q4)
+│   │     │  Barrier diagnostic Q4: carry automaton = cascade = Syracuse (C7).
+│   │     │  Reformulation, not reduction. State space 2^k equivalent to
+│   │     │  checking all n ≤ (3/2)^{k-1}. Same as Simons-de Weger route.
 │   │     │
-│   │     ├─ 6g-vii. Cascade increment correlation                       ❓ NEW, TESTABLE
-│   │     │  Position increments g_j = v_2(T_j) in cascade (C3) satisfy
-│   │     │  E[Σ g_j] ≈ 2k ≈ 1.26p, but cascade requires Σ g_j ≤ p.
-│   │     │  Since 2k > p, cascade fails ON AVERAGE. If g_j are negatively
-│   │     │  correlated (or independent), large deviations gives:
-│   │     │  P(Σ g_j ≤ p) ≤ exp(-ck). Combined with ≤ (3/2)^{k-1}
-│   │     │  candidates, total expected count → 0 if c > log(3/2) ≈ 0.405.
-│   │     │  AVOIDS ABC: works with 2-adic structure directly, no prime
-│   │     │  decomposition of D. Needs: quantify correlation of v_2(T_j)
-│   │     │  across cascade steps. The 3^{k-j} subtraction at each step
-│   │     │  may create sufficient pseudorandomness.
-│   │     │  RISK: "pseudorandomness" of T_j may be equivalent to conjecture.
+│   │     ├─ 6g-vii. Cascade increment correlation                       ✘ EXPLORED, FAILS
+│   │     │  Independence rate I(log_2(3)) ≈ 0.055, but need > log(3/2) ≈ 0.405.
+│   │     │  GAP FACTOR: 7.4×. Independence predicts exp(0.351k) → ∞ cycles.
+│   │     │  SURPRISE: correlations are POSITIVE (Corr ≈ +0.02 to +0.04),
+│   │     │  making Var[G] > Var_indep. Correlations HURT, not help.
+│   │     │  Some candidates have G < p (long g=1 streaks). "G > p always" is FALSE.
+│   │     │  The 7.4× gap = quantitative expression of Barrier 1 (abc) in cascade language.
+│   │     │  File: cascade_correlation.md, cascade_correlation_verify.py
 │   │     │
-│   │     ├─ 6g-viii. Prime-D sieve completion + composite-D descent     ❓ NEW, CONCRETE
-│   │     │  When D is prime (≈50% of cases): rad(D) = D ≈ 2^p, so sieve
-│   │     │  gives E[#{I : D|S}] ≈ 2^{-0.05p} → 0. "Morally" proved.
-│   │     │  Gap: need SECOND MOMENT control to go from E→0 to actual 0.
-│   │     │  Requires bounding P(D|S(I) and D|S(J)) for overlapping I,J.
-│   │     │  Character sum machinery (Theorem 4) may suffice.
-│   │     │  For composite D: if largest prime factor q > 2^{0.95p}, sieve
-│   │     │  mod q suffices. Reduces problem to: does 2^p - 3^k always
-│   │     │  have a large prime factor? (Weaker than abc, specific to
-│   │     │  the family 2^p - 3^k.)
-│   │     │  SEPARATES prime vs composite D — first explicit split.
+│   │     ├─ 6g-viii. Prime-D sieve completion + composite-D descent     ✘ EXPLORED, FAILS
+│   │     │  CORRECTION: D is prime for only ~6-10% of pairs, NOT ~50%.
+│   │     │  PRIME D: Block decomposition PROVABLY fails for p ≥ 5.
+│   │     │  Need ord_D(2) ≤ p (for blocks) AND ord_D(2) > 2√D (for Gauss).
+│   │     │  These require p > 2√D, i.e., p² > 4D ≈ 4·2^p. IMPOSSIBLE.
+│   │     │  Computation: L = 0 blocks for ALL tested prime D (D > 5).
+│   │     │  Character sums: C-S gives |ΣF(t)| ≤ D·√C, need < C.
+│   │     │  Excess factor: D/√C ≈ 2^{0.525p} → ∞. Exponentially insufficient.
+│   │     │  COMPOSITE D: Need handleable fraction > 0.95, but many D have
+│   │     │  it < 0.90. Smallest lpf ratio = 0.18. The "large prime factor
+│   │     │  conjecture" for 2^p - 3^k reduces to abc-type input.
+│   │     │  ROOT CAUSE: Scale gap p vs D ≈ 2^p. Same as abc barrier.
+│   │     │  File: prime_d_sieve.md, prime_d_sieve_verify.py
 │   │     │
-│   │     ├─ 6g-ix. Digital constraint propagation (CSP approach)        ❓ NEW, COMPUTATIONAL
-│   │     │  View cycle as Boolean CSP on p binary variables (bits of n):
-│   │     │  - Local constraints: carry from 3n+1 involves window of 2-3
-│   │     │    consecutive bits. Carry ∈ {0,1} → bounded state.
-│   │     │  - Global constraint: carry wraps around (c_p = c_0 = 0).
-│   │     │  - Self-consistency: parity of orbit value at step r = b_r.
-│   │     │  CSP with p variables, O(p) constraints of bounded width.
-│   │     │  Use arc consistency / unit propagation to prune. If the CSP
-│   │     │  has bounded treewidth (carry structure suggests this), it's
-│   │     │  solvable in poly time. FRESH PERSPECTIVE: CS tools, not math.
-│   │     │  RISK: self-consistency may create unbounded width.
+│   │     ├─ 6g-ix. Digital constraint propagation (CSP approach)        ✘ PREDICTED FAIL (Q4)
+│   │     │  Barrier diagnostic Q4: CSP encodes cycle equation exactly.
+│   │     │  Self-consistency creates long-range interactions preventing
+│   │     │  bounded treewidth. Reformulation into CS language, not reduction.
 │   │     │
-│   │     ├─ 6g-x. Induction on k via orbit compression                 ❓ NEW, STRUCTURAL
-│   │     │  Base: no cycles for k ≤ 68 (Simons-de Weger 2005).
-│   │     │  Inductive step: assume no cycles with < k odd steps.
-│   │     │  In a k-step cycle, if any orbit value S^j(n) < n for j < k,
-│   │     │  then S^j(n) starts a shorter cycle → contradiction.
-│   │     │  So: prove every large orbit DECREASES at some intermediate
-│   │     │  step. Equivalently: the orbit maximum equals the starting
-│   │     │  value n (orbit is "front-loaded"). This is a structural
-│   │     │  constraint on Syracuse orbits that might be provable.
-│   │     │  VARIANT: compressed orbit (every other odd step) gives
-│   │     │  ⌊k/2⌋-step "pseudo-cycle" of S^2 → inductive contradiction.
-│   │     │  RISK: orbit values fluctuate; max ≠ start in general.
+│   │     ├─ 6g-x. Induction on k via orbit compression                 ✘ PREDICTED FAIL (Q4)
+│   │     │  Barrier diagnostic Q4: reduces to Collatz for n ≤ (3/2)^{k-1}
+│   │     │  via Syracuse-Cascade Duality (C7) and post-orbit obstruction
+│   │     │  (C10). Same as Simons-de Weger route. Cannot complete for
+│   │     │  general k without proving Collatz for all n.
 │   │     │
-│   │     └─ 6g-xi. Non-archimedean dynamics on Z_2                     ❓ NEW, DEEP
-│   │        Collatz map T: Z_2 → Z_2 is continuous, piecewise-affine.
-│   │        Periodic points plentiful in Z_2 (one per parity pattern).
-│   │        Question: which lie in Z_{>0}?
-│   │        Lyapunov exponent: log_2(3^k/2^p) < 0 → orbits ATTRACTING
-│   │        in Z_2. Basin of attraction = open 2-adic ball. Positive
-│   │        integers are DISCRETE in Z_2. If basin radius < 1/D, only
-│   │        finitely many Z_{>0} points attracted → checkable.
-│   │        p-adic analogs of Sullivan's no-wandering-domain theorem
-│   │        (Benedetto, Rivera-Letelier) may constrain periodic orbits.
-│   │        AVOIDS BARRIERS: works with 2-adic topology, not
-│   │        prime factorization or lattice membership.
-│   │        DIFFICULTY: T is piecewise, not analytic. Need piecewise
-│   │        analog of p-adic Fatou/Julia theory.
+│   │     └─ 6g-xi. Non-archimedean dynamics on Z_2                     ✘ EXPLORED, FAILS
+│   │        T: Z_2 → Z_2 conjugate to full shift σ: {0,1}^N → {0,1}^N.
+│   │        Every parity pattern gives unique n(ε) = S(ε)/D ∈ Z_2.
+│   │        Self-consistency automatic. Constraint purely: D | S(ε).
+│   │        CORRECTION: Cycles are REPELLING in Z_2 (|3^k/2^p|_2 = 2^p),
+│   │        not attracting. Original entry confused archimedean/2-adic.
+│   │        p-adic Fatou/Julia: INAPPLICABLE (T piecewise, not analytic).
+│   │        No-wandering-domain theorem: VACUOUS (no Fatou components).
+│   │        ROOT CAUSE: "n(ε) ∈ Z_{>0}" is ARCHIMEDEAN, invisible to
+│   │        2-adic topology. Same barrier as 0A/0B/0C in different language.
+│   │        File: nonarchimedean_Z2.md, nonarchimedean_verify.py
 │   │
 │   ├─ 7. FAILED APPROACHES (comprehensive list)
 │   │  ├─ Equidistribution mod D directly                               ✘ blocks > p
@@ -750,6 +772,7 @@ Collatz Conjecture
 - **Session 5** (2026-03-06): Proved Syracuse-Cascade Duality (C7): cascade remainders c_j exactly track the Syracuse orbit of n. Proved fixed-k bound (C8): n_max → (3/2)^{k-1}. Proved k≤30 no-cycles (C9) via Collatz verification for n≤127834. Proved post-orbit obstruction (C10): odd n≥3 fails via n∤4. Extended cascade to p≤60 (83 pairs, 3.3M candidates). Proved U=Z/DZ for most composite D via CRT+Cauchy-Davenport. Established that the cascade IS the Collatz iteration (equivalence barrier confirmed for 0D).
 - **Session 6** (2026-03-06): Explored direction 0B (Arakelov/arithmetic intersection theory on R = Z[x]/(x^p - 3^k)). Developed full analysis: embeddings, near-degenerate sigma_0, norm bounds, successive minima, q-adic filtration, coefficient entropy, Bezout inequality, theta functions. Result: all height-based methods fail because lattice membership is LINEAR — heights measure size, not residue class. Direction 0B closed.
 - **Session 7** (2026-03-06): Explored direction 0C (motivic/categorical structure on {a,b}-smooth sums). Systematically analyzed 10 frameworks: toric geometry, log geometry, zeta functions, tropical geometry, F_1-geometry, configuration space cohomology, derived categories, Galois representations, determinant method, Pila-Wilkie. All fail for the same root cause: the Collatz condition involves EXPONENTIAL functions (2^{i_j}), but all cohomological/motivic methods work with ALGEBRAIC objects. No algebraic variety encodes the Collatz cycle set. Closest tool: o-minimal/Pila-Wilkie, but too weak for growing dimension. Direction 0C closed. ALL Part 0 directions now explored and closed. Then brainstormed 6 genuinely new research directions (6g-vi through 6g-xi): carry automaton, cascade increment correlation, prime-D sieve completion, digital CSP, induction on k, non-archimedean dynamics. These avoid the known barriers through different mechanisms and are recorded for future exploration.
+- **Session 8** (2026-03-06): Explored direction 6g-xi (non-archimedean dynamics on Z_2). Proved: T conjugate to full shift (verified computationally), cycles are REPELLING in Z_2 (correcting the map entry which incorrectly said attracting), self-consistency automatic, p-adic Fatou/Julia inapplicable (T piecewise not analytic), no-wandering-domain vacuous. Root cause of failure: "n(eps) in Z_{>0}" is archimedean, invisible to 2-adic topology. Then developed barrier diagnostic: 6 questions predicting which barrier a proposed framework hits (100% retroactive accuracy). Applied prospectively to screen 6g-vi through 6g-x: three predicted to fail (Q4/equivalence), two ambiguous (6g-vii, 6g-viii). Explored 6g-vii (cascade increment correlation): computed halving excess, correlation structure, large deviation rates for k up to 30. Key findings: (1) independence rate I=0.055 vs needed rate 0.405 gives 7.4× gap; (2) SURPRISE: lag-1 correlations are POSITIVE (+0.02 to +0.04), making Var[G] > Var_indep — correlations hurt; (3) some candidates have G < p (Mersenne-like n with long g=1 streaks), so "G > p always" is false; (4) the 7.4× gap is Barrier 1 (abc) in cascade language. Direction 6g-vii closed. Explored 6g-viii (prime-D sieve completion): PROVED block decomposition impossible for prime D when p ≥ 5 (requires p² > 4D ≈ 4·2^p, impossible). Computation: ord_D(2) > p for ALL prime D tested (L=0 blocks always). Character sums: Cauchy-Schwarz excess 2^{0.525p}. CORRECTED: D is prime for only 6-10% of (p,k) pairs, not ~50%. Composite D: smallest lpf ratio = 0.18, handleable fraction often < 0.90. Both sub-problems reduce to abc barrier variants. ALL SIX directions 6g-vi through 6g-xi now CLOSED. No remaining unexplored direction passes the barrier diagnostic. Then developed the DEEPEST insight of the project: the function field Collatz analogy. Over F_q[t], the cycle equation is trivially unsolvable (deg(S) ≤ p-1 < p = deg(D), one-line proof). The proof doesn't lift to Z because of Ostrowski's theorem: no non-archimedean absolute value on Q has |2| > 1 (since |2| = |1+1| ≤ max(|1|,|1|) = 1). This gives the GAP-CONSTRAINT DICHOTOMY: the "top" measure gives the degree gap but not the divisibility constraint; the "bottom" measure (v_2) gives the constraint but not the gap; the function field degree gives BOTH. This UNIFIES all three barriers as consequences of Q having exactly one archimedean place (which is not ultrametric). A proof would need to circumvent Ostrowski: via ring extension, F_1-geometry, or a new proof structure. The Collatz conjecture might be "trivially true" from a viewpoint we haven't built yet. Finally, developed the FERMAT CURVE HEIGHT FRAMEWORK: the cycle equation D|S(I) is equivalent to ideal membership R_I in (s-3, t-2) inside A/DA where A = Z[s,t]/(t^p - s^k) is the coordinate ring of the Fermat curve C: t^p = s^k. The two-variable lift R_I(s,t) = sum s^{k-j} t^{i_j} has a DUAL DEGREE BOUND: deg_s(R_I) < k AND deg_t(R_I) < p, strictly less than D in BOTH variables. Over Q, this makes ideal membership impossible (= function field proof). R_I has rigid STAIRCASE structure (monotone anti-diagonal with 0-1 entries). KEY INSIGHT: the function field proof uses only one constraint (degree), but the integer proof may need BOTH the bidegree constraint AND the divisibility structure — the function field proof is an "incomplete shadow." This frames Collatz as a HEIGHT INEQUALITY on the Fermat curve, connecting to Arakelov theory, Vojta's conjecture, and Frey curves. The specific case (specific curve, specific point, specific functions) may be tractable even when the general conjectures are not. THEN pushed further into computation: discovered that P(3) = S(I) is a polynomial with STRICTLY DECREASING power-of-2 coefficients evaluated at x=3, and by the REARRANGEMENT INEQUALITY, the staircase gives the MINIMUM over all k! permutations. Unordered permutations hit 0 mod D at rate ~1/D (random); ordered (staircase) NEVER hits 0. Proved k<=4 independently using Rearrangement + size bounds (new method). Developed the AFFINE WALK interpretation: cycle equation = walk w->3w+c mod D starting at 1, with INCREASING power-of-2 perturbations, reaching 0. Discovered the THREE-CONSTRAINT structure: (1) perturbations are powers of 2, (2) strictly increasing order, (3) exponential growth c_m >= 2^m. NO single constraint or pair suffices; all three together exclude 0.
 
 ## File Index
 
@@ -793,3 +816,12 @@ Collatz Conjecture
 | `arakelov_verify.py` | Computational verification of Arakelov quantities |
 | `motivic_0C.md` | **Session 7: Motivic/categorical analysis (10 frameworks)** |
 | `motivic_verify.py` | Computational verification: Newton polygons, MV, tropical, partition fn |
+| `nonarchimedean_Z2.md` | **Session 8: Non-archimedean dynamics on Z_2 (shift conjugacy, repulsion)** |
+| `nonarchimedean_verify.py` | Computational verification: shift conjugacy, repulsion, 2-adic expansions |
+| `barrier_diagnostic.md` | **Session 8: Barrier pre-screening checklist (6 questions, 3 barrier families)** |
+| `cascade_correlation.md` | **Session 8: Cascade increment correlation (7.4× gap, positive correlations)** |
+| `cascade_correlation_verify.py` | Computational verification: G distribution, correlations, large deviations |
+| `prime_d_sieve.md` | **Session 8: Prime-D sieve completion (scale gap impossibility)** |
+| `prime_d_sieve_verify.py` | Computational verification: primality, ord_D(2), factorization, handleable fraction |
+| `function_field_collatz.md` | **Session 8: Function field analogy + Ostrowski obstruction (deepest insight)** |
+| `fermat_curve_height.md` | **Session 8: Fermat curve framework — cycle eq. as ideal membership, dual degree bound, height inequality** |
