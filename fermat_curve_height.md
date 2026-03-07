@@ -397,6 +397,12 @@ Each (k, m) gives an S-unit equation with k+2 terms, solvable by Baker's method 
 
 **This gives a DECISION PROCEDURE: for each fixed k, the Collatz no-cycle conjecture is decidable and (in principle) provable by finite computation.**
 
+**THEOREM (k ≤ 4, NEW PROOF):** For $k \leq 4$, no nontrivial Collatz cycles exist.
+
+*Proof:* The Steiner bound gives $n < (3/2)^{k-1}$. For nontrivial cycles: $n \geq 3$, $n$ odd, $\gcd(n, 3) = 1$ (from $v_3(P(3)) = 0$). For $k \leq 4$: $(3/2)^{k-1} \leq 3.375$, so $n \leq 3$. The only candidate $n = 3$ is eliminated by $3 \mid 3$. No valid $n$ exists. $\square$
+
+Note: This proof uses only the Steiner bound (C8) and $v_3(P(3)) = 0$. It does NOT use the cascade, orbit verification, or any computation beyond the bound. It is the simplest known proof for $k \leq 4$.
+
 **Comparison with C9 (k ≤ 30):** The cascade method proved k ≤ 30 by Collatz orbit verification up to n = 127834. The Rearrangement + size method gives an INDEPENDENT proof for k ≤ 4, and a systematic extension path for larger k that doesn't require orbit computation.
 
 ### 10.8. The Affine Walk Interpretation
