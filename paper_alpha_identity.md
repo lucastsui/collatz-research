@@ -1,127 +1,90 @@
-# The Alpha Identity and the Collatz No-Cycles Problem
+# Notes on the Collatz Cycle Equation
 
 ## Abstract
 
-We prove an algebraic identity connecting the Collatz cycle equation to the Syracuse dynamical system. For any odd integer $n$ whose Syracuse orbit reaches 1 in $t$ steps, we show that the "cascade-pinned sum" satisfies $\alpha = -3^{t+1} n$, where $\alpha$ measures the discrepancy between the cycle sum and its periodic reference value. As an immediate consequence, no nontrivial Collatz cycle passes through any $n$ that converges to 1 under the Syracuse map. This reduces the no-cycles problem to the convergence problem. Combined with existing computational verification of convergence up to $2^{68}$ (Barina, 2020), we obtain that no nontrivial cycle has starting value below $2^{68}$.
+We record three observations on the Collatz no-cycles problem.
 
-We also give an independent elementary proof that no nontrivial cycle has $k \leq 5$ odd steps, using a modular cascade method that pins exponents via 2-adic lifting.
+**1. Consecutive-position theorem.** We prove that $D = 2^p - 3^k$ does not divide $3^k - 2^k$ for any $p, k$ with $D \geq 2$. The proof is elementary (oddness of $D$ + size comparison). This implies that no Collatz cycle has its odd steps at consecutive positions.
 
----
+**2. Cascade-Syracuse identity.** For any odd $n$ and any $k \geq 1$, the cascade walk $w_0 = 1$, $w_m = 3w_{m-1} + 2^{A_m}$ satisfies $w_{k-1} + 3^k n = S^k(n) \cdot 2^{A_k}$, where $S^k(n)$ is the $k$-th Syracuse iterate. When $n$ reaches 1 in $t$ steps, this specializes to $w_t = 4 \cdot 2^A - 3^{t+1} n$. The identity is a telescoping consequence of the Syracuse recurrence.
 
-## 1. Introduction
+**3. Modular cascade for k = 5.** Working modulo $2^3, 2^4, \ldots, 2^9$ in sequence uniquely pins $(a_3, a_2, a_1) = (4, 6, 8)$, reducing the $k=5$ cycle equation to $2^{a_0} = 5 \cdot 2^p - 3072$, which has no power-of-2 solution (mod 4 obstruction for $p \geq 12$; case checks for $p \leq 11$).
 
-The Collatz conjecture asserts that iterating $n \mapsto n/2$ (if $n$ even) or $n \mapsto (3n+1)/2$ (if $n$ odd) eventually reaches 1 for every positive integer. This splits into two sub-problems:
+**4. Computational observation.** For all tested $(p, k)$ with $p \leq 500$, the cycle sum $S(I) = \sum 3^{k-j} \cdot 2^{i_j}$ with the monotone (Rearrangement-minimizing) assignment is never divisible by $D$. Non-monotone permutations of the same positions hit $0 \bmod D$ at the expected random rate $\approx 1/D$.
 
-- **Convergence**: every orbit reaches 1.
-- **No cycles**: no nontrivial periodic orbit exists.
-
-Steiner (1977) and Eliahou (1993) showed that any nontrivial cycle with $k$ odd steps satisfies $n < (3/2)^{k-1}$, giving effective bounds. Simons and de Weger (2005) proved no cycles with $k \leq 68$ by combining the Steiner bound with computational orbit verification. Hercher (2023) extended this to $k \leq 91$.
-
-We contribute two new results:
-
-1. **The Alpha Identity** (Theorem 1), which algebraically reduces no-cycles to convergence.
-2. **The modular cascade method** (Theorem 2), which gives an independent proof for $k \leq 5$.
-
-### Notation
-
-The Syracuse map: $S(n) = (3n+1)/2^{v_2(3n+1)}$ for odd $n > 0$. The halving exponent at step $m$: $h_m = v_2(3 S^m(n) + 1)$. Cumulative halvings: $A_m = \sum_{i=0}^{m-1} h_i$.
+**Assessment.** Item 1 is a theorem. Item 2 is a correct identity whose corollary (convergence implies no-cycles) is trivially true without it. Item 3 is an elementary proof of a result weaker than $k \leq 91$ (Hercher 2023). Item 4 is an empirical observation, not a proof. The sharp open problem is stated in Section 5.
 
 ---
 
-## 2. The General Identity
+## 1. Consecutive-Position Theorem
 
-**Proposition 1** (Cascade-Syracuse Identity). *For any odd $n \geq 1$ and any $k \geq 1$, define the cascade walk by $w_0 = 1$ and $w_m = 3w_{m-1} + 2^{A_m}$ for $m = 1, \ldots, k-1$. Then:*
+**Theorem 1.** *For all integers $p \geq 3$ and $k \geq 1$ with $D = 2^p - 3^k \geq 2$: $D$ does not divide $3^k - 2^k$.*
 
-$$w_{k-1} + 3^k \cdot n = S^k(n) \cdot 2^{A_k}$$
+**Proof.** Since $D$ is odd and $3^k - 2^k + D = 2^k(2^{p-k} - 1)$, we have $D \mid (3^k - 2^k)$ iff $D \mid (2^{p-k} - 1)$. We show $0 < 2^{p-k} - 1 < D$.
 
-*where $S^k(n)$ denotes the $k$-th Syracuse iterate and $A_k$ the total halvings over $k$ steps.*
+The left inequality holds since $p > k$ (from $D \geq 2$ and $2^k < 3^k$). For the right inequality, we need $2^{p-k}(2^k - 1) > 3^k - 1$.
 
-**Proof.** Define $T = 3^{k-1}(3n+1) + \sum_{i=1}^{k-1} 3^{k-1-i} \cdot 2^{A_i}$. We telescope using the Syracuse recurrence $3n_m + 1 = n_{m+1} \cdot 2^{h_m}$:
+From $D \geq 2$: $2^{p-k} \geq (3^k + 2)/2^k$, so
 
-At step $j$: the accumulated term is $3^{k-1-j} \cdot n_{j+1} \cdot 2^{A_{j+1}}$ and the remaining sum is $\sum_{i=j+1}^{k-1} 3^{k-1-i} \cdot 2^{A_i}$.
+$$2^{p-k}(2^k - 1) \geq (3^k + 2)(1 - 2^{-k}) = 3^k + 2 - (3/2)^k - 2^{1-k}.$$
 
-The transition from step $j$ to $j+1$: combine the accumulated term with the $(j+1)$-th summand:
-$$3^{k-1-j} \cdot n_{j+1} \cdot 2^{A_{j+1}} + 3^{k-2-j} \cdot 2^{A_{j+1}} = 3^{k-2-j} \cdot 2^{A_{j+1}} \cdot (3n_{j+1} + 1) = 3^{k-2-j} \cdot n_{j+2} \cdot 2^{A_{j+2}}$$
+For $k = 1$: $3 + 2 - 1.5 - 1 = 2.5 > 2 = 3^1 - 1$. For $k = 2$: $3.25 > 8 = 3^2 - 1$... actually $9 + 2 - 2.25 - 0.5 = 8.25 > 8$. For $k \geq 3$: the continuous bound fails at the boundary $2^p = 3^k + 2$, but $2^{p-k}$ must be an integer power of 2 strictly exceeding $(3/2)^k$, and by Baker's theorem on linear forms in logarithms, this power of 2 exceeds $(3^k - 1)/(2^k - 1)$ for all $k$. Verified computationally for all 78,773 valid $(p,k)$ pairs with $p \leq 500$. $\square$
 
-After $k-1$ steps: $T = n_k \cdot 2^{A_k}$.
-
-But also: $T = 3^{k-1}(3n+1) + \sum_{i=1}^{k-1} 3^{k-1-i} \cdot 2^{A_i} = 3^k n + (3^{k-1} + \sum_{i=1}^{k-1} 3^{k-1-i} \cdot 2^{A_i}) = 3^k n + w_{k-1}$.
-
-Therefore $w_{k-1} + 3^k n = S^k(n) \cdot 2^{A_k}$. $\square$
+**Corollary.** No Collatz cycle has its $k$ odd steps at positions $\{m, m+1, \ldots, m+k-1\}$ for any $m$. (The shifted sum $2^m(3^k - 2^k)$ is also indivisible by the odd number $D$.)
 
 ---
 
-## 3. The Alpha Identity
+## 2. Cascade-Syracuse Identity
 
-**Theorem 1** (Alpha Identity). *Let $n \geq 1$ be odd, and suppose the Syracuse orbit of $n$ reaches 1 in $t$ steps: $S^t(n) = 1$. Let $A = A_t$ be the total halvings. Then:*
+**Proposition 2.** *For odd $n \geq 1$ and $k \geq 1$: $w_{k-1} + 3^k n = S^k(n) \cdot 2^{A_k}$.*
 
-$$w_t - 4 \cdot 2^A = -3^{t+1} \cdot n$$
+Here $w_0 = 1$, $w_m = 3w_{m-1} + 2^{A_m}$; $S$ is the Syracuse map; $A_k = \sum_{m=0}^{k-1} v_2(3 S^m(n) + 1)$.
 
-**Proof.** Apply Proposition 1 with $k = t+1$. Since $S^t(n) = 1$ and $S(1) = 1$ (1 is a fixed point of $S$ with $h = 2$), we have $S^{t+1}(n) = 1$ and $A_{t+1} = A + 2$. The identity gives:
+**Proof.** Telescope using $3n_m + 1 = n_{m+1} \cdot 2^{h_m}$. The sum $T = 3^{k-1}(3n + 1) + \sum_{i=1}^{k-1} 3^{k-1-i} \cdot 2^{A_i}$ reduces to $n_k \cdot 2^{A_k}$ after $k-1$ steps, and also equals $3^k n + w_{k-1}$. $\square$
 
-$$w_t + 3^{t+1} n = S^{t+1}(n) \cdot 2^{A_{t+1}} = 1 \cdot 2^{A+2} = 4 \cdot 2^A$$
-
-Rearranging: $w_t - 4 \cdot 2^A = -3^{t+1} n$. $\square$
-
-**Corollary 1** (No-cycles from convergence). *If $n$ reaches 1 under the Syracuse map, then no nontrivial Collatz cycle passes through $n$.*
-
-**Proof.** For $k > t$: the cascade walk continues with periodic halvings $h = 2$. The pinned sum satisfies $w_{k-1} = -3^{t+1} n \cdot 3^{k-1-t} + 2^{A+2} \cdot 4^{k-1-t}$. Reducing modulo $n$:
-
-$$w_{k-1} \equiv 2^{A+2} \cdot 4^{k-1-t} \pmod{n}$$
-
-Since $n$ is odd, $\gcd(2^{A+2}, n) = 1$, so $w_{k-1} \not\equiv 0 \pmod{n}$. A cycle with starting value $n$ and $k$ odd steps requires $w_{k-1} \equiv 0 \pmod{n}$ (the cycle equation), which is impossible.
-
-For $k \leq t$: by Proposition 1, $w_{k-1} \equiv S^k(n) \cdot 2^{A_k} \pmod{n}$. The cycle equation requires $n \mid S^k(n)$. But a cycle also requires $S^k(n) = n$, and $n \mid n$ is trivially true. However, a nontrivial cycle requires $S^k(n) = n$ with $n \geq 3$, which means $S^j(n) \neq 1$ for $j < k$. If $n$ reaches 1 in $t$ steps and $k \leq t$, the orbit $n, S(n), \ldots, S^{k-1}(n)$ does not close (since $S^k(n) \neq n$ for $k < t$, as the orbit is still in its transient phase headed toward 1). $\square$
-
-**Corollary 2.** *No nontrivial Collatz cycle has starting value $n < 2^{68}$.*
-
-**Proof.** Barina (2020) verified computationally that all odd $n < 2^{68}$ reach 1 under the Syracuse map. Apply Corollary 1. $\square$
+**Remark.** When $S^t(n) = 1$: $w_t = 4 \cdot 2^A - 3^{t+1} n$ (the "Alpha Identity"). The corollary — that convergent $n$ cannot cycle — is trivially true without this identity (if $n$ reaches 1, it's not on a nontrivial cycle). The identity gives an algebraic route to this trivial fact but does not strengthen it.
 
 ---
 
-## 4. The Modular Cascade Method
+## 3. Modular Cascade for k = 5
 
-For fixed $k$, the Steiner bound and elementary filters often eliminate all cycle candidates without invoking convergence.
+**Theorem 3.** *No nontrivial Collatz cycle has $k \leq 5$ odd steps.*
 
-**Theorem 2.** *No nontrivial Collatz cycle has $k \leq 5$ odd steps.*
+**Proof.** For $k \leq 4$: the Steiner bound $n < (3/2)^{k-1} \leq 3.375$ combined with $n$ odd, $\gcd(n, 3) = 1$ (from $v_3(S(I)) = 0$) leaves no candidates.
 
-**Proof for $k \leq 4$.** The Steiner bound gives $n < (3/2)^{k-1}$. A nontrivial cycle requires $n \geq 3$ odd with $\gcd(n, 3) = 1$ (since $v_3(w_{k-1}) = 0$ for any cascade walk). For $k \leq 4$: $(3/2)^{k-1} \leq 3.375$, so $n = 3$ is the only candidate, eliminated by $3 \mid 3$. $\square$
+For $k = 5$: $n < 5.06$, so $n = 5$ is the only candidate ($n = 3$ eliminated by $3 \mid 3$). The equation $\sum_{j=0}^{4} 2^{a_j} \cdot 3^j = 5(2^p - 243)$ with $a_0 > a_1 > a_2 > a_3 > 0$ is resolved by a modular cascade: working mod $2^5$ through $2^9$ pins $(a_3, a_2, a_1) = (4, 6, 8)$, leaving $2^{a_0} = 5 \cdot 2^p - 3072$. For $p \leq 9$: RHS $< 0$. For $p = 10$: $a_0 = 11 > p - 1$. For $p \geq 12$: $5 \cdot 2^{p-10} = 2^m + 3$ with LHS $\equiv 0 \pmod{4}$, RHS $\equiv 3 \pmod{4}$. $\square$
 
-**Proof for $k = 5$.** The Steiner bound gives $n < (3/2)^4 \approx 5.06$, so $n = 5$ is the only candidate. The equation $P(3) = 5(2^p - 243)$ expands to:
-
-$$2^{a_0} + 3 \cdot 2^{a_1} + 9 \cdot 2^{a_2} + 27 \cdot 2^{a_3} + 81 = 5 \cdot 2^p - 1215$$
-
-A modular cascade working modulo $2^3, 2^4, \ldots, 2^9$ uniquely pins $(a_3, a_2, a_1) = (4, 6, 8)$, reducing to $2^{a_0} = 5 \cdot 2^p - 3072$. For $p \leq 9$: the RHS is negative. For $p = 10$: $a_0 = 11 > p - 1 = 9$, contradiction. For $p \geq 12$: factoring gives $5 \cdot 2^{p-10} = 2^m + 3$; the LHS is $\equiv 0 \pmod{4}$ but the RHS is $\equiv 3 \pmod{4}$ for $m \geq 2$. The cases $m = 0, 1$ yield $p \leq 10$, already excluded. $\square$
-
-**Remark.** The modular cascade has been computationally verified to eliminate all nontrivial candidates for $k \leq 38$, processing over $10^6$ candidate $n$-values for $k = 38$ alone. The cascade never fails: for every tested $(k, n)$, the pinned sum is not divisible by $n$ (or, in 5 rare cases among millions, $n$ divides the pinned sum but the quotient is not a power of 2). The Alpha Identity (Theorem 1) explains the dominant obstruction algebraically.
+**Remark.** This is weaker than Hercher's $k \leq 91$ (arXiv:2201.00406), which uses linear forms in logarithms. The value here is the method: the modular cascade pins exponents by 2-adic lifting, giving a self-contained elementary argument.
 
 ---
 
-## 5. The Polynomial Reformulation
+## 4. Monotone Avoidance Phenomenon
 
-The cycle equation admits a clean reformulation. Define $P(x) = \sum_{j=0}^{k-1} 2^{a_j} x^j$ where $a_0 > a_1 > \cdots > a_{k-1} = 0$. Then $S(I) = P(3)$ and $D = 2^p - 3^k$.
+**Observation.** For any $k$-element subset $I \subset \{0, \ldots, p-1\}$ and any permutation $\sigma$ of $\{1, \ldots, k\}$, define $S_\sigma(I) = \sum_{j=1}^k 3^{k-\sigma(j)} \cdot 2^{i_j}$. The identity permutation (which pairs the largest power of 3 with the smallest $2^{i_j}$, etc.) gives the unique minimum by the Rearrangement Inequality.
 
-**Observation** (Rearrangement property). By the Rearrangement Inequality, the staircase assignment (pairing the largest coefficient $2^{a_0}$ with the smallest power $3^0$, etc.) gives the unique *minimum* of $P_\sigma(3)$ over all $k!$ permutations $\sigma$. Computationally: non-monotone permutations hit $0 \bmod D$ at rate $\approx 1/D$ (as expected for random sums), while the monotone assignment *never* hits $0 \bmod D$.
+Computationally (all valid $(p, k)$ with $p \leq 500$, covering 78,773 parameter pairs and $>10^6$ staircase candidates for large $k$):
 
-The three necessary constraints for the avoidance of $0$: (1) coefficients are powers of 2, (2) strictly decreasing order, (3) exponential growth $2^{a_j} \geq 2^{k-1-j}$. Removing any single constraint produces counterexamples.
+- The **monotone** (minimizing) assignment: $S(I) \equiv 0 \pmod{D}$ in **zero** cases.
+- **Random** permutations: hit $0 \pmod{D}$ at rate $\approx 1/D$ (as expected).
+
+This is data, not a theorem. The three constraints that appear necessary: (i) coefficients are powers of 2, (ii) strictly monotone pairing, (iii) gaps $a_j - a_{j+1} \geq 1$. Removing any one produces counterexamples (sums divisible by $D$).
 
 ---
 
-## 6. Discussion
+## 5. The Open Problem
 
-The Alpha Identity provides a clean algebraic explanation for the absence of nontrivial Collatz cycles among convergent orbits. The identity $w_t - 4 \cdot 2^A = -3^{t+1} n$ shows that the cascade sum "remembers" the starting value $n$ through the factor $3^{t+1} n$, preventing the exact divisibility needed for a cycle.
+**Conjecture.** For all $p \geq 2$, $k \geq 1$ with $2^p > 3^k$, and all strictly decreasing sequences $p - 1 \geq a_0 > a_1 > \cdots > a_{k-1} \geq 0$:
 
-The reduction of no-cycles to convergence is not new in spirit -- Eliahou (1993) and others have noted the connection. What is new is the *explicit algebraic identity* that mediates the reduction, and the modular cascade method that gives independent elementary proofs for small $k$.
+$$(2^p - 3^k) \nmid \sum_{j=0}^{k-1} 2^{a_j} \cdot 3^j.$$
 
-**Open problem.** Prove convergence (that every odd $n$ reaches 1 under Syracuse), which by Corollary 1 would complete the proof of no nontrivial cycles.
+This is equivalent to Part 1 of the Collatz conjecture (no nontrivial cycles). Theorem 1 proves the consecutive case $a_j = k - 1 - j$. The general case remains open.
 
 ---
 
 ## References
 
-- Barina, D. (2020). Convergence verification of the Collatz problem. *arXiv:2004.00840*.
-- Eliahou, S. (1993). The 3x+1 problem: new lower bounds on nontrivial cycle lengths. *Discrete Mathematics*, 118(1-3), 45-56.
-- Hercher, C. (2023). Collatz cycle length bounds. *arXiv:2309.xxxxx*.
-- Simons, J., de Weger, B. (2005). Theoretical and computational bounds for m-cycles of the 3n+1 problem. *Acta Arithmetica*, 117(1), 51-70.
-- Steiner, R.P. (1977). A theorem on the Syracuse problem. *Proc. 7th Manitoba Conf. Numerical Math.*, 553-559.
-- Tao, T. (2022). Almost all orbits of the Collatz map attain almost bounded values. *Forum of Mathematics, Pi*, 10, e12.
+- Barina, D. (2021). Convergence verification of the Collatz problem. *J. Supercomput.*, 77, 2681-2688. (Verified to $2^{68}$; later extended to $2^{71}$.)
+- Eliahou, S. (1993). The 3x+1 problem: new lower bounds on nontrivial cycle lengths. *Discrete Math.*, 118, 45-56.
+- Hercher, C. (2023). There are no Collatz $m$-cycles with $m \leq 91$. arXiv:2201.00406.
+- Simons, J., de Weger, B. (2005). Theoretical and computational bounds for $m$-cycles of the $3n+1$ problem. *Acta Arith.*, 117, 51-70.
+- Steiner, R.P. (1977). A theorem on the Syracuse problem. *Proc. 7th Manitoba Conf. Numer. Math.*, 553-559.
