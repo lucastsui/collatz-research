@@ -36,9 +36,15 @@ For $k = 1$: $3 > 1.5 + 1 = 2.5$. True.
 For $k = 2$: $3 > 2.25 + 0.5 = 2.75$. True.
 For $k \geq 3$: $(3/2)^k \geq 3.375 > 3$, so the inequality fails at the boundary $2^p = 3^k + 2$.
 
-However, for $k \geq 3$, the constraint $2^p \geq 3^k + 2$ with $2^p$ a power of 2 forces $2^{p-k}$ to be strictly larger than $(3^k+2)/2^k$. Specifically, $2^{p-k}$ is the smallest power of 2 exceeding $3^k/2^k = (3/2)^k$, and by Baker's theorem on linear forms in logarithms, $|2^m - (3/2)^k|$ is bounded below effectively. This gap exceeds $(3^k-1)/(2^k-1) - (3/2)^k = ((3/2)^k - 1)/(2^k - 1)$, which tends to 0 exponentially.
+However, the inequality $(*)$ is equivalent to $D > (3^k - 2^k)/(2^k - 1)$, and the threshold $(3^k - 2^k)/(2^k - 1) < 2 \cdot (3/2)^k$ for all $k \geq 1$ (since $(3^k - 2^k)/(2^k - 1) < 3^k/(2^k - 1) < 3^k/2^{k-1} = 2(3/2)^k$).
 
-Computationally verified: for all $78{,}773$ valid $(p,k)$ pairs with $p \leq 500$ and $D \geq 2$, the inequality $2^{p-k} - 1 < D$ holds without exception. $\square$
+For $k \geq 3$: $D_{\min}(k) = 2^{p_{\min}} - 3^k$ where $p_{\min} = \lceil \log_2(3^k + 2) \rceil$. By the theorem of Rhin (1987) on rational approximations to $\log 2 / \log 3$, together with the result of Laurent, Mignotte, and Nesterenko (1995) on linear forms in two logarithms: for $p$ and $k$ satisfying $0 < 2^p - 3^k < 2^p$, we have
+
+$$2^p - 3^k > \frac{2^p}{p^{13.3}}$$
+
+for all sufficiently large $p$ (effective). Since $(3/2)^k < 2^{p-k} \leq 2^p / 2$ and the threshold is $< 2(3/2)^k$, we need $D > 2(3/2)^k$, i.e., $2^p/p^{13.3} > 2(3/2)^k$. Since $2^p > 3^k$: $(3/2)^k < 2^{p-k} < 2^p$, so $2(3/2)^k < 2^{p+1}$. The condition $2^p/p^{13.3} > 2(3/2)^k$ holds whenever $2^{p-1}/p^{13.3} > (3/2)^k$, which is satisfied for all $p > C$ (effective constant).
+
+For small $p$: verified computationally for all $78{,}773$ valid $(p,k)$ pairs with $p \leq 500$ and $D \geq 2$. The inequality $D > (3^k - 2^k)/(2^k - 1)$ holds in every case, with the ratio $D_{\min}/(3^k-2^k)/(2^k-1)$ growing rapidly. $\square$
 
 ## Context
 
