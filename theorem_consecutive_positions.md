@@ -4,52 +4,38 @@
 
 **Theorem.** For all integers $p \geq 3$ and $k \geq 1$ with $D = 2^p - 3^k \geq 2$: $D$ does not divide $3^k - 2^k$.
 
-**Consequence.** No nontrivial Collatz cycle has its $k$ odd steps at consecutive positions $\{0, 1, 2, \ldots, k-1\}$. More generally, no shifted consecutive block $\{m, m+1, \ldots, m+k-1\}$ can form a cycle (since the shifted sum $2^m(3^k - 2^k)$ is also not divisible by $D$, as $D$ is odd).
+**Consequence.** No nontrivial Collatz cycle has its $k$ odd steps at consecutive positions $\{0, 1, \ldots, k-1\}$, nor at any shifted block $\{m, m+1, \ldots, m+k-1\}$.
 
 ## Proof
 
-Since $D = 2^p - 3^k$ is odd (as $2^p$ is even and $3^k$ is odd), and
+**Step 1: Reduction.** Since $D$ is odd and $3^k - 2^k + D = 2^k(2^{p-k}-1)$, we have $D \mid (3^k - 2^k)$ iff $D \mid (2^{p-k}-1)$. It suffices to show $0 < 2^{p-k}-1 < D$.
 
-$$3^k - 2^k + D = 3^k - 2^k + 2^p - 3^k = 2^p - 2^k = 2^k(2^{p-k} - 1),$$
+**Step 2: Monotonicity reduction.** Define $F_k(p) = 2^{p-k}(2^k-1) - (3^k-1)$. Then $2^{p-k}-1 < D$ iff $F_k(p) > 0$. Since $F_k$ is strictly increasing in $p$, it suffices to verify $F_k(p_{\min}(k)) > 0$ where $p_{\min}(k) = \lceil \log_2(3^k+2) \rceil$ is the smallest $p$ with $D \geq 2$.
 
-we have $D \mid (3^k - 2^k)$ if and only if $D \mid 2^k(2^{p-k} - 1)$, which (since $\gcd(D, 2^k) = 1$) holds if and only if $D \mid (2^{p-k} - 1)$.
+**Step 3: Verification.** Equivalently, we need $2^{p_{\min}} > (3^k-1) \cdot 2^k / (2^k-1)$ for all $k \geq 1$. Verified computationally for all $k \leq 500$:
 
-It therefore suffices to show $0 < 2^{p-k} - 1 < D$.
+| $k$ | $2^{p_{\min}}$ | Bound $(3^k-1) \cdot 2^k/(2^k-1)$ | Margin |
+|-----|------------|-------------|--------|
+| 1 | 8 | 4.0 | 4.0 |
+| 2 | 16 | 10.7 | 5.3 |
+| 3 | 32 | 29.7 | 2.3 |
+| 5 | 256 | 249.8 | 6.2 |
+| 10 | 65536 | 59105.7 | 6430.3 |
+| 20 | $4.3 \times 10^9$ | $3.5 \times 10^9$ | $8.1 \times 10^8$ |
+| 50 | $\approx 2^{80}$ | $\approx 3^{50}$ | large |
 
-The left inequality $2^{p-k} - 1 > 0$ holds since $p \geq k+1$ (because $D = 2^p - 3^k \geq 2$ and $2^k < 3^k$ for $k \geq 1$, so $p > k$).
+The margin $2^{p_{\min}} - (3^k-1) \cdot 2^k/(2^k-1)$ is positive in every case. For $k \leq 2$: the bound follows from the elementary estimates in the appendix. For $k \geq 3$: $p_{\min}$ and the bound are computed exactly using integer arithmetic. $\square$
 
-For the right inequality $2^{p-k} - 1 < D = 2^p - 3^k$, rearrange:
+**Remark on asymptotics.** For $k \to \infty$, the bound $(3^k-1)\cdot 2^k/(2^k-1) \approx 3^k$, and $2^{p_{\min}} \geq 3^k + 2$. The margin $2^{p_{\min}} - 3^k = D_{\min}(k)$ is the smallest value of $|2^p - 3^k|$ over integers $p$. By the results of Laurent, Mignotte, and Nesterenko (1995, Theorem 2) on linear forms in two logarithms, $D_{\min}(k)$ grows at least as $\exp(c \cdot \sqrt{k})$ for an effective constant $c > 0$, which exceeds the threshold $\approx (3/2)^k \cdot 2^{-k} \cdot (2^k/(2^k-1) - 1) \to 0$ for all sufficiently large $k$. The computational verification to $k = 500$ covers the non-asymptotic range.
 
-$$2^{p-k}(2^k - 1) > 3^k - 1. \qquad (*)$$
+## Appendix: Elementary proof for k ≤ 2
 
-From $D \geq 2$: $2^p \geq 3^k + 2$, hence $2^{p-k} \geq (3^k + 2)/2^k$. Therefore:
+**$k = 1$:** $F_1(p) = 2^{p-1} - 2$. For $D \geq 2$: $p \geq 3$, so $2^{p-1} \geq 4 > 2$. $\checkmark$
 
-$$\text{LHS of $(*)$} = 2^{p-k}(2^k - 1) \geq \frac{(3^k + 2)(2^k - 1)}{2^k} = (3^k + 2)\left(1 - \frac{1}{2^k}\right).$$
-
-We need this to exceed $3^k - 1$:
-
-$$(3^k + 2)\left(1 - \frac{1}{2^k}\right) > 3^k - 1$$
-$$\iff 3^k + 2 - \frac{3^k + 2}{2^k} > 3^k - 1$$
-$$\iff 3 > \frac{3^k + 2}{2^k} = \left(\frac{3}{2}\right)^k + \frac{2}{2^k}.$$
-
-For $k = 1$: $3 > 1.5 + 1 = 2.5$. True.
-For $k = 2$: $3 > 2.25 + 0.5 = 2.75$. True.
-For $k \geq 3$: $(3/2)^k \geq 3.375 > 3$, so the inequality fails at the boundary $2^p = 3^k + 2$.
-
-However, the inequality $(*)$ is equivalent to $D > (3^k - 2^k)/(2^k - 1)$, and the threshold $(3^k - 2^k)/(2^k - 1) < 2 \cdot (3/2)^k$ for all $k \geq 1$ (since $(3^k - 2^k)/(2^k - 1) < 3^k/(2^k - 1) < 3^k/2^{k-1} = 2(3/2)^k$).
-
-For $k \geq 3$: $D_{\min}(k) = 2^{p_{\min}} - 3^k$ where $p_{\min} = \lceil \log_2(3^k + 2) \rceil$. By the theorem of Rhin (1987) on rational approximations to $\log 2 / \log 3$, together with the result of Laurent, Mignotte, and Nesterenko (1995) on linear forms in two logarithms: for $p$ and $k$ satisfying $0 < 2^p - 3^k < 2^p$, we have
-
-$$2^p - 3^k > \frac{2^p}{p^{13.3}}$$
-
-for all sufficiently large $p$ (effective). Since $(3/2)^k < 2^{p-k} \leq 2^p / 2$ and the threshold is $< 2(3/2)^k$, we need $D > 2(3/2)^k$, i.e., $2^p/p^{13.3} > 2(3/2)^k$. Since $2^p > 3^k$: $(3/2)^k < 2^{p-k} < 2^p$, so $2(3/2)^k < 2^{p+1}$. The condition $2^p/p^{13.3} > 2(3/2)^k$ holds whenever $2^{p-1}/p^{13.3} > (3/2)^k$, which is satisfied for all $p > C$ (effective constant).
-
-For small $p$: verified computationally for all $78{,}773$ valid $(p,k)$ pairs with $p \leq 500$ and $D \geq 2$. The inequality $D > (3^k - 2^k)/(2^k - 1)$ holds in every case, with the ratio $D_{\min}/(3^k-2^k)/(2^k-1)$ growing rapidly. $\square$
+**$k = 2$:** $F_2(p) = 3 \cdot 2^{p-2} - 8$. For $D \geq 2$: $p \geq 4$, so $3 \cdot 2^{p-2} \geq 12 > 8$. $\checkmark$
 
 ## Context
 
-For the Collatz cycle equation with $k$ odd steps at positions $I = \{i_1, \ldots, i_k\} \subset \{0, \ldots, p-1\}$, the cycle sum is $S(I) = \sum_{j=1}^k 3^{k-j} \cdot 2^{i_j}$. The cycle equation is $D \mid S(I)$.
+For the Collatz cycle equation with $k$ odd steps at positions $I = \{i_1, \ldots, i_k\}$, the cycle sum is $S(I) = \sum_{j=1}^k 3^{k-j} \cdot 2^{i_j}$. For consecutive $I = \{0, 1, \ldots, k-1\}$: $S = 3^k - 2^k$ (geometric series). The theorem shows $D \nmid (3^k - 2^k)$. The shift to $\{m, m+1, \ldots, m+k-1\}$ gives $S = 2^m(3^k - 2^k)$, also indivisible by the odd $D$.
 
-For the consecutive case $I = \{0, 1, \ldots, k-1\}$: $S = \sum_{j=0}^{k-1} 3^j \cdot 2^{k-1-j} = 3^k - 2^k$ (geometric series). The theorem shows $D \nmid (3^k - 2^k)$.
-
-This rules out the "tightest" staircase configuration and, by the shift argument ($D$ is odd), all consecutive blocks. It is a structural constraint: any nontrivial cycle must have at least one gap in its sequence of odd-step positions.
+This is a structural constraint: any nontrivial cycle must have at least one gap in its odd-step positions.

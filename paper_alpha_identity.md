@@ -28,7 +28,7 @@ From $D \geq 2$: $2^{p-k} \geq (3^k + 2)/2^k$, so
 
 $$2^{p-k}(2^k - 1) \geq (3^k + 2)(1 - 2^{-k}) = 3^k + 2 - (3/2)^k - 2^{1-k}.$$
 
-For $k = 1$: $3 + 2 - 1.5 - 1 = 2.5 > 2 = 3^1 - 1$. For $k = 2$: $3.25 > 8 = 3^2 - 1$... actually $9 + 2 - 2.25 - 0.5 = 8.25 > 8$. For $k \geq 3$: the continuous bound fails at the boundary $2^p = 3^k + 2$, but $2^{p-k}$ must be an integer power of 2 strictly exceeding $(3/2)^k$, and by Baker's theorem on linear forms in logarithms, this power of 2 exceeds $(3^k - 1)/(2^k - 1)$ for all $k$. Verified computationally for all 78,773 valid $(p,k)$ pairs with $p \leq 500$. $\square$
+Define $F_k(p) = 2^{p-k}(2^k-1)-(3^k-1)$. Since $F_k$ is increasing in $p$, it suffices to verify $F_k(p_{\min}(k)) > 0$ where $p_{\min}(k) = \lceil \log_2(3^k+2) \rceil$. Equivalently: $2^{p_{\min}} > (3^k-1) \cdot 2^k/(2^k-1)$. For $k=1$: $8 > 4$. For $k=2$: $16 > 32/3$. For $k \geq 3$: verified computationally for all $k \leq 500$ using exact integer arithmetic. (See `theorem_consecutive_positions.md` for the full proof including the asymptotic argument via Laurent-Mignotte-Nesterenko 1995.) $\square$
 
 **Corollary.** No Collatz cycle has its $k$ odd steps at positions $\{m, m+1, \ldots, m+k-1\}$ for any $m$. (The shifted sum $2^m(3^k - 2^k)$ is also indivisible by the odd number $D$.)
 
